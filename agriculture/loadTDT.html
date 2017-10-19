@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Cluster</title>
+
+    <link href="Javascript/ArcGISAPI/3.16/dijit/themes/tundra/tundra.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">-->
+    <link href="Javascript/ArcGISAPI/3.16/esri/css/esri.css" rel="stylesheet" />
+    <link href="css/base.css" rel="stylesheet" />
+    <link href="css/gisframe.css" rel="stylesheet" />
+    <!--<link href="css/layout.css" rel="stylesheet" />-->
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* center the image in the popup */
+        .esriViewPopup .gallery {
+            margin: 0 auto !important;
+        }
+
+        text {
+            stroke: #f00;
+            stroke-width: 5px;
+            -webkit-text-stroke: 2px red;
+            text-shadow: 0 1px white, 1px 0 white, -1px 0 white, 0 -1px white;
+        }
+    </style>
+
+    <script>
+        // helpful for understanding dojoConfig.packages vs. dojoConfig.paths:
+        // http://www.sitepen.com/blog/2013/06/20/dojo-faq-what-is-the-difference-packages-vs-paths-vs-aliases/
+        //var dojoConfig = {
+        //    paths: {
+        //        extras: location.pathname.replace(/\/[^/]+$/, "") + "/extras"
+        //    }
+        //};
+        var selfUrl = document.location.href.substring(0, document.location.href.lastIndexOf("/"));
+        //  console.log(selfUrl);
+        dojoConfig = {
+            parseOnLoad: true,
+            baseUrl: "Javascript/ArcGISAPI/3.16/dojo",
+            packages: [
+        {
+            name: 'mapconfig',
+            location: selfUrl + "/Javascript/config",
+            main: "config"
+
+        }, {
+            name: 'extras',
+            location: selfUrl + "/extras",
+            main: "extras"
+
+        }
+            ]
+        }
+    </script>
+    <!--<script src="https://js.arcgis.com/3.20/"></script>-->
+    <script src="Javascript/lib/jquery-2.1.4.js"></script>
+
+    <script src="Javascript/ArcGISAPI/3.16/init.js"></script>
+    <script>
+        var map;
+        var ClusterData;
+        var showClusterData = [];
+        var clusterType = [];
+        var clusterImg = [];
+        var textColor = "#000"
+        require([
+          "dojo/parser",
+          "dojo/ready",
+          "dojo/_base/array",
+          "esri/Color",
+          "dojo/dom-style",
+          "dojo/query",
+
+          "esri/map",
+          "esri/request",
+          "esri/graphic",
+          "esri/geometry/Extent",
+
+          "esri/symbols/SimpleMarkerSymbol",
+          "esri/symbols/SimpleFillSymbol",
+          "esri/symbols/PictureMarkerSymbol",
+          "esri/renderers/ClassBreaksRenderer",
+
+          "esri/layers/GraphicsLayer",
+          "esri/SpatialReference",
+          "esri/dijit/PopupTemplate",
+          "esri/geometry/Point",
+          "esri/geometry/webMercatorUtils",
+          "esri/layers/ArcGISDynamicMapServiceLayer",
+          "TDTLayer2",
+          "TDTLayer_Anno",
+          "extras/ClusterLayer",
+          "extras/ClusterLayer_M",
+          "dojo/on",
+          "dojo/dom-class", "dojo/dom-style",
+          "dijit/layout/BorderContainer",
+          "dijit/layout/ContentPane",
+          "dojo/domReady!"
+        ], function (
+          parser, ready, arrayUtils, Color, domStyle, query,
+          Map, esriRequest, Graphic, Extent,
+          SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
+          GraphicsLayer, SpatialReference, PopupTemplate, Point, webMercatorUtils, ArcGISDynamicMapServiceLayer, TDTLayer, TDTLayer_Anno,
+          ClusterLayer, ClusterLayer_M, on, domClass, domStyle
+        ) {
+            //ready(function () {
+            //   parser.parse();
+            //清除arcgis/rest/info?=json问题
+            esri.config.defaults.io.corsDetection = false;
+            var clusterLayer;
+            var popupOptions = {
+                "markerSymbol": new SimpleMarkerSymbol("circle", 20, null, new Color([0, 0, 0, 0.25])),
+                "marginLeft": "20",
+                "marginTop": "20"
+            };
+            var initextent = new Extent(120.135361472, 30.2208220636, 120.185361472, 30.2708220636, new SpatialReference({ wkid: 4326 }));
+            var fullExtent = new Extent(118.33968849655, 29.1885894750343, 120.75238251614, 30.6257261531396, new SpatialReference({ "wkid": 4326 }));
+            map = new Map("map", {
+                // basemap: "topo",
+                logo: false,
+                slider: false,
+                extent: fullExtent,
+                //   center: [119.789, 29.543],
+                //  zoom: 9
+            });
+        
+            var layer = new TDTLayer("img");//影像img 矢量 vec
+            map.addLayer(layer, 0);
+          //  var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
+           // map.addLayer(annolayer, 1);
+
+
+            //var basemap = "http://www.hangzhoumap.gov.cn/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISFlex/HZTDTVECTORBLEND.gis";
+            ////   var basemap = "http://www.hangzhoumap.gov.cn/Tile/ArcGISFlex/HZTDTVECTORBLEND.gis";
+            //// var basemap = "http://21.15.121.121/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISREST/HZSYVECTOR201512wkid.gis";
+            ////  var basemap = "http://126.11.9.43:7080/PBS/rest/services/TianDiTuAnnotation/MapServer";
+            //basemap = new esri.layers.ArcGISTiledMapServiceLayer(basemap, { id: "basemap" });
+            //// map.addLayer(basemap, 2);
+    
+          
+           
+           
+        });
+    </script>
+</head>
+
+<body>
+    <div data-dojo-type="dijit/layout/BorderContainer"
+         data-dojo-props="design:'headline',gutters:false"
+         style="width: 100%; height: 100%; margin: 0;">
+
+
+        <div id="map"
+             data-dojo-type="dijit/layout/ContentPane"
+             data-dojo-props="region:'center'">
+        </div>
+    </div>
+
+</body>
+</html>

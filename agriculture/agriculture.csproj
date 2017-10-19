@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5234F218-2C22-4AD7-8E02-3BCAE3AD5CDD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>agriculture</RootNamespace>
+    <AssemblyName>agriculture</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>OpenWebGIS\OpenWebGIS\bin\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\base.css" />
+    <Content Include="css\gisframe.css" />
+    <Content Include="css\images\bac1.png" />
+    <Content Include="css\images\changsan.png" />
+    <Content Include="css\images\checkbox-on.png" />
+    <Content Include="css\images\checkbox.png" />
+    <Content Include="css\images\city.png" />
+    <Content Include="css\images\close.png" />
+    <Content Include="css\images\county.png" />
+    <Content Include="css\images\cy.png" />
+    <Content Include="css\images\function.png" />
+    <Content Include="css\images\huahui.png" />
+    <Content Include="css\images\jingji.png" />
+    <Content Include="css\images\province.png" />
+    <Content Include="css\images\sc.png" />
+    <Content Include="css\images\search.png" />
+    <Content Include="css\images\select.png" />
+    <Content Include="css\images\sg.png" />
+    <Content Include="css\images\syj.png" />
+    <Content Include="css\images\time1.png" />
+    <Content Include="css\images\time2.png" />
+    <Content Include="css\images\time3.png" />
+    <Content Include="css\images\time4.png" />
+    <Content Include="css\images\time5.png" />
+    <Content Include="css\images\time6.png" />
+    <Content Include="css\images\time7.png" />
+    <Content Include="css\images\time8.png" />
+    <Content Include="css\images\time9.png" />
+    <Content Include="css\images\xm.png" />
+    <Content Include="css\images\yuye.png" />
+    <Content Include="css\images\zhumu.png" />
+    <Content Include="css\images\zyc.png" />
+    <Content Include="css\layout.css" />
+    <Content Include="extras\ClusterLayer_M.js" />
+    <Content Include="extras\ClusterLayer.js" />
+    <Content Include="extras\ClusterLayer_old.js" />
+    <Content Include="findDK.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="HtmlPage1.html" />
+    <Content Include="images\angleLeft.png" />
+    <Content Include="images\dibubg.png" />
+    <Content Include="images\dq_nylq.jpg" />
+    <Content Include="images\headeLogo.png" />
+    <Content Include="images\headerL.png" />
+    <Content Include="images\headerR.png" />
+    <Content Include="images\icon5.png" />
+    <Content Include="images\icon6.png" />
+    <Content Include="images\lfcot.png" />
+    <Content Include="images\lftop.png" />
+    <Content Include="images\shous1.png" />
+    <Content Include="images\topbg.png" />
+    <Content Include="img\close-small.png" />
+    <Content Include="img\collapse.png" />
+    <Content Include="img\cross.png" />
+    <Content Include="img\eye-red.png" />
+    <Content Include="img\eye.png" />
+    <Content Include="img\FourMap.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\identify.png" />
+    <Content Include="img\location.png" />
+    <Content Include="img\locationhover.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\map-1.png" />
+    <Content Include="img\map.png" />
+    <Content Include="img\marker-blue.png" />
+    <Content Include="img\MeasureArea.png" />
+    <Content Include="img\MeasureLength.png" />
+    <Content Include="img\menu\Menu1.png" />
+    <Content Include="img\menu\Menu1_H.png" />
+    <Content Include="img\menu\Menu2.png" />
+    <Content Include="img\menu\Menu2_H.png" />
+    <Content Include="img\menu\Menu3.png" />
+    <Content Include="img\menu\Menu3_H.png" />
+    <Content Include="img\menu\Menu4.png" />
+    <Content Include="img\menu\Menu4_H.png" />
+    <Content Include="img\relate-geo.png" />
+    <Content Include="img\satellite-1.png" />
+    <Content Include="img\satellite.png" />
+    <Content Include="img\search.jpg" />
+    <Content Include="img\search3D-min.png" />
+    <Content Include="img\search3D-S.png" />
+    <Content Include="img\search3D.png" />
+    <Content Include="img\searchMore.png" />
+    <Content Include="img\searchX.png" />
+    <Content Include="img\Spatial_A.png" />
+    <Content Include="img\Spatial_B.png" />
+    <Content Include="img\tools\ClearGraphic.png" />
+    <Content Include="img\tools\DeleteData.png" />
+    <Content Include="img\tools\FullScreen.png" />
+    <Content Include="img\tools\Help.png" />
+    <Content Include="img\tools\IQuery.png" />
+    <Content Include="img\tools\LayerControl.png" />
+    <Content Include="img\tools\Maps.png" />
+    <Content Include="img\tools\Measure.png" />
+    <Content Include="img\tools\MeasureArea.png" />
+    <Content Include="img\tools\MeasureLength.png" />
+    <Content Include="img\tools\MQuery.png" />
+    <Content Include="img\tools\Statistics.png" />
+    <Content Include="img\tools\tools.png" />
+    <Content Include="img\TpBj.png" />
+    <Content Include="img\TwoMap.png" />
+    <Content Include="img\x.png" />
+    <Content Include="img\ztBtn.png" />
+    <Content Include="index1.html" />
+    <Content Include="JavaScript1.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\dojo\dojo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer2.js" />
+    <Content Include="Javascript\config\config.js" />
+    <Content Include="Javascript\config\layerConfig.js" />
+    <Content Include="Javascript\Framework\code2info.js" />
+    <Content Include="Javascript\Framework\Config.js" />
+    <Content Include="Javascript\Framework\field_keys.js" />
+    <Content Include="Javascript\Framework\hideField.js" />
+    <Content Include="Javascript\Framework\LayerDef.js" />
+    <Content Include="Javascript\Framework\LayerDef1.js" />
+    <Content Include="Javascript\lib\ClusterLayer.js" />
+    <Content Include="Javascript\lib\echarts-all.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\css\esri.css" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\agscommon.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\agsdynamic.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\agsimageservice.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\agstiled.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ArcGISDynamicMapServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ArcGISImageServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ArcGISImageServiceVectorLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ArcGISMapServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ArcGISTiledMapServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\CodedValueDomain.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\CSVLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\DataAdapterFeatureLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\DataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\DimensionalDefinition.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\Domain.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\dynamic.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\DynamicLayerInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\DynamicMapServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\FeatureEditResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\FeatureLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\FeatureTemplate.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\FeatureType.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\Field.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\GeoRSSLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\gfxSniff.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\graphics.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\GraphicsLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\GridLayout.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\HeatmapManager.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ImageParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ImageServiceLayerMixin.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ImageServiceParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\InheritedDomain.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\JoinDataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\KMLFolder.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\KMLGroundOverlay.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\KMLLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LabelClass.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LabelLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\labelLayerUtils\DynamicLabelClass.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\labelLayerUtils\StaticLabelClass.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\layer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerDataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerDrawingOptions.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerMapSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LayerTimeOptions.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\LOD.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\MapImage.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\MapImageLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\MosaicRule.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\OnDemandMode.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\OpenStreetMapLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\osm.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\PixelBlock.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\pixelFilters\VectorFieldPixelFilter.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\PurgeOptions.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\QueryDataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\RangeDomain.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\Raster.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\RasterDataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\ImageCanvasDecoder.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\Jpg.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\JpgPlus.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\LercCodec.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\Png.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\Raw.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\rasterFormats\Zlib.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\RasterFunction.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\RasterLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\RenderMode.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\SelectionMode.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\ServiceGeneratedFeatureCollection.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\SnapshotMode.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\StreamLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\StreamMode.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\StreamTrackManager.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TableDataSource.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\tiled.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TiledMapServiceLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TileInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TileMap.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TimeInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TimeReference.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\TrackManager.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\unitBezier.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\vector-tile.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\VectorTileLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WebTiledLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WFSLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\wms.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WMSLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WMSLayerInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WMSTLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\wmts.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WMTSLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\WMTSLayerInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\AddressCandidate.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\AlgorithmicColorRamp.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\AreasAndLengthsParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\BufferParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ClassBreaksDefinition.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ClassificationDefinition.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\closestfacility.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ClosestFacilityParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ClosestFacilitySolveResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ClosestFacilityTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ColorRamp.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\DataFile.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\DataLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\BatchValidationJob.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\BatchValidationJobInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\BatchValidationParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\BatchValidationTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\DashboardResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\DashboardTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\GetResultsQueryParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\ReviewerAttributes.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\ReviewerFilters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\ReviewerLifecycle.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\ReviewerResultsTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\ReviewerSession.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\SessionOptions.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\datareviewer\_DRSBaseTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\Date.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\DensifyParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\DirectionsFeatureSet.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\DistanceParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\FeatureSet.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\find.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\FindParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\FindResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\FindTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GeneralizeParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\generateRenderer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GenerateRendererParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GenerateRendererTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\AddressStudyArea.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\BatchGeographyQuery.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\DriveBuffer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\DriveUnits.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\EnrichParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\EnrichParametersBase.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\GeoenrichmentTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\GeographyLevel.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\GeographyQuery.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\GeographyQueryBase.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\GeometryStudyArea.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\IntersectingGeographies.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\IntersectingGeography.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\ReportParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\RingBuffer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\StandardGeographyQueryTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\StandardGeographyStudyArea.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\StandardIntersectingGeography.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\StudyArea.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\studyAreaFromJson.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\StudyAreaOptions.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\studyAreaOptionsFromJson.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\SubGeographyQuery.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geoenrichment\taskHelper.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\geometry.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GeometryService.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\Geoprocessor.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\gp.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GPMessage.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\GPResultImageLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\identify.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\IdentifyParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\IdentifyResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\IdentifyTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\imageserviceidentify.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceIdentifyParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceIdentifyResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceIdentifyTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceMeasureParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceMeasureTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ImageServiceProjectTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\JobInfo.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\LegendLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\LengthsParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\LinearUnit.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\CoordinatesLocationProvider.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\GeometryLocationProvider.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\LocationProviderBase.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\LocationProviderClientBase.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\LocationProviderRemoteBase.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\LocatorLocationProvider.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\QueryTaskLocationProvider.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locationproviders\StandardGeographyQueryLocationProvider.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\locator.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\MultipartColorRamp.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\na.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\NAMessage.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\NAServiceDescription.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\NATypes.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\OffsetParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ParameterValue.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\PrintParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\PrintTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\PrintTemplate.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ProjectParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\query.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\QueryTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RasterData.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RelationParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RelationshipQuery.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\route.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RouteParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RouteResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\RouteTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\servicearea.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ServiceAreaParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ServiceAreaSolveResult.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\ServiceAreaTask.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\SpatialRelationship.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\StatisticDefinition.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\Task.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\TrimExtendParameters.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\UniqueValueDefinition.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\esri\tasks\_task.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\init.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer_Anno.js" />
+    <Content Include="Javascript\ArcGISAPI\3.16\TianDiTuLayer.js" />
+    <Content Include="Javascript\docs-assets\css\docs.css" />
+    <Content Include="Javascript\docs-assets\css\pygments-manni.css" />
+    <Content Include="Javascript\docs-assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Javascript\docs-assets\ico\favicon.png" />
+    <Content Include="Javascript\docs-assets\js\application.js" />
+    <Content Include="Javascript\docs-assets\js\customizer.js" />
+    <Content Include="Javascript\docs-assets\js\filesaver.js" />
+    <Content Include="Javascript\docs-assets\js\holder.js" />
+    <Content Include="Javascript\docs-assets\js\html5shiv.js" />
+    <Content Include="Javascript\docs-assets\js\jquery.js" />
+    <Content Include="Javascript\docs-assets\js\jszip.js" />
+    <Content Include="Javascript\docs-assets\js\less.js" />
+    <Content Include="Javascript\docs-assets\js\raw-files.js" />
+    <Content Include="Javascript\docs-assets\js\respond.min.js" />
+    <Content Include="Javascript\docs-assets\js\uglify.js" />
+    <Content Include="Javascript\Framework\Application.js" />
+    <Content Include="Javascript\Framework\confUrl.js" />
+    <Content Include="Javascript\Framework\Main.js" />
+    <Content Include="Javascript\Framework\TDTMap.js" />
+    <Content Include="Javascript\Jquery\jquery-ui.custom.min.js" />
+    <Content Include="Javascript\Jquery\jquery-Uncompressed.js" />
+    <Content Include="Javascript\Jquery\jquery.animate-shadow-min.js" />
+    <Content Include="Javascript\Jquery\jquery.backstretch.min.js" />
+    <Content Include="Javascript\Jquery\jquery.cookie.js" />
+    <Content Include="Javascript\Jquery\jquery.js" />
+    <Content Include="Javascript\Jquery\jquery.json.js" />
+    <Content Include="Javascript\Jquery\jquery.lazyload.js" />
+    <Content Include="Javascript\Jquery\jquery.lazyload.min.js" />
+    <Content Include="Javascript\Jquery\jquery.min.js" />
+    <Content Include="Javascript\Jquery\jquery.nicescroll.js" />
+    <Content Include="Javascript\Jquery\jquery.ui.touch-punch.min.js" />
+    <Content Include="Javascript\Jquery\moodular.js" />
+    <Content Include="Javascript\Jquery\nano.js" />
+    <Content Include="Javascript\lib\bootstrap-table.js" />
+    <Content Include="Javascript\lib\bootstrap-treeview.js" />
+    <Content Include="Javascript\lib\bootstrap.js" />
+    <Content Include="Javascript\Jquery\jquery-2.1.4.js" />
+    <Content Include="Javascript\lib\dockeye.js" />
+    <Content Include="Javascript\lib\echarts.common.min.js" />
+    <Content Include="Javascript\lib\grayscale.js" />
+    <Content Include="Javascript\lib\jquery-2.1.4.js" />
+    <Content Include="Javascript\lib\jquery-ui.js" />
+    <Content Include="Javascript\lib\vue.js" />
+    <Content Include="Javascript\Modules\AddressQuery.js" />
+    <Content Include="Javascript\Modules\DkQuery.js" />
+    <Content Include="Javascript\Modules\IdentifyTask.js" />
+    <Content Include="Javascript\Modules\iframeAddLayer.js" />
+    <Content Include="Javascript\Modules\initTable.js" />
+    <Content Include="Javascript\Modules\MeasureTask.js" />
+    <Content Include="Javascript\Modules\MeasureTask1.js" />
+    <Content Include="Javascript\Modules\QueryTask.js" />
+    <Content Include="Javascript\Modules\SpatialAnaysis.js" />
+    <Content Include="Javascript\Modules\tdt.js" />
+    <Content Include="Javascript\Noty\layouts\bottom.js" />
+    <Content Include="Javascript\Noty\layouts\bottomCenter.js" />
+    <Content Include="Javascript\Noty\layouts\bottomLeft.js" />
+    <Content Include="Javascript\Noty\layouts\bottomRight.js" />
+    <Content Include="Javascript\Noty\layouts\center.js" />
+    <Content Include="Javascript\Noty\layouts\centerLeft.js" />
+    <Content Include="Javascript\Noty\layouts\centerRight.js" />
+    <Content Include="Javascript\Noty\layouts\inline.js" />
+    <Content Include="Javascript\Noty\layouts\top.js" />
+    <Content Include="Javascript\Noty\layouts\topCenter.js" />
+    <Content Include="Javascript\Noty\layouts\topLeft.js" />
+    <Content Include="Javascript\Noty\layouts\topRight.js" />
+    <Content Include="Javascript\Noty\noty.js" />
+    <Content Include="Javascript\Noty\promise.js" />
+    <Content Include="Javascript\Noty\themes\default.js" />
+    <Content Include="Javascript\RequireJS\domReady.js" />
+    <Content Include="Javascript\RequireJS\i18n.js" />
+    <Content Include="Javascript\RequireJS\require.js" />
+    <Content Include="Javascript\RequireJS\text.js" />
+    <Content Include="Javascript\Modules\LayerTree.js" />
+    <Content Include="Json\area.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="loadTDT.html" />
+    <Content Include="Main_Map.htm" />
+    <Content Include="Main_Map.js" />
+    <Content Include="index.html" />
+    <Content Include="style\bootstrap-slider.css" />
+    <Content Include="style\bootstrap-table.css" />
+    <Content Include="style\bootstrap.css" />
+    <Content Include="style\MultiMap.css" />
+    <Content Include="style\index.css" />
+    <Content Include="style\jquery-ui.css" />
+    <Content Include="style\Main_Map.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Javascript\Jquery\vssver2.scc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Javascript\docs-assets\css\vssver2.scc" />
+    <Content Include="Javascript\docs-assets\ico\vssver2.scc" />
+    <Content Include="Javascript\docs-assets\js\vssver2.scc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Javascript\Noty\layouts\vssver2.scc" />
+    <Content Include="Javascript\Noty\themes\vssver2.scc" />
+    <Content Include="Javascript\Noty\vssver2.scc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Json\basemap.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Json\city\330100.json" />
+    <Content Include="Json\city\330200.json" />
+    <Content Include="Json\city\330300.json" />
+    <Content Include="Json\city\330400.json" />
+    <Content Include="Json\city\330500.json" />
+    <Content Include="Json\city\330600.json" />
+    <Content Include="Json\city\330700%28false%29.json" />
+    <Content Include="Json\city\330800.json" />
+    <Content Include="Json\city\330900.json" />
+    <Content Include="Json\city\331000.json" />
+    <Content Include="Json\city\331100.json" />
+    <Content Include="Json\hz.json" />
+    <Content Include="Json\zhejiang.json" />
+    <Content Include="Json\city\330700.json" />
+    <Content Include="Json\zj\丽水市.json" />
+    <Content Include="Json\zj\台州市.json" />
+    <Content Include="Json\zj\嘉兴市.json" />
+    <Content Include="Json\zj\宁波市.json" />
+    <Content Include="Json\zj\杭州市.json" />
+    <Content Include="Json\zj\温州市.json" />
+    <Content Include="Json\zj\湖州市.json" />
+    <Content Include="Json\zj\绍兴市.json" />
+    <Content Include="Json\zj\舟山市.json" />
+    <Content Include="Json\zj\衢州市.json" />
+    <Content Include="Json\zj\金华市.json" />
+    <Content Include="Json\20000json.json" />
+    <Content Include="Json\药店.json" />
+    <Content Include="Json\multiType.json" />
+    <Content Include="Json\ls.json" />
+    <Content Include="Json\粮食生产功能区.json" />
+    <Content Include="Json\china.json" />
+    <None Include="Properties\PublishProfiles\IAGIS.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="农业两区调整需求.doc" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4038</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <UserProperties Json_2chart_2金华市_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

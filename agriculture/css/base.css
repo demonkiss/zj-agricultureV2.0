@@ -1,0 +1,308 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+    margin:0;
+    padding:0;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+fieldset,img {
+    border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-style:normal;
+    font-weight:normal;
+}
+ol,ul {
+    list-style:none;
+}
+caption,th {
+    text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+q:before,q:after {
+    infocontent:'';
+}
+abbr,acronym {
+    border:0;
+}
+a:link,a:visited,a:hover,a:active{
+    text-decoration: none;
+}
+i{
+    font-style: normal;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+body,html{
+    height: 100%;
+}
+body{
+    font:16px "微软雅黑","宋体","Arial Narrow",HELVETICA;
+}
+/*地图部分css*/
+html,body{
+    height: 100%;
+}
+.wrap{
+    height: 100%;
+}
+.left{
+    width: 510px;
+    position: absolute;
+    left:40px;
+    top:75px;
+    /*overflow: hidden;*/
+    z-index: 1000;
+}
+.left .top{
+    /*overflow: hidden;*/
+}
+.left .control li{
+    cursor: pointer;
+}
+.left .top>div:nth-child(1){
+    width: 280px;
+    height: 42px;
+    background: url("images/bac1.png") no-repeat center;
+}
+.left .top>div:nth-child(1) input{
+    border: none;
+    font-size: 14px;
+    margin: 0 0 0 12px;
+    width: 233px;
+    height:42px;
+    padding: 12px 0 14px 0;
+}
+.left .top>div:nth-child(1) input:focus{
+    outline: none;
+}
+.left .top>div:nth-child(1) a{
+    margin: 12px 12px 0 0;
+}
+.left .top>div:nth-child(2){
+    width: 210px;
+    height: 42px;
+    background: url("images/bac1.png");
+    background-size: 100% 100%;
+    font-size: 14px;
+    color: #3d93fd;
+    position: relative;
+
+}
+.left .top>div:nth-child(2) select{
+    width: 70px;
+    border: none;
+    margin: 11px 0 0 12px;
+    color: #3d93fd;
+    appearance: none;
+    -webkit-appearance: none;   /*去除chrome浏览器的默认下拉图片*/
+    -moz-appearance: none;  /*去除Firefox浏览器的默认下拉图片*/
+}
+.left .top>div:nth-child(2) span{
+    margin-left: 12px;
+}
+.left .top>div:nth-child(2) img:nth-child(2){
+    position: absolute;
+    left: 70px;
+    top: 18px;
+}
+.left .top>div:nth-child(2) span:nth-child(4){
+    width: 50px;
+    display: inline-block;
+    margin: 11px 0 0 12px;
+    cursor: pointer;
+}
+/*.left .top>div:nth-child(2) span img{
+    float: right;
+    margin-top: 4px;
+}*/
+.left .infocontent{
+    margin-top: 50px;
+    border-radius: 4px;
+}
+.left .infocontent>div:nth-child(2){
+    background-color: #3d93fd;
+}
+.left .infocontent>img{
+    margin: 8px 8px 0 0;
+    cursor: pointer;
+}
+.left .infocontent ul.btns{
+    color: rgba( 255, 255, 255, 0.569 );
+    overflow: hidden;
+}
+.left .infocontent ul.btns li{
+    float: left;
+    margin-top: 38px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3d93fd;
+}
+.left .infocontent ul.btns li.active{
+    border-bottom: 2px solid white;
+    color: white;
+}
+.left .infocontent ul.btns li.ls{
+    margin-left: 37px;
+}
+.left .infocontent ul.btns li.yq{
+    margin-left: 78px;
+}
+.left .infocontent ul.btns li.nt{
+    margin-left: 88px;
+}
+.left .infocontent ul.second{
+    font-size: 14px;
+    color: white;
+    overflow: hidden;
+    padding-bottom: 25px;
+    margin: 20px  36px 0 37px;
+}
+.left .infocontent ul.second li{
+    float: left;
+    padding: 5px 0;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 4px;
+}
+.left .infocontent ul.second li.active{
+    color: #3d93fd;
+    background-color: white;
+}
+.left .infocontent ul.ls-infocontent li{
+    margin-left: 19px;
+    width: 93px;
+}
+.left .infocontent ul.ls-infocontent li:nth-child(1){
+    margin-left: 0;
+}
+.left .infocontent ul.yq-infocontent li{
+    width: 118px;
+    margin-left: 0;
+}
+.left .infocontent ul.yq-infocontent li:nth-child(2){
+    margin-left: 39px;
+}
+.left .infocontent ul.yq-infocontent li:nth-child(3){
+    margin-left: 38px;
+}
+.left .infocontent ul.nt-infocontent li{
+    margin-left: 5px;
+    padding-left: 11px;
+    padding-right: 11px;
+}
+.left .infocontent ul.nt-infocontent li:nth-child(1){
+    margin-left: 0;
+}
+.left .infocontent ul.nt-infocontent li:nth-child(3),.left .infocontent ul.nt-infocontent li:nth-child(4){
+    padding-left: 15px;
+    padding-right: 16px;
+}
+.left .checks{
+    padding: 22px 37px 0 37px;
+    font-size: 14px;
+    color: #3d93fd;
+    overflow: hidden;
+    background-color: white;
+
+}
+.left .checks>li>ul{
+    overflow: hidden;
+}
+.left .checks>ul>li>ul>li{
+    float: left;
+    overflow: hidden;
+}
+.left .checks>ul>li>ul>li input[type='checkbox']{
+    float: left;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #3d93fd;
+    display: none;
+}
+.left .checks>ul>li>ul>li>input +label{
+    float: left;
+    background: url("images/checkbox.png");
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0 6px 0 6px;
+}
+.left .checks>ul>li>ul>li>input +label.active{
+    background: url("images/checkbox-on.png");
+}
+.left .checks>ul>li>ul>li{
+    width: 120px;
+}
+.left .checks>ul>li>ul>li img{
+    float: left;
+    max-height: 16px;
+}
+.left .checks>ul>li>ul>li span{
+    float: left;
+    position: relative;
+    top: -2px;
+}
+.left .checks>ul>li>ul>li:nth-child(2){
+    margin: 0 37px 0 37px;
+}
+.left .checks>ul>li>ul{
+    overflow: hidden;
+}
+.left .checks>ul>li>ul{
+    margin-bottom: 9px;
+}
+.left .checks>ul>li>ul{
+    margin-bottom: 24px
+}
+.left .checks>ul img{
+    width: 14px;
+    height: 16px;
+}
+.left .checks>ul.tsgc>li>ul>li span,.left .checks>ul.nf >li>ul>li span{
+    float: left;
+    position: relative;
+    top: 0;
+}
+/*===*/
+#proSelect {
+
+    min-width:80px;
+    width:80px;
+}
+#proSelect li{
+        /*padding-left:14px;
+    padding-top:5px;*/
+}
+
+.sel-fun {
+    width: 210px;
+    height: 42px;
+    background: url("images/bac1.png");
+    background-size: 100% 100%;
+    font-size: 14px;
+    color: #3d93fd;
+    position: relative;
+    float:right;
+}
+.sel-fun button{
+    border:none;
+    height:42px;
+}
+.sel-fun span{
+    color: #3d93fd;
+}
+.function{
+    cursor:pointer;
+}
+#function img{
+    margin-left:8px;
+}

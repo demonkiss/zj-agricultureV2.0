@@ -1,0 +1,9 @@
+﻿[
+    {
+        "name": "RASTER",
+        "url": "http://21.15.121.121/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISREST/HZSYRASTER2014wkid.gis"
+    },
+    { 
+         "name": "VECTOR",
+        "url": "http://21.15.121.121/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISREST/HZSYVECTOR201512wkid.gis"
+    }]

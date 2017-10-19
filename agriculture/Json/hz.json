@@ -1,0 +1,176 @@
+﻿[
+    {
+        "id": "330102",
+        "name": "上城区",
+        "lat": 120.169299,
+        "lng": 30.229091,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "avoidLabelOverlap": false,
+        "center": [ "50%", "50%" ],
+        "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 335, "name": "未确权" }, { "value": 280, "name": "已确权" } ]
+    },
+    {
+        "id": "330104",
+        "name": "江干区",
+        "lat": 120.2367,
+        "lng": 30.306711,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "center": [ "50%", "50%" ],
+         "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 100, "name": "未确权" }, { "value": 180, "name": "已确权" } ]
+    },
+    {
+        "id": "330103",
+        "name": "下城区",
+        "lat": 120.1714,
+        "lng": 30.284,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "center": [ "50%", "50%" ],
+         "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 250, "name": "未确权" }, { "value": 440, "name": "已确权" } ]
+    },  {
+        "id": "330105",
+        "name": "拱墅区",
+        "lat": 120.1316,
+        "lng": 30.313,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "center": [ "50%", "50%" ],
+         "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 335, "name": "未确权" }, { "value": 280, "name": "已确权" } ]
+    },
+    {
+        "id": "330106",
+        "name": "西湖区",
+        "lat": 120.129,
+        "lng": 30.262,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "center": [ "50%", "50%" ],
+         "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 100, "name": "未确权" }, { "value": 180, "name": "已确权" } ]
+    },
+    {
+        "id": "330108",
+        "name": "滨江区",
+        "lat": 120.197,
+        "lng": 30.194,
+        "type": "pie",
+        "radius": ["50%","70%"],
+        "center": [ "50%", "50%" ],
+         "label": {
+            "normal": {
+                "show": false,
+                "position": "center"
+            },
+            "emphasis": {
+                "show": true,
+                "textStyle": {
+                    "fontSize": "18",
+                    "fontWeight": "bold"
+                }
+            }
+
+        },
+        "labelLine": {
+            "normal": { 
+                "show": false
+            }
+        },
+        "data": [ { "value": 250, "name": "未确权" }, { "value": 440, "name": "已确权" } ]
+    }
+]

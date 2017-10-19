@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root> 
+	<sjzone name="杭州市" id="3301" lat="120.162843" lng="30.280808" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="上城区" id="330102" lat="120.169299" lng="30.229091" />
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="江干区" id="330104" lat="120.2367" lng="30.306711" />
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="下城区" id="330103" lat="120.211768" lng="30.264932" />
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="拱墅区" id="330105" lat="120.211768" lng="30.264932" />
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="西湖区" id="330106" lat="120.135879" lng="30.26593" />	
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="滨江区" id="330108" lat="120.211768" lng="30.264932"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="下沙区" id="330128" lat="120.211768" lng="30.264932"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="萧山区" id="330109" lat="120.269889" lng="30.192189"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="余杭区" id="330110" lat="120.306242" lng="30.425137"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="桐庐县" id="330122" lat="119.700975" lng="29.801107"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="淳安县" id="330127" lat="119.049612" lng="29.615964"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="建德市" id="330182" lat="119.288183" lng="29.480853"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="富阳市" id="330183" lat="119.967999" lng="30.055376"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="临安市" id="330185" lat="119.730743" lng="30.241978"/>
+	</sjzone>
+	<sjzone name="宁波市" id="3302" lat="121.623951" lng="29.907981" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="海曙区" id="330203" lat="121.623951" lng="29.907981"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="江东区" id="330204" lat="121.623951" lng="29.907981"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="江北区" id="330205" lat="121.561842" lng="29.891693"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="镇海区" id="330211" lat="121.849875" lng="29.905219"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="北仑区" id="330206" lat="121.849875" lng="29.905219"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="鄞州区" id="330212" lat="121.550344" lng="29.824538"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="象山县" id="330225" lat="121.623951" lng="29.907981"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="宁海县" id="330226" lat="121.623951" lng="29.907981"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="余姚市" id="330281" lat="121.161701" lng="30.045376"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="慈溪市" id="330282" lat="121.27381" lng="30.177341"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="奉化市" id="330283" lat="121.412939" lng="29.661975"/>
+	</sjzone>
+	<sjzone name="温州市" id="3303" lat="120.704144" lng="28.005943" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="鹿城区" id="330302" lat="120.66275" lng="28.02125"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="龙湾区" id="330303" lat="120.819127" lng="27.943669"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="瓯海区" id="330304" lat="120.704144" lng="28.005943"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="洞头县" id="330322" lat="120.704144" lng="28.005943"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="永嘉县" id="330324" lat="120.697245" lng="28.160958"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="平阳县" id="330326" lat="120.566165" lng="27.669645"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="苍南县" id="330327" lat="120.432784" lng="27.525196"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="文成县" id="330328" lat="120.097033" lng="27.797542"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="泰顺县" id="330329" lat="119.717589" lng="27.567219"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="瑞安市" id="330381" lat="120.660451" lng="27.786293"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="乐清市" id="330382" lat="121.0054" lng="28.126303"/>	
+	</sjzone>
+	<sjzone name="嘉兴市" id="3304" lat="120.763482" lng="30.750539" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="南湖区" id="330402" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="秀洲区" id="330411" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="嘉善县" id="330421" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="海盐县" id="330424" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="海宁市" id="330481" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="平湖市" id="330482" lat="120.763482" lng="30.750539"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="桐乡市" id="330483" lat="120.763482" lng="30.750539"/>
+	</sjzone>
+	<sjzone name="湖州市" id="3305" lat="120.095716" lng="30.901246" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="吴兴区" id="330502" lat="120.095716" lng="30.901246"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="南浔区" id="330503" lat="120.095716" lng="30.901246"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="德清县" id="330521" lat="120.095716" lng="30.901246"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="长兴县" id="330522" lat="120.095716" lng="30.901246"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="安吉县" id="330523" lat="120.095716" lng="30.901246"/>
+	</sjzone>
+	<sjzone name="绍兴市" id="3306" lat="120.588973" lng="30.037395" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="越城区" id="330602" lat="120.588973" lng="30.037395"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="绍兴县" id="330621" lat="120.588973" lng="30.037395"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="新昌县" id="330624" lat="120.588973" lng="30.037395"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="诸暨市" id="330681" lat="120.588973" lng="30.037395"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="上虞市" id="330682" lat="120.588973" lng="30.037395"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="嵊州市" id="330683" lat="120.588973" lng="30.037395"/>
+	</sjzone>
+	<sjzone name="金华市" id="3307"  lat="119.652302" lng="29.086728" value="27179" >
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="婺城区" id="330702" lat="119.652579" lng="29.086728"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="金东区" id="330703" lat="119.681264" lng="29.095835"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="武义县" id="330723" lat="119.819159" lng="28.896563"/>
+		<xjzone url="http://118.178.118.139/ArcGIS/rest/services/TD/MapServer"  layerindex="0" name="浦江县" id="330726" lat="119.896934" lng="29.52263" value="27179"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="磐安县" id="330727" lat="120.44513" lng="29.052627"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="兰溪市" id="330781" lat="119.460521" lng="29.210065"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="义乌市" id="330782" lat="120.074911" lng="29.306863"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="东阳市" id="330783" lat="120.23334" lng="29.262546"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="永康市" id="330784" lat="120.036328" lng="28.895293"/>
+	</sjzone>
+	<sjzone name="衢州市" id="3308" lat="118.880768" lng="28.942925" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="柯城区" id="330802" lat="118.880768" lng="28.942925"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="衢江区" id="330803" lat="118.880768" lng="28.942925"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="常山县" id="330822" lat="118.880768" lng="28.942925"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="开化县" id="330824" lat="118.880768" lng="28.942925"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="龙游县" id="330825" lat="118.880768" lng="28.942925"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="江山市" id="330881" lat="118.880768" lng="28.942925"/>
+	</sjzone>
+	<sjzone name="舟山市" id="3309" lat="122.211464" lng="29.991342" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="定海区" id="330902" lat="122.211464" lng="29.991342"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="普陀区" id="330903" lat="122.211464" lng="29.991342"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="岱山县" id="330921" lat="122.211464" lng="29.991342"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="嵊泗县" id="330922" lat="122.211464" lng="29.991342"/>
+	</sjzone>
+	<sjzone name="台州市" id="3310" lat="121.425271" lng="28.662677" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="椒江区" id="331002" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="黄岩区" id="331003" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="路桥区" id="331004" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="玉环县" id="331021" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="三门县" id="331022" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="天台县" id="331023" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="仙居县" id="331024" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="温岭市" id="331081" lat="121.425271" lng="28.662677"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="临海市" id="331082" lat="121.425271" lng="28.662677"/>
+	</sjzone>
+	<sjzone name="丽水市" id="3311" lat="119.928928" lng="28.473614" value="0">
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="莲都区" id="331102" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="青田县" id="331121" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="缙云县" id="331122" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="遂昌县" id="331123" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="2" name="松阳县" id="331124" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://126.11.9.247:6080/arcgis/rest/services/YHX_MapService/MapServer" layerindex="0" name="云和县" id="331125" lat="119.531" lng="28.096"/>
+		<xjzone url="http://126.11.9.247:6080/arcgis/rest/services/YHX_MapService/MapServer" layerindex="" name="庆元县" id="331126" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="景宁县" id="331127" lat="119.928928" lng="28.473614"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="龙泉市" id="331181" lat="119.928928" lng="28.473614"/>
+	</sjzone>
+</root>

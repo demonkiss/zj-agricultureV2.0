@@ -1,0 +1,1258 @@
+﻿body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Microsoft YaHei';
+}
+
+input::-webkit-input-placeholder {
+    color: #aab2bd;
+    opacity: .8;
+}
+
+input::-moz-placeholder {
+    color: #aab2bd;
+    opacity: .8;
+}
+
+:-ms-input-placeholder {
+    color: #ddd;
+    opacity: .8;
+}
+
+
+#cityInfo {
+    position: absolute;
+    top: 100px;
+    left: 600px;
+    height: 110px;
+    width: 150px;
+    border: 1px solid #0094ff;
+    background-color: #fff;
+    display: none;
+}
+
+    #cityInfo span {
+        position: relative;
+        float: left;
+        display: block;
+        font-size: 16px;
+        line-height: 30px;
+        width: 150px;
+        height: 30px;
+        font-weight: 800;
+        background-color: #0094ff;
+    }
+
+    #cityInfo p {
+    }
+
+.chart {
+    background-color: #0094ff;
+    border: 1px solid red;
+}
+
+.location {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    z-index: 20;
+    height: 20px;
+    width: auto;
+    font-family: 'Microsoft YaHei';
+    font-weight: 700;
+}
+
+.scale {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 20;
+    height: 20px;
+    width: auto;
+    font-family: 'Microsoft YaHei';
+    font-weight: 700;
+}
+
+.scale-tip {
+    position: absolute;
+    top: 20px;
+    left: 45%;
+    z-index: 20;
+    height: 30px;
+    width: auto;
+    font-family: 'Microsoft YaHei';
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.content {
+    text-align: center;
+}
+
+.esriPopup {
+    z-index: 1005 !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.maximize {
+    display: none;
+}
+
+td {
+    border: .5px solid black;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+    li:hover {
+        cursor: pointer;
+    }
+
+.click-hover {
+    cursor: pointer;
+}
+
+#Main_Map_DIV {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+/*logo菜单*/
+.logo {
+    position: absolute;
+    width: 1250px;
+    left: 10px;
+    top: 3px;
+    z-index: 999;
+}
+/*左侧菜单栏*/
+#LeftMenu {
+    position: absolute;
+    top: 150px;
+    left: 30px;
+    width: 38px;
+    height: 100%;
+    text-align: center;
+    float: left;
+    z-index: 999;
+    display: none;
+}
+
+    #LeftMenu ul {
+        padding: 0;
+        position: relative;
+    }
+
+    #LeftMenu li {
+        display: block;
+        position: relative;
+        width: 72px;
+        height: 72px;
+        font-size: 20px;
+        padding: 20px 0;
+        list-style-type: none;
+        line-height: 1.1;
+        font-family: STFangsong;
+        font-weight: 700;
+        border-radius: 4px 0 0 4px;
+        color: #666;
+    }
+
+
+        #LeftMenu li[title='规划成果'] {
+            background: url(../img/menu/Menu2.png);
+        }
+
+.mapssname {
+    position: relative;
+    bottom: 30px;
+    font-size: 15px;
+    color: #000;
+    font-family: SimSun;
+    font-weight: 700;
+    text-shadow: #fff 1px 0 0,#fff 0 1px 0,#fff -1px 0 0,#fff 0 -1px 0;
+    -webkit-text-shadow: #fff 1px 0 0,#fff 0 1px 0,#fff -1px 0 0,#fff 0 -1px 0;
+    -moz-text-shadow: #fff 1px 0 0,#fff 0 1px 0,#fff -1px 0 0,#fff 0 -1px 0;
+    *filter: Glow(color=#fff, strength=1);
+}
+
+.viewfull {
+    position: relative;
+    bottom: 75px;
+    right: 10px;
+    float: right;
+}
+
+    .viewfull:hover {
+        border: 2px solid #539ffc;
+        cursor: pointer;
+    }
+/*测量*/
+.next_menu {
+    position: absolute;
+    bottom: 120px;
+    height: 50px;
+    display: none;
+}
+
+#next_menu img {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/*规划辅助*/
+#Statistics {
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    display: none;
+    height: 500px;
+    width: 760px;
+    border: 1px solid #DDD;
+    background-color: white;
+}
+
+#Title_sta {
+    position: relative;
+    float: left;
+    width: 760px;
+    height: 30px;
+    background-color: #0094ff;
+}
+
+.title_name {
+    position: relative;
+    float: left;
+    width: 120px;
+    line-height: 30px;
+    color: #ffffff;
+}
+
+#Condition {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 80px;
+    width: 760px;
+}
+
+.select-control {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    width: 150px;
+}
+
+    .select-control label {
+        width: 150px;
+    }
+
+    .select-control select {
+        width: 150px;
+    }
+
+#Query_layer {
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+#Table_data {
+}
+/*统计*/
+#Total_sum {
+    position: absolute;
+    right: 40px;
+    top: 120px;
+    height: 400px;
+    width: 300px;
+    display: none;
+    background-color: #ffffff;
+}
+
+    #Total_sum > label {
+        width: 100%;
+        text-align: left;
+        padding-left: 20px;
+        font-size: 18px;
+        color: dodgerblue;
+        border-bottom-color: rgb(0, 148, 255);
+        border-bottom-width: 3px;
+        border-bottom-style: solid;
+    }
+
+    #Total_sum > div {
+        position: relative;
+        float: left;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+        #Total_sum > div > label {
+            position: relative;
+            float: left;
+            margin-left: 30px;
+            width: 150px;
+            display: block;
+        }
+/*目录树*/
+
+
+.text-icon {
+    margin-left: 6px;
+    top: 2px !important;
+    position: relative;
+    display: inline-block;
+    height: 16px;
+    width: 16px !important;
+    background: url(../img/text-icon.png) no-repeat center 50%;
+    z-index: 1005;
+}
+
+.pic-icon {
+    margin-left: 20px !important;
+    top: 2px !important;
+    position: relative;
+    display: inline-block;
+    height: 16px;
+    width: 16px !important;
+    background: url(../img/pic-icon.png) no-repeat center 50%;
+    z-index: 1005;
+}
+
+.map-icon {
+    margin-left: 6px !important;
+    top: 2px !important;
+    position: relative;
+    display: inline-block;
+    height: 16px;
+    width: 16px !important;
+    background: url(../img/map-icon.png) no-repeat center 50%;
+    z-index: 1005;
+}
+
+#zt_group {
+    left: 102px;
+    display: none;
+}
+
+#TreeHead {
+    position: relative;
+    height: 34px;
+    line-height: 34px;
+    width: auto;
+    min-width: 250px;
+    color: black;
+    font-size: 18px;
+    font-family: 'Microsoft YaHei';
+    z-index: 998;
+    text-align: center;
+    background: #fff;
+    filter: alpha(opactity=95);
+    opacity: .95;
+    font-weight: 800;
+    border-bottom: 2px solid #ddd;
+}
+
+#shrink {
+    top: 167px;
+    left: 102px;
+    height: 34px;
+    position: absolute;
+    display: block;
+    width: 34px;
+    z-index: 999;
+}
+
+    #shrink img {
+        width: 95%;
+        height: 100%;
+        text-align: center;
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+.treePanel {
+    position: absolute;
+    top: 163px;
+    left: 132px;
+    height: auto;
+    width: auto;
+    max-height: 600px;
+    min-width: 250px;
+    z-index: 999;
+    border-radius: 5px 5px;
+    border: 2px solid #ddd;
+}
+
+#tree {
+    position: relative;
+    width: auto;
+    height: auto;
+    min-width: 250px;
+    max-height: 562px;
+    font-size: 13px;
+    color: #0C0C0C;
+    font-family: 'Microsoft YaHei';
+    background: #fff;
+    filter: alpha(opactity=95);
+    opacity: .95;
+    z-index: 1000;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 1px;
+}
+
+#tree2Panel {
+    position: absolute;
+    top: 197px;
+    left: 612px;
+    width: 300px;
+    height: auto;
+    max-height: 600px;
+    max-width: 300px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: none;
+    border: 2px solid #ddd;
+    z-index: 999;
+    background: white;
+    text-align: left;
+}
+
+#tree2 {
+    position: relative;
+    z-index: 999;
+    overflow-x: hidden;
+    width: 100%;
+    height: auto;
+    min-width: 286px;
+    max-height: 600px;
+    padding-bottom: 1px;
+    font-size: 13px;
+    font-family: 'Microsoft YaHei';
+    text-align: left;
+    color: #0C0C0C;
+    background: #fff;
+    filter: alpha(opactity=95);
+    opacity: .95;
+}
+
+    #tree2 .list-group-item {
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    #tree2 span {
+        width: 0;
+    }
+
+.tree .list-group-item {
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.tree span {
+    width: 0 !important;
+    margin-right: 10px !important;
+}
+
+.tree2Title {
+    position: relative;
+    float: left;
+    z-index: 1000;
+    background-color: white;
+    width: 100%;
+    height: auto;
+    color: black;
+    font-weight: 800;
+    font-size-adjust: .8;
+    padding-left: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+    .tree2Title p {
+        display: block;
+        position: relative;
+        float: left;
+        width: 250px;
+        word-break: break-all;
+    }
+
+    .tree2Title img {
+        position: absolute;
+        top: 30%;
+        right: 1%;
+        display: block;
+        margin-right: 10px;
+    }
+
+#tree3Panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    border: 2px solid gray;
+    display: none;
+    background: #fff;
+    z-index: 1005;
+}
+
+#tree3 {
+    position: relative;
+    width: 296px;
+    height: 95%;
+    overflow: auto;
+    z-index: 1005;
+}
+
+.ba_color {
+    color: white;
+    background: #0094ff !important;
+}
+
+#tree li {
+    text-wrap: none;
+    white-space: nowrap;
+    width: auto;
+}
+
+/*规划专题*/
+#dockeye {
+    /*background:#666;*/
+    background-image: url(../img/TpBj.png);
+    text-align: center;
+    position: absolute;
+    left: 300px;
+    z-index: 999;
+    display: none;
+    /*border-radius: 5px;*/
+    /*border: 1px solid black;*/
+    bottom: 30px;
+    background-repeat: round;
+    background-size: cover;
+}
+
+    #dockeye img {
+        border-width: 0;
+        z-index: 999;
+        border-radius: 5px;
+    }
+
+    #dockeye *:focus {
+        outline: none;
+    }
+/*结果列表*/
+#infoList {
+    position: absolute;
+    top: 150px;
+    right: 50px;
+    border-radius: 5px;
+    width: 250px;
+    height: auto;
+    max-height: 600px;
+    overflow: hidden;
+    border: 1px solid #0094ff;
+    display: none;
+    z-index: 999;
+    background: #fff;
+    filter: alpha(opactity=95);
+    opacity: .95;
+    text-align: center;
+}
+
+.infoListTitle {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-top: -1px;
+    background-color: #0094ff;
+    height: 30px;
+    width: 100%;
+    color: white;
+    font-size-adjust: .8;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+.collapse-box {
+    position: relative;
+    float: right;
+    margin-right: 23px;
+    margin-top: -25px;
+}
+
+.close-panel {
+    position: relative;
+    float: right;
+    margin-right: 3px;
+    top: 3px;
+    cursor: pointer;
+}
+
+.results {
+    height: auto;
+    overflow-x: hidden;
+    max-height: 570px;
+    width: auto;
+    padding: 3px;
+}
+
+.result {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #bce8f1;
+    margin-bottom: 10px;
+}
+
+.layerName {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 25px;
+    font-size: 14px;
+    font-weight: 800;
+    background-color: #d9edf7;
+}
+
+.menuli {
+    text-align: center;
+    width: 250px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-family: 'Microsoft YaHei';
+    list-style: none;
+    float: left;
+    margin-bottom: 5px;
+}
+
+    .menuli:hover {
+        background-color: transparent;
+    }
+
+/*要素详细信息*/
+#infoSimple {
+    border-radius: 5px;
+    width: 300px;
+    height: auto;
+    display: none;
+    z-index: 10;
+    background: #fff;
+    filter: alpha(opactity=95);
+    opacity: .95;
+}
+
+.sizer {
+    /*width: 330px !important;*/
+    width: auto !important;
+}
+
+#query_dk {
+    margin-top: 10px;
+}
+
+.titlePane {
+    background-color: #0094ff !important;
+}
+
+.keyValue td {
+    white-space: nowrap;
+}
+
+.infotitle {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    position: relative;
+    float: left;
+    background-color: #0094ff;
+    height: 30px;
+    width: 100%;
+    color: white;
+    font-size-adjust: .8;
+    padding-top: 5px;
+    font-size: 15px;
+    z-index: 1000;
+}
+
+.close-info {
+    position: relative;
+    float: right;
+    margin-right: 5px;
+    top: 3px;
+}
+
+.keyValue {
+    position: relative;
+    float: left;
+    width: 250px;
+    height: 30px;
+    font-size: 12px;
+}
+
+.relate-geo {
+    position: absolute;
+    background-image: url(../img/relate-geo.png);
+    height: 30px;
+    width: 50px;
+    top: 0;
+    left: -50px;
+    z-index: 8;
+}
+/*空间分析工具条*/
+#toorbars {
+    position: absolute;
+    top: 180px;
+    right: 30px;
+    cursor: pointer;
+}
+/*空间分析工具条*/
+#Analyse-tools {
+    position: absolute;
+    top: 250px;
+    right: 25px;
+    width: 70px;
+    height: auto;
+}
+
+    #Analyse-tools li {
+        margin-bottom: 5px;
+        background-color: #fff;
+        opacity: 0.8;
+        border: 1px solid #0094ff;
+    }
+
+    #Analyse-tools span {
+        position: relative;
+        top: -10px;
+        width: 64px;
+        height: 15px;
+        color: #000;
+    }
+
+    #Analyse-tools img {
+        position: relative;
+        float: left;
+        height: 64px;
+        width: 64px;
+    }
+/*Filter滤镜*/
+#MapFilter {
+    position: absolute;
+    top: 400px;
+    right: 5px;
+    width: 10px;
+    height: auto;
+}
+
+.mapfilter {
+    position: relative;
+    float: left;
+    margin-top: 2px;
+    height: 15px;
+    width: 15px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+#normal {
+    background-color: white;
+}
+
+#gray {
+    background-color: gray;
+}
+
+#sepia {
+    background-color: #ffecb7;
+}
+
+.gray {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: 'grayscale(100%)';
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+
+.sepia {
+    -webkit-filter: sepia(100%);
+    -moz-filter: sepia(100%);
+    -ms-filter: 'sepia(100%)';
+    -o-filter: sepia(100%);
+    filter: sepia(100%);
+    filter: sepia;
+}
+/*底图切换*/
+.MapMenu {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    width: 194px;
+    height: 67px;
+    z-index: 999;
+}
+
+
+.Mapmap {
+    float: left;
+    display: block;
+    width: 92px;
+    height: 67px;
+    margin-left: 0;
+    background: url(../img/map.png) no-repeat;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+
+    .Mapmap:hover {
+        float: left;
+        display: block;
+        width: 92px;
+        height: 67px;
+        margin-left: 0;
+        cursor: pointer;
+        outline: none;
+        background: url(../img/map-1.png) no-repeat;
+    }
+
+.Mapmap1 {
+    float: left;
+    display: block;
+    width: 92px;
+    height: 67px;
+    margin-left: 0;
+    background: url(../img/map-1.png) no-repeat;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+
+.Mapsatellite {
+    float: left;
+    display: block;
+    width: 92px;
+    height: 67px;
+    margin-left: 10px;
+    background: url(../img/satellite.png) no-repeat;
+    cursor: pointer;
+    outline: none;
+}
+
+    .Mapsatellite:hover {
+        float: left;
+        display: block;
+        width: 92px;
+        height: 67px;
+        margin-left: 10px;
+        background: url(../img/satellite-1.png) no-repeat;
+        cursor: pointer;
+        outline: none;
+    }
+
+.Mapsatellite1 {
+    float: left;
+    display: block;
+    width: 92px;
+    height: 67px;
+    margin-left: 10px;
+    background: url(../img/satellite-1.png) no-repeat;
+    cursor: pointer;
+    outline: none;
+}
+
+.add_ser_box {
+    position: absolute;
+    right: 40px;
+    top: 100px;
+    background-image: url(../img/search3D.png);
+}
+
+#search {
+    position: relative;
+    float: left;
+    width: 340px;
+    height: 38px;
+}
+
+#searchBox {
+    position: relative;
+    float: left;
+    width: 300px;
+    height: 34px;
+    z-index: 999;
+    padding-left: 16px;
+    border: 0;
+    opacity: .8;
+}
+
+#clearList {
+    position: relative;
+    float: left;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-left: -25px;
+    margin-top: 8px;
+    z-index: 999;
+    display: none;
+    background-image: url(../img/x.png);
+}
+
+.search-more {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    float: right;
+    background-image: url(../img/searchMore.png);
+}
+
+#searchBtn {
+    position: relative;
+    float: right;
+    background-image: url(../img/search.jpg);
+    width: 75px;
+    height: 35px;
+    margin-top: -1px;
+    opacity: .8;
+}
+
+.search-more-content {
+    position: absolute;
+    right: 114px;
+    top: 140px;
+    width: 340px;
+    height: auto;
+    padding-top: 10px;
+    background-color: white;
+    box-shadow: gray 2px 2px 6px;
+    display: none;
+}
+
+    .search-more-content span {
+        width: 60px;
+        height: 35px;
+        display: inline-block;
+    }
+
+    .search-more-content input {
+        border: 1px solid #ddd;
+        width: 265px;
+        height: 35px;
+    }
+
+.search-more-btn {
+    background-image: url(../img/search.jpg);
+    margin: 10px auto;
+    width: 75px;
+    height: 35px;
+    cursor: pointer;
+}
+
+#addressInfo {
+    position: absolute;
+    right: 114px;
+    top: 140px;
+    width: 340px;
+    max-height: 600px;
+    height: auto;
+    overflow: auto;
+    font-weight: 700;
+    display: none;
+    opacity: .8;
+    z-index: 999;
+}
+/*pdf样式*/
+#iframePdf {
+    position: absolute;
+    z-index: 1004;
+    top: 0;
+    left: 300px;
+    right: 0;
+    display: none;
+}
+
+#closeIframeWindow {
+    position: absolute;
+    right: 20px;
+    top: 1px;
+    height: 30px;
+    width: 30px;
+    z-index: 1005;
+    display: none;
+}
+/*图层控制*/
+#sortable {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow: hidden;
+    display: none;
+    opacity: .8;
+    background-color: white;
+    width: 300px;
+    border: 1px solid #0094ff;
+}
+
+.layerBox {
+    height: auto;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 570px;
+    width: auto;
+    padding: 3px;
+}
+
+.layerDiv {
+    position: relative;
+    float: left;
+    margin: 5px 2px 5px 2px;
+    height: 50px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #0094ff;
+    text-align: center;
+}
+
+    .layerDiv span {
+        position: relative;
+        float: left;
+        height: 20px;
+        width: 300px;
+        text-align: center;
+        display: block;
+    }
+
+/*.control {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+}*/
+
+.opacity {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    margin-top: 4px;
+    width: 150px;
+    height: 20px;
+}
+
+.remove {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    background: url(../img/cross.png) no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.hide {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+    background: url(../img/eye-red.png) no-repeat;
+    width: 16px;
+    height: 16px;
+}
+/*加载shp以及远程数据*/
+#tools {
+    position: absolute;
+    top: 100px;
+    left: 400px;
+    width: 100px;
+    height: 55px;
+    background-color: white;
+    opacity: .8;
+    border: 1px solid #0094ff;
+    display: none;
+    text-align: center;
+    padding: 0;
+    border-radius: 5px;
+}
+
+#loadSHP_DIV {
+    position: absolute;
+    float: left;
+    top: 100px;
+    left: 350px;
+    width: 200px;
+    height: 150px;
+    background-color: white;
+    opacity: .8;
+    border-radius: 5px;
+    border: 1px solid #0094ff;
+    display: none;
+}
+
+#upload {
+    position: relative;
+    float: left;
+    left: 20px;
+}
+
+#clear_shp {
+    position: relative;
+    float: left;
+    left: 35px;
+    height: 35px;
+    width: 50px;
+    border-radius: 8px;
+    background-color: #0094ff;
+    border: #0094ff;
+}
+
+.upload {
+    position: relative;
+    float: left;
+    height: 50px;
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .upload p {
+        position: relative;
+        float: left;
+        left: 25px;
+        color: red;
+        display: block;
+        height: 20px;
+        width: 140px;
+    }
+
+    .upload input {
+        position: relative;
+        float: left;
+        left: 20px;
+        width: 160px;
+    }
+
+#loadRemoteData_DIV {
+    position: absolute;
+    top: 300px;
+    left: 500px;
+    width: 200px;
+    height: 160px;
+    background-color: white;
+    opacity: .8;
+    border: 1px solid #0094ff;
+    display: none;
+}
+
+#remoteUrl {
+    position: relative;
+    float: left;
+    margin: 10px;
+    width: 180px;
+    height: 30px;
+    display: block;
+    border: 1px solid black;
+}
+
+.remoteType {
+    margin: 10px;
+    width: 180px;
+}
+
+#addToMap {
+    position: relative;
+    float: left;
+    margin-left: 70px;
+    height: 30px;
+    width: 50px;
+    border-radius: 8px;
+    background-color: #0094ff;
+    border: #0094ff;
+}
+
+    #addToMap span {
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+/*屏幕适配*/
+@media screen and (max-width:1024px) {
+    #search {
+        position: absolute;
+        right: 46px;
+        top: 85px;
+        background-image: url(../img/search3D-S.png);
+        width: 214px;
+        height: 38px;
+        z-index: 999;
+    }
+
+    #searchBox {
+        width: 138px;
+        height: 34px;
+        z-index: 999;
+        border: none;
+        float: left;
+        padding-left: 6px;
+        background-color: white;
+        border: 0;
+        border: none;
+        outline: none;
+    }
+
+    #clearList {
+        width: 16px;
+        height: 16px;
+        float: left;
+        margin-left: -25px;
+        margin-top: 8px;
+        z-index: 999;
+        background-image: url(../img/x.png);
+    }
+
+        #clearList:hover {
+            cursor: pointer;
+        }
+
+
+
+    #searchBtn {
+        position: absolute;
+        right: 46px;
+        top: 85px;
+        background-image: url(../img/search.jpg);
+        width: 76px;
+        height: 35px;
+        z-index: 999;
+    }
+
+        #searchBtn:hover {
+            cursor: pointer;
+        }
+}

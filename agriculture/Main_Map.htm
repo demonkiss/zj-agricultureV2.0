@@ -1,0 +1,605 @@
+﻿
+        <!--左侧悬挂-->
+    <!--<div class="right" id="left">
+        <a href="#" class="btn1"><img src="images/icon5.png" id="btn1" class="out" /></a>
+        <div class="diqu">
+            <div class="diqu_bt">
+                <span class="bite_wz"><em id="areaName">浙江省</em><em id="areaNum"></em></span>
+                <select id="areaId" onchange="getsubArea();" name="select" class="bite_wz bite_hei topR">
+                    <option value="">浙江省</option>
+                    <option value="3301">杭州市</option>
+                    <option value="3302">宁波市</option>
+                    <option value="3303">温州市</option>
+                    <option value="3304">嘉兴市</option>
+                    <option value="3305">湖州市</option>
+                    <option value="3306">绍兴市</option>
+                    <option value="3307">金华市</option>
+                    <option value="3308">衢州市</option>
+                    <option value="3309">舟山市</option>
+                    <option value="3310">台州市</option>
+                    <option value="3311">丽水市</option>
+                </select>
+            </div>
+            <div class="all_city clear" id="city">
+            </div>
+        </div>
+        <div class="canylei">
+            <div class="left_top">选择类型</div>
+            <div class="left_content"></div>          
+        </div>
+    </div>-->
+    <!--地图DIV-->
+    <div class="left">
+        <div class="top">
+            <div class="fl">
+                <input type="text" placeholder="输入关键词">
+                <a href="javascript:void (0)" class="fr"><img src="images/search.png"></a>
+            </div>
+            <div class="fr">
+                <select name="" id="" class="province">
+                    <option value="">浙江</option>
+                    <option value="">安徽</option>
+                    <option value="">北京</option>
+                </select>
+                <img src="images/select.png">
+                <span>450个</span>
+                <span class="function" id="function">功能<img src="images/function.png"></span>
+            </div>
+        </div>
+        <div class="content" style="display: none">
+            <img src="images/close.png" class="fr">
+            <div class="control">
+                <ul class="btns">
+                    <li class="ls active">粮食生产功能区</li>
+                    <li class="yq">现代农业园区</li>
+                    <li class="nt">标准农田</li>
+                </ul>
+                <ul class="second ls-content" style="display: block">
+                    <li class="active gn">功能区级别</li>
+                    <li class="zt">建设状态</li>
+                    <li class="mj">建设面积</li>
+                    <li class="nf">建设年份</li>
+                </ul>
+                <ul class="second yq-content" style="display: none">
+                    <li class="xdny">现代农业综合区</li>
+                    <li class="zdcy">主导产业示范区</li>
+                    <li class="tsny">特色农业精品区</li>
+                </ul>
+                <ul class="second nt-content" style="display: none">
+                    <li class="cgxm">千万亩工程项目</li>
+                    <li class="bznt">标准农田建设区</li>
+                    <li class="cbxm">储备项目</li>
+                    <li class="tsgc">提升工程</li>
+                </ul>
+            </div>
+            <div class="checks">
+                <ul class="gn" style="display: block">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>省级</span>
+                            </li>
+                            <li>
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>市级</span>
+                            </li>
+                            <li>
+                                <img src="images/county.png">
+                                <input type="checkbox" id="3">
+                                <label for="3" data-state="uncheck"></label>
+                                <span>县级</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="zt" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>已建</span>
+                            </li>
+                            <li>
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>在建</span>
+                            </li>
+                            <li>
+                                <img src="images/county.png">
+                                <input type="checkbox" id="3">
+                                <label for="3" data-state="uncheck"></label>
+                                <span>拟建</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="mj" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>大于1000亩</span>
+                            </li>
+                            <li style="width: 124px;margin-right: 34px">
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>500~1000亩</span>
+                            </li>
+                            <li>
+                                <img src="images/county.png">
+                                <input type="checkbox" id="3">
+                                <label for="3" data-state="uncheck"></label>
+                                <span>200~500亩</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>小于200亩</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nf" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time1.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2017</span>
+                            </li>
+                            <li>
+                                <img src="images/time2.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2016</span>
+                            </li>
+                            <li>
+                                <img src="images/time3.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>2015</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time4.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2014</span>
+                            </li>
+                            <li>
+                                <img src="images/time5.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2013</span>
+                            </li>
+                            <li>
+                                <img src="images/time6.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>2012</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time7.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2011</span>
+                            </li>
+                            <li>
+                                <img src="images/time8.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2010</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="xdny" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>创建点</span>
+                            </li>
+                            <li>
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>已认证</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul style="display: none;" class="zdcy">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/xm.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>畜牧类</span>
+                            </li>
+                            <li>
+                                <img src="images/sc.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>蔬菜瓜果</span>
+                            </li>
+                            <li>
+                                <img src="images/syj.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>食用菌类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/sg.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>水果类</span>
+                            </li>
+                            <li>
+                                <img src="images/cy.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>茶叶类</span>
+                            </li>
+                            <li>
+                                <img src="images/changsan.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>蚕桑类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/zyc.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>中药材类</span>
+                            </li>
+                            <li>
+                                <img src="images/huahui.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>花卉苗木类</span>
+                            </li>
+                            <li>
+                                <img src="images/zhumu.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>竹木类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/jingji.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>经济林类</span>
+                            </li>
+                            <li>
+                                <img src="images/yuye.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>渔业类</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul style="display: none;" class="tsny">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/xm.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>畜牧类</span>
+                            </li>
+                            <li>
+                                <img src="images/sc.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>蔬菜瓜果</span>
+                            </li>
+                            <li>
+                                <img src="images/syj.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>食用菌类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/sg.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>水果类</span>
+                            </li>
+                            <li>
+                                <img src="images/cy.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>茶叶类</span>
+                            </li>
+                            <li>
+                                <img src="images/changsan.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>蚕桑类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/zyc.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>中药材类</span>
+                            </li>
+                            <li>
+                                <img src="images/huahui.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>花卉苗木类</span>
+                            </li>
+                            <li>
+                                <img src="images/zhumu.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>竹木类</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/jingji.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>经济林类</span>
+                            </li>
+                            <li>
+                                <img src="images/yuye.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>渔业类</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="cgxm" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>一等田</span>
+                            </li>
+                            <li>
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>二等田</span>
+                            </li>
+                            <li>
+                                <img src="images/county.png">
+                                <input type="checkbox" id="3">
+                                <label for="3" data-state="uncheck"></label>
+                                <span>三等田</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="bznt" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>建设分布图</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="cbxm" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/province.png">
+                                <input type="checkbox" id="1">
+                                <label for="1" data-state="uncheck"></label>
+                                <span>一等田</span>
+                            </li>
+                            <li>
+                                <img src="images/city.png">
+                                <input type="checkbox" id="2">
+                                <label for="2" data-state="uncheck"></label>
+                                <span>二等田</span>
+                            </li>
+                            <li>
+                                <img src="images/county.png">
+                                <input type="checkbox" id="3">
+                                <label for="3" data-state="uncheck"></label>
+                                <span>三等田</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="tsgc" style="display: none">
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time1.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2017</span>
+                            </li>
+                            <li>
+                                <img src="images/time2.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2016</span>
+                            </li>
+                            <li>
+                                <img src="images/time3.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>2015</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time4.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2014</span>
+                            </li>
+                            <li>
+                                <img src="images/time5.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2013</span>
+                            </li>
+                            <li>
+                                <img src="images/time6.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>2012</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <img src="images/time7.png">
+                                <input type="checkbox" id="4">
+                                <label for="4" data-state="uncheck"></label>
+                                <span>2011</span>
+                            </li>
+                            <li>
+                                <img src="images/time8.png">
+                                <input type="checkbox" id="5">
+                                <label for="5" data-state="uncheck"></label>
+                                <span>2010</span>
+                            </li>
+                            <li>
+                                <img src="images/time9.png">
+                                <input type="checkbox" id="6">
+                                <label for="6" data-state="uncheck"></label>
+                                <span>2009</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="Main_Map_DIV">
+    </div>
+    <!--二级DIV 详细信息-->
+    <div id="infoSimple">
+        <div class="infoPopup">
+            <div class="infotitle">
+                详细信息
+                <img class="close-info click-hover" src="img/cross.png" />
+            </div>
+            <table class="infocontent" border="1" width="250"></table>
+        </div>
+        <div class="relate-geo"></div>
+    </div>
+
+    <!--搜索框-->
+    <!--<div class="add_ser_box">
+        <div id="search">
+            <input id="searchBox" type="text" placeholder="  请输入..." />
+            <div id="clearList" class="click-hover"></div>
+            <div data-title="组合查询" class="search-more click-hover"></div>
+        </div>
+        <div id="searchBtn" class="click-hover">
+        </div>
+    </div>
+    <div class="search-more-content">
+        <div id="dkType">
+            <span>地块类别:</span>
+            <select class="form-control " style="width: 265px; display:inline-block">
+                <option value="1=1">所有类别</option>
+                <option value="dklb='10'">承包地块</option>
+                <option value="dklb='21'">逢留地</option>
+                <option value="dklb='22'">机动地</option>
+                <option value="dklb='23'">开荒地</option>
+                <option value="dklb='99'">其他集体土地</option>
+            </select>
+        </div>
+        <div>
+            <span>地块编号:</span><input type="text" key="DKBM" placeholder="例：33310" />
+        </div>
+        <div>
+            <span>地块名称:</span><input type="text" key="DKMC" placeholder="例：车处下" />
+        </div>
+        <div>
+            <span>承包方代表姓名:</span><input type="text" key="CBFDBXM" placeholder="例：李" />
+        </div>
+        <div>
+            <span>发包方姓名:</span><input type="text" key="FBFMC" placeholder="例：李" />
+        </div>
+
+        <div class="search-more-btn"></div>
+    </div>
+    <div id="addressInfo">
+        <ul id="listbox" class="list-group"></ul>
+    </div>-->
+    <!--切换底图-->
+    <div class="MapMenu">
+        <a href="javascript:void(0)" title="矢量地图" class="Mapmap"></a>
+        <a href="javascript:void(0)" title="影像地图" class="Mapsatellite1"></a>
+
+    </div>
+
+<div id="cityInfo"></div>
+<div class="location"><p></p></div>
+<div class="scale"><p></p></div>
+<div class="scale-tip"><p></p></div>
+
+
+
+
