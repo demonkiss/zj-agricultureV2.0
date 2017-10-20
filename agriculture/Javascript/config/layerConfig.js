@@ -1,14 +1,15 @@
 ﻿var layerConfig = {
     "粮食生产功能区": {
-        "jsondata": "Json/粮食生产功能区.json",
+       
         "功能区级别": {
             "url": "http://localhost:6080/arcgis/rest/services/lsService/MapServer",
             "array":[0],
             "imgurl": {
-                "省级": "",
-                "市级": "",
-                "区级": ""
-            }
+                "省级": "images/province.png",
+                "市级": "images/city.png",
+                "县级": "images/county.png"
+            },
+            "jsondata": "Json/粮食生产功能区.json",
         },
         "建设状态": {
             "url": "http://localhost:6080/arcgis/rest/services/lsService/MapServer",
@@ -17,7 +18,8 @@
                 "已建": "",
                 "在建": "",
                 "拟建": ""
-            }
+            },
+            "jsondata": "Json/粮食生产功能区.json",
         }, "建设面积": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
             "array": [0],
@@ -26,7 +28,8 @@
                 "500~1000亩": "",
                 "200~500亩": "",
                 "小于200亩": ""
-            }
+            },
+            "jsondata": "Json/粮食生产功能区.json",
         },
         "建设年份": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
@@ -40,7 +43,8 @@
                 "2012": "",
                 "2011": "",
                 "2010": ""
-            }
+            },
+            "jsondata": "Json/粮食生产功能区.json",
         }
     },
     "现代农业园区": {

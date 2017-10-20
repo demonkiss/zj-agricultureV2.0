@@ -1,9 +1,9 @@
-﻿SetDataInfo(new Point(mainMap.Extent.GetCenter().X, mainMap.Extent.GetCenter().Y))
+﻿SetDataInfo(new Povar(mainMap.Extent.GetCenter().X, mainMap.Extent.GetCenter().Y))
 
-function  SetDataInfo(Point center)
+function  SetDataInfo(center)
 {
-            if (xsPoints == null) xsPoints = GetPoints(xs);
-if( PointInsidePolygon(xsPoints,center))
+            if (xsPovars == null) xsPovars = GetPovars(xs);
+if( PovarInsidePolygon(xsPovars,center))
 {
     this.DataInfo.Text = "数据来源:天地图•杭州•萧山";
     this.DepartmentInfo.Text = "提供单位：杭州市规划局萧山规划分局";
@@ -14,36 +14,35 @@ if( PointInsidePolygon(xsPoints,center))
 return false;
 }
 
-var  xsPoints = []; 
-function   GetPoints( wkt)
+var  xsPovars = []; 
+function   GetPovars( wkt)
 {
-            string[] ps = wkt.Split(',');
-Point[] points = new Point[ps.Length];
-for (int i = 0; i < ps.Length; i++)
+            var ps = wkt.Split(',');
+ var  povars = new Povar[ps.Length];
+for (var i = 0; i < ps.Length; i++)
 {
-    string[] p = ps[i].Trim().Split(' ');
-    points[i] = new Point(Convert.ToDouble(p[0].Trim()), Convert.ToDouble(p[1].Trim()));
+    var p = ps[i].Trim().Split(' ');
+    povars[i] = new Povar(Convert.ToDouble(p[0].Trim()), Convert.ToDouble(p[1].Trim()));
 }
-return points;
+return povars;
 }
 
 
-public static bool PointInsidePolygon(Point[] polygonVertices,
-Point ptTest)
+function PovarInsidePolygon( polygonVertices, ptTest)
 {
-if (polygonVertices.Length < 3) /t a valid polygon
+if (polygonVertices.Length < 3) //t a valid polygon
     return false;
 
-int nCounter = 0;
-int nPoints = polygonVertices.Length;
+var nCounter = 0;
+var nPovars = polygonVertices.Length;
 
-Point s1, p1, p2;
+var s1, p1, p2;
 s1 = ptTest;
 p1 = polygonVertices[0];
 
-for (int i = 1; i < nPoints; i++)
+for (var i = 1; i < nPovars; i++)
 {
-    p2 = polygonVertices[i % nPoints];
+    p2 = polygonVertices[i % nPovars];
     if (s1.Y > Math.Min(p1.Y, p2.Y))
 {
         if (s1.Y <= Math.Max(p1.Y, p2.Y))
@@ -52,9 +51,9 @@ for (int i = 1; i < nPoints; i++)
 {
                 if (p1.Y != p2.Y)
 {
-                    double xInters = (s1.Y - p1.Y) * (p2.X - p1.X) /
+                    var xvarers = (s1.Y - p1.Y) * (p2.X - p1.X) /
                         (p2.Y - p1.Y) + p1.X;
-                    if ((p1.X == p2.X) || (s1.X <= xInters))
+                    if ((p1.X == p2.X) || (s1.X <= xvarers))
 {
                         nCounter++;
 }
