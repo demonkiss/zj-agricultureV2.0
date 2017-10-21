@@ -3,7 +3,9 @@
     function (declare) {
     return declare(esri.layers.TiledMapServiceLayer, {
         constructor: function (type) {
+            this.id = type;
             this.tildName = type;
+            this.layerId = type;
             this.spatialReference = new esri.SpatialReference({ wkid: 4326 });
             this.initialExtent = (this.fullExtent = new esri.geometry.Extent(-180.0, -90.0, 180.0, 90.0, this.spatialReference));
             this.tileInfo = new esri.layers.TileInfo({
@@ -44,6 +46,13 @@
         },
         getTileUrl: function (level, row, col) {
             return "http://t" + row % 8 + ".tianditu.cn/" + this.tildName + "_c/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=" + this.tildName + "&STYLE=default&TILEMATRIXSET=c&TILEMATRIX=" + level + "&TILEROW=" + row + "&TILECOL=" + col + "&FORMAT=tiles";
+        },
+        _getMapInfo: function () {
+            var result = {
+                mapName: this.id,
+                layerId: this.layerId
+            };
+            return result;
         }
     });
 });

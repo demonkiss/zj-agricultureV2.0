@@ -4,6 +4,7 @@
         return declare(esri.layers.TiledMapServiceLayer, {
             constructor: function (type) {
                 this.tildName = type;
+                this.layerId = type;
                 this.spatialReference = new esri.SpatialReference({ wkid: 4326 });
                 this.initialExtent = (this.fullExtent = new esri.geometry.Extent(-180.0, -90.0, 180.0, 90.0, this.spatialReference));
                // this.initialExtent = (this.fullExtent = new esri.geometry.Extent(118.33968849655, 29.1885894750343, 120.75238251614, 30.6257261531396, this.spatialReference));

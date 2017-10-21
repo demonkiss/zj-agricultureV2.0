@@ -105,9 +105,7 @@
     <Content Include="extras\ClusterLayer_M.js" />
     <Content Include="extras\ClusterLayer.js" />
     <Content Include="extras\ClusterLayer_old.js" />
-    <Content Include="findDK.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="images\angleLeft.png" />
     <Content Include="images\dibubg.png" />
     <Content Include="images\dq_nylq.jpg" />
@@ -172,19 +170,12 @@
     <Content Include="img\TwoMap.png" />
     <Content Include="img\x.png" />
     <Content Include="img\ztBtn.png" />
-    <Content Include="index1.html" />
-    <Content Include="JavaScript1.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\dojo\dojo.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer2.js" />
+    <Content Include="Javascript\config\cityCode.js" />
     <Content Include="Javascript\config\config.js" />
     <Content Include="Javascript\config\layerConfig.js" />
-    <Content Include="Javascript\Framework\code2info.js" />
-    <Content Include="Javascript\Framework\Config.js" />
-    <Content Include="Javascript\Framework\field_keys.js" />
-    <Content Include="Javascript\Framework\hideField.js" />
-    <Content Include="Javascript\Framework\LayerDef.js" />
-    <Content Include="Javascript\Framework\LayerDef1.js" />
-    <Content Include="Javascript\lib\ClusterLayer.js" />
+    <Content Include="Javascript\Framework\SwitchLayer.js" />
     <Content Include="Javascript\lib\echarts-all.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\esri\css\esri.css" />
     <Content Include="Javascript\ArcGISAPI\3.16\esri\layers\agscommon.js" />
@@ -413,85 +404,11 @@
     <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\TDTLayer_Anno.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\TianDiTuLayer.js" />
-    <Content Include="Javascript\docs-assets\css\docs.css" />
-    <Content Include="Javascript\docs-assets\css\pygments-manni.css" />
-    <Content Include="Javascript\docs-assets\ico\apple-touch-icon-144-precomposed.png" />
-    <Content Include="Javascript\docs-assets\ico\favicon.png" />
-    <Content Include="Javascript\docs-assets\js\application.js" />
-    <Content Include="Javascript\docs-assets\js\customizer.js" />
-    <Content Include="Javascript\docs-assets\js\filesaver.js" />
-    <Content Include="Javascript\docs-assets\js\holder.js" />
-    <Content Include="Javascript\docs-assets\js\html5shiv.js" />
-    <Content Include="Javascript\docs-assets\js\jquery.js" />
-    <Content Include="Javascript\docs-assets\js\jszip.js" />
-    <Content Include="Javascript\docs-assets\js\less.js" />
-    <Content Include="Javascript\docs-assets\js\raw-files.js" />
-    <Content Include="Javascript\docs-assets\js\respond.min.js" />
-    <Content Include="Javascript\docs-assets\js\uglify.js" />
-    <Content Include="Javascript\Framework\Application.js" />
-    <Content Include="Javascript\Framework\confUrl.js" />
-    <Content Include="Javascript\Framework\Main.js" />
-    <Content Include="Javascript\Framework\TDTMap.js" />
-    <Content Include="Javascript\Jquery\jquery-ui.custom.min.js" />
-    <Content Include="Javascript\Jquery\jquery-Uncompressed.js" />
-    <Content Include="Javascript\Jquery\jquery.animate-shadow-min.js" />
-    <Content Include="Javascript\Jquery\jquery.backstretch.min.js" />
-    <Content Include="Javascript\Jquery\jquery.cookie.js" />
-    <Content Include="Javascript\Jquery\jquery.js" />
-    <Content Include="Javascript\Jquery\jquery.json.js" />
-    <Content Include="Javascript\Jquery\jquery.lazyload.js" />
-    <Content Include="Javascript\Jquery\jquery.lazyload.min.js" />
-    <Content Include="Javascript\Jquery\jquery.min.js" />
-    <Content Include="Javascript\Jquery\jquery.nicescroll.js" />
-    <Content Include="Javascript\Jquery\jquery.ui.touch-punch.min.js" />
-    <Content Include="Javascript\Jquery\moodular.js" />
-    <Content Include="Javascript\Jquery\nano.js" />
-    <Content Include="Javascript\lib\bootstrap-table.js" />
-    <Content Include="Javascript\lib\bootstrap-treeview.js" />
     <Content Include="Javascript\lib\bootstrap.js" />
-    <Content Include="Javascript\Jquery\jquery-2.1.4.js" />
-    <Content Include="Javascript\lib\dockeye.js" />
-    <Content Include="Javascript\lib\echarts.common.min.js" />
-    <Content Include="Javascript\lib\grayscale.js" />
     <Content Include="Javascript\lib\jquery-2.1.4.js" />
-    <Content Include="Javascript\lib\jquery-ui.js" />
-    <Content Include="Javascript\lib\vue.js" />
-    <Content Include="Javascript\Modules\AddressQuery.js" />
-    <Content Include="Javascript\Modules\DkQuery.js" />
-    <Content Include="Javascript\Modules\IdentifyTask.js" />
-    <Content Include="Javascript\Modules\iframeAddLayer.js" />
-    <Content Include="Javascript\Modules\initTable.js" />
-    <Content Include="Javascript\Modules\MeasureTask.js" />
-    <Content Include="Javascript\Modules\MeasureTask1.js" />
-    <Content Include="Javascript\Modules\QueryTask.js" />
-    <Content Include="Javascript\Modules\SpatialAnaysis.js" />
-    <Content Include="Javascript\Modules\tdt.js" />
-    <Content Include="Javascript\Noty\layouts\bottom.js" />
-    <Content Include="Javascript\Noty\layouts\bottomCenter.js" />
-    <Content Include="Javascript\Noty\layouts\bottomLeft.js" />
-    <Content Include="Javascript\Noty\layouts\bottomRight.js" />
-    <Content Include="Javascript\Noty\layouts\center.js" />
-    <Content Include="Javascript\Noty\layouts\centerLeft.js" />
-    <Content Include="Javascript\Noty\layouts\centerRight.js" />
-    <Content Include="Javascript\Noty\layouts\inline.js" />
-    <Content Include="Javascript\Noty\layouts\top.js" />
-    <Content Include="Javascript\Noty\layouts\topCenter.js" />
-    <Content Include="Javascript\Noty\layouts\topLeft.js" />
-    <Content Include="Javascript\Noty\layouts\topRight.js" />
-    <Content Include="Javascript\Noty\noty.js" />
-    <Content Include="Javascript\Noty\promise.js" />
-    <Content Include="Javascript\Noty\themes\default.js" />
-    <Content Include="Javascript\RequireJS\domReady.js" />
-    <Content Include="Javascript\RequireJS\i18n.js" />
-    <Content Include="Javascript\RequireJS\require.js" />
-    <Content Include="Javascript\RequireJS\text.js" />
-    <Content Include="Javascript\Modules\LayerTree.js" />
     <Content Include="Json\area.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="loadTDT.html" />
-    <Content Include="Main_Map.htm" />
-    <Content Include="Main_Map.js" />
     <Content Include="index.html" />
     <Content Include="style\bootstrap-slider.css" />
     <Content Include="style\bootstrap-table.css" />
@@ -506,19 +423,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Javascript\Jquery\vssver2.scc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Javascript\docs-assets\css\vssver2.scc" />
-    <Content Include="Javascript\docs-assets\ico\vssver2.scc" />
-    <Content Include="Javascript\docs-assets\js\vssver2.scc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Javascript\Noty\layouts\vssver2.scc" />
-    <Content Include="Javascript\Noty\themes\vssver2.scc" />
-    <Content Include="Javascript\Noty\vssver2.scc" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -541,7 +445,6 @@
     <Content Include="Json\city\330900.json" />
     <Content Include="Json\city\331000.json" />
     <Content Include="Json\city\331100.json" />
-    <Content Include="Json\hz.json" />
     <Content Include="Json\zhejiang.json" />
     <Content Include="Json\city\330700.json" />
     <Content Include="Json\zj\丽水市.json" />
@@ -555,17 +458,12 @@
     <Content Include="Json\zj\舟山市.json" />
     <Content Include="Json\zj\衢州市.json" />
     <Content Include="Json\zj\金华市.json" />
-    <Content Include="Json\20000json.json" />
-    <Content Include="Json\药店.json" />
-    <Content Include="Json\multiType.json" />
-    <Content Include="Json\ls.json" />
     <Content Include="Json\粮食生产功能区.json" />
     <Content Include="Json\china.json" />
     <None Include="Properties\PublishProfiles\IAGIS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="农业两区调整需求.doc" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

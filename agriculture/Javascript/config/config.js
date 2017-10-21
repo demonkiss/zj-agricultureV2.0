@@ -6,6 +6,8 @@
         zoom: 12,
         slider: false
     }
+    var minZoom = 7;
+    var maxZoom = 11;
   //  var map_v_i = "http://www.hangzhoumap.gov.cn/Tile/ArcGISFlex/HZTDTVECTORBLEND.gis";
  //  var map_r_i = "http://www.hangzhoumap.gov.cn/Tile/ArcGISFlex/HZTDTRASTERBLEND.gis";
     var map_r_i = "http://21.15.121.121/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISREST/HZSYRASTER2014wkid.gis";
@@ -35,6 +37,8 @@
         fontfamily: "Microsoft Yahei"
     }
     return {
+        minZoom: minZoom,
+        maxZoom:maxZoom,
         map_config: map_config,
         spatial_config:spatial_config,
         map_r_i: map_r_i,
