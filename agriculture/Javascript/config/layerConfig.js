@@ -48,7 +48,7 @@
         }
     },
     "现代农业园区": {
-        "jsondata": "Json/粮食生产功能区.json",
+        
         "现代农业综合区": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
             "array": [0],
@@ -56,55 +56,63 @@
                 "创建点": "",
                 "已认证": ""
              
-            }
+            },
+            "jsondata": "Json/粮食生产功能区.json",
         },
         "主导产业示范区": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
+            "url": "http://localhost:6080/arcgis/rest/services/xdny/MapServer",
             "array": [0],
             "imgurl": {
                 "畜牧类": "",
                 "蔬菜瓜果": "",
                 "食用菌类": ""
-            }
+            },
+            "jsondata": "Json/主导产业示范区.json",
         }, "特色农业精品区": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
-            "array": [0],
+            "url": "http://localhost:6080/arcgis/rest/services/xdny/MapServer",
+            "array": [1],
             "imgurl": {
                 "畜牧类": "",
                 "蔬菜瓜果": "",
                 "食用菌类": ""
-            }
+            },
+            "jsondata": "Json/特色农业精品区.json",
         }
     },
     "标准农田": {
-        "jsondata": "Json/20000json.json",
+     
         "千万亩工程项目": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
+            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
             "array": [0],
+            "sql":" 区块面积>1000",
             "imgurl": {
                 "一等田": "",
                 "二等田": "",
                 "三等田": ""
                 
-            }
+            },
+            "jsondata": "Json/千万亩工程项目.json",
         },
         "标准农田建设区": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
+            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
             "array": [0],
+            "sql":" 项目名称 like '%农田%' ",
             "imgurl": {
                 "建设分布图": ""
               
-            }
+            },
+            "jsondata": "Json/标准农田建设区.json",
         }, "储备项目": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
+            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
             "array": [0],
             "imgurl": {
                 "一等田": "",
                 "二等田": "",
                 "三等田": ""
-            }
+            },
+            "jsondata": "Json/标准农田.json",
         }, "提升工程": {
-            "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
+            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
             "array": [0],
             "imgurl": {
                 "2017": "",
@@ -116,7 +124,8 @@
                 "2011": "",
                 "2010": "",
                 "2009": ""
-            }
+            },
+            "jsondata": "Json/标准农田.json",
         }
     }
 }

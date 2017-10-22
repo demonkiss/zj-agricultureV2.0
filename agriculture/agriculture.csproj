@@ -460,6 +460,11 @@
     <Content Include="Json\zj\金华市.json" />
     <Content Include="Json\粮食生产功能区.json" />
     <Content Include="Json\china.json" />
+    <Content Include="Json\标准农田.json" />
+    <Content Include="Json\特色农业精品区.json" />
+    <Content Include="Json\主导产业示范区.json" />
+    <Content Include="Json\千万亩工程项目.json" />
+    <Content Include="Json\标准农田建设区.json" />
     <None Include="Properties\PublishProfiles\IAGIS.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

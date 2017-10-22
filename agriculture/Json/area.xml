@@ -13,7 +13,7 @@
 		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="桐庐县" id="330122" lat="119.700975" lng="29.801107"/>
 		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="淳安县" id="330127" lat="119.049612" lng="29.615964"/>
 		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="建德市" id="330182" lat="119.288183" lng="29.480853"/>
-		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="富阳市" id="330183" lat="119.967999" lng="30.055376"/>
+		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="富阳区" id="330183" lat="119.967999" lng="30.055376"/>
 		<xjzone url="http://localhost:6080/arcgis/rest/services/bls_streets/MapServer" layerindex="" name="临安市" id="330185" lat="119.730743" lng="30.241978"/>
 	</sjzone>
 	<sjzone name="宁波市" id="3302" lat="121.623951" lng="29.907981" value="0">

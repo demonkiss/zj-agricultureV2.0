@@ -120,6 +120,7 @@
         var currentattr = "";
         var visiableArray = [0];
         var areasql = [];
+        var dkType = "粮食生产功能区";
         //  var lslayer;
         //  var borderData;
         var mapPanEvt;
@@ -398,8 +399,19 @@
                             $(this).attr("data-state", "check");
                             $(this).addClass("active");
                             //add data to array
-                            clusterType.push($(this).next().text());
-                            layerDType.push("'" + $(this).next().text() + "'");
+                            if (dkType == "粮食生产功能区") {
+                                clusterType.push($(this).next().text());
+                                layerDType.push("'" + $(this).next().text() + "'");
+                            } else if (dkType == "标准农田") {
+                                clusterType.push($(this).next().attr("value"));
+                                layerDType.push("'" + $(this).next().attr("value") + "'");
+                            } else {
+                                clusterType.push($(this).next().text());
+                                layerDType.push("'" + $(this).next().text() + "'");
+                            }
+                            console.log(clusterType);
+                           // clusterType.push($(this).next().text());
+                          //  layerDType.push("'" + $(this).next().text() + "'");
                             clusterImg.push($(this).prev().prev().attr("src"));
 
                             ////添加聚类图层
@@ -412,8 +424,18 @@
                             $(this).attr("data-state", "uncheck");
                             $(this).removeClass("active");
                             clusterImg.remove($(this).prev().prev().attr("src"));
-                            clusterType.remove($(this).next().text());
-                            layerDType.remove("'" + $(this).next().text() + "'");
+                          //  clusterType.remove($(this).next().text());
+                            // layerDType.remove("'" + $(this).next().text() + "'");
+                            if (dkType == "粮食生产功能区") {
+                                clusterType.remove($(this).next().text());
+                                layerDType.remove("'" + $(this).next().text() + "'");
+                            } else if (dkType == "标准农田") {
+                                clusterType.remove($(this).next().attr("value"));
+                                layerDType.remove("'" + $(this).next().attr("value") + "'");
+                            } else {
+                                clusterType.remove($(this).next().text());
+                                layerDType.remove("'" + $(this).next().text() + "'");
+                            }
 
                             //if (clusterType) {
                             //    getClusterData(clusterType, attrName);
@@ -481,7 +503,7 @@
                             }
 
                         })
-
+                        dkType = nyName;
                         var secondName = $(this).text();
                         // $(this).children("li").each(function())
                         var attr_Name;
@@ -499,21 +521,32 @@
                                 // var $types = $(this).parent().children("label");
                                 $types.each(function (i, e) {
                                     if ($(e).attr("data-state") == "check") {
-                                        clusterType.push($(e).next().text());
+                                        if (nyName == "粮食生产功能区") {
+                                            clusterType.push($(e).next().text());
+                                            layerDType.push("'" + $(e).next().text() + "'");
+                                        } else if (nyName == "标准农田") {
+                                            clusterType.push($(e).next().attr("value"));
+                                            layerDType.push("'" + $(e).next().attr("value") + "'");
+                                        } else {
+                                            clusterType.push($(e).next().text());
+                                            layerDType.push("'" + $(e).next().text() + "'");
+                                        }
+                                        
                                         clusterImg.push($(e).prev().prev().attr("src"));
-                                        layerDType.push("'" + $(e).next().text() + "'");
+                                       
                                     }
                                 })
                             }
                         })
                         //  console.log(nyName + "," + secondName);
+                        console.log(clusterType);
                         if (nyName && secondName) {
                             currenturl = layerConfig[nyName][secondName].url;
                             visiableArray = layerConfig[nyName][secondName].array;
                             console.log(currenturl);
                         }
 
-                        var url = layerConfig[nyName].jsondata;
+                        var url = layerConfig[nyName][secondName].jsondata;
                         $.ajax({
 
                             url: url,
@@ -1181,7 +1214,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul style="display: none;" value="" class="zdcy">
+                <ul style="display: none;" value="产业类型" class="zdcy">
                     <li>
                         <ul>
                             <li>
@@ -1265,7 +1298,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul style="display: none;" value="" class="tsny">
+                <ul style="display: none;" value="产业类型" class="tsny">
                     <li>
                         <ul>
                             <li>
@@ -1349,31 +1382,31 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="cgxm" value="" style="display: none">
+                <ul class="cgxm" value="等级" style="display: none">
                     <li>
                         <ul>
                             <li>
                                 <img src="images/province.png">
                                 <input type="checkbox" id="1">
                                 <label for="1" data-state="uncheck"></label>
-                                <span>一等田</span>
+                                <span value="1">一等田</span>
                             </li>
                             <li>
                                 <img src="images/city.png">
                                 <input type="checkbox" id="2">
                                 <label for="2" data-state="uncheck"></label>
-                                <span>二等田</span>
+                                <span value="2">二等田</span>
                             </li>
                             <li>
                                 <img src="images/county.png">
                                 <input type="checkbox" id="3">
                                 <label for="3" data-state="uncheck"></label>
-                                <span>三等田</span>
+                                <span value="3">三等田</span>
                             </li>
                         </ul>
                     </li>
                 </ul>
-                <ul class="bznt" value="" style="display: none">
+                <ul class="bznt" value="项目名称" style="display: none">
                     <li>
                         <ul>
                             <li>
@@ -1385,26 +1418,26 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="cbxm" value="" style="display: none">
+                <ul class="cbxm" value="等级" style="display: none">
                     <li>
                         <ul>
                             <li>
                                 <img src="images/province.png">
                                 <input type="checkbox" id="1">
                                 <label for="1" data-state="uncheck"></label>
-                                <span>一等田</span>
+                                <span value="1">一等田</span>
                             </li>
                             <li>
                                 <img src="images/city.png">
                                 <input type="checkbox" id="2">
                                 <label for="2" data-state="uncheck"></label>
-                                <span>二等田</span>
+                                <span value="2">二等田</span>
                             </li>
                             <li>
                                 <img src="images/county.png">
                                 <input type="checkbox" id="3">
                                 <label for="3" data-state="uncheck"></label>
-                                <span>三等田</span>
+                                <span value="3">三等田</span>
                             </li>
                         </ul>
                     </li>

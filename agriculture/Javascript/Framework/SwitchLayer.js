@@ -11,7 +11,7 @@ function switchLayer() {
         minzoom = mapconfig.minZoom;
         maxzoom = mapconfig.maxZoom;
     })
-   // alert(minzoom);
+    // alert(minzoom);
     //let Scale = map.getScale();
     //if (Scale > 60000) {
     //    //  lsLayer.hide();
@@ -58,7 +58,10 @@ function switchLayer() {
         ssqy = "";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
+
         getClusterData(clusterType, currentattr);//添加聚类图层
+
+        console.log(showClusterData);
         if (showClusterData.length) {
             addMultiClusters(showClusterData);
             // addClusters(showClusterData[0]);
@@ -81,7 +84,7 @@ function switchLayer() {
             console.log(ld);
             addDynamicLayer(ld);
         }
-       
+
 
 
     }
@@ -102,7 +105,7 @@ function getBlockName() {
     require(["Javascript/config/cityCode.js"], function (cityCode) {
         //   var ccode = eval('(' + cityCode + ')');
         var cityname = sssy.replace("\"", "");
-       
+
         var url = "Json/city/" + cityCode.citycode[cityname] + ".json";
         console.log(url);
         $.ajax({
@@ -126,7 +129,7 @@ function getBlockName() {
         });
     })
 
-   
+
     return _block;
 }
 function getCityName() {
@@ -190,7 +193,7 @@ function addDynamicLayer(layersql) {
         // alert(visiableArray);
         lslayer.setVisibleLayers(visiableArray);
     })
-   
+
 }
 //获取统计数值
 function getStatisticsData(city, types, attr) {
@@ -339,6 +342,85 @@ function getStatisticsData(city, types, attr) {
 
 
 }
+
+function getAreaData(attr) {
+
+    var cdata = [];
+    for (var i = 0; i < ClusterData.length; i++) {
+        if (ClusterData[i].attributes[attr] > 1000) {
+            if (sssy == ClusterData[i].attributes["地市名称"]) {
+                // cdata.push(ClusterData[i]);
+                if (ssqy != "") {
+                    if (ssqy == ClusterData[i].attributes["县市区名称"]) {
+                        cdata.push(ClusterData[i]);
+                    }
+
+                } else {
+                    cdata.push(ClusterData[i]);
+                }
+            }
+
+
+        }
+    }
+    if (cdata.length) {
+        showClusterData.push(cdata);
+    }
+    else {
+        $(".checks span").each(function () {
+            if ($(this).text() == types[k]) {
+                $(this).prev().attr("data-state", "uncheck");
+                $(this).prev().removeClass("active");
+
+                clusterImg.remove($(this).prev().attr("src"));
+                clusterType.remove(types[k]);
+                layerDType.remove("'" + types[k] + "'");
+            }
+        })
+        alert("暂无数据");
+    }
+
+
+}
+function getItemData(attr) {
+
+    var cdata = [];
+    for (var i = 0; i < ClusterData.length; i++) {
+        if (ClusterData[i].attributes[attr].indexOf("农田")) {
+            if (sssy == ClusterData[i].attributes["地市名称"]) {
+                // cdata.push(ClusterData[i]);
+                if (ssqy != "") {
+                    if (ssqy == ClusterData[i].attributes["县市区名称"]) {
+                        cdata.push(ClusterData[i]);
+                    }
+
+                } else {
+                    cdata.push(ClusterData[i]);
+                }
+            }
+
+
+        }
+    }
+    if (cdata.length) {
+        showClusterData.push(cdata);
+    }
+    else {
+        $(".checks span").each(function () {
+            if ($(this).text() == types[k]) {
+                $(this).prev().attr("data-state", "uncheck");
+                $(this).prev().removeClass("active");
+
+                clusterImg.remove($(this).prev().attr("src"));
+                clusterType.remove(types[k]);
+                layerDType.remove("'" + types[k] + "'");
+            }
+        })
+        alert("暂无数据");
+    }
+
+
+}
 //获取聚类数据
 function getClusterData(types, attr) {
     if (ClusterData) {
@@ -462,18 +544,19 @@ function getClusterData(types, attr) {
                 }
                 if (cdata.length) {
                     showClusterData.push(cdata);
-                } else {
-                    $(".checks span").each(function () {
-                        if ($(this).text() == types[k]) {
-                            $(this).prev().attr("data-state", "uncheck");
-                            $(this).prev().removeClass("active");
-                            clusterImg.remove($(this).prev().attr("src"));
-                            clusterType.remove(types[k]);
-                            layerDType.remove("'" + types[k] + "'");
-                        }
-                    })
-                    alert("暂无数据");
                 }
+                //} else {
+                //    $(".checks span").each(function () {
+                //        if ($(this).text() == types[k]) {
+                //            $(this).prev().attr("data-state", "uncheck");
+                //            $(this).prev().removeClass("active");
+                //            clusterImg.remove($(this).prev().attr("src"));
+                //            clusterType.remove(types[k]);
+                //            layerDType.remove("'" + types[k] + "'");
+                //        }
+                //    })
+                //    alert("暂无数据");
+                //}
             }
 
             // if
@@ -636,7 +719,7 @@ function addZJCityBorder() {
 
 function getLayerDefine(layerDType, attrName) {
     let sql = "";
-    if(layerDType.length){
+    if (layerDType.length) {
         if (attrName != "认定面积") {
             sql = "地市名称='" + sssy + "' and " + attrName + " in (" + layerDType.toString() + ")";
             if (ssqy != "") {
@@ -858,7 +941,7 @@ function addMultiClusters(multiData) {
               //   });
 
           })
-   
+
 }
 //function addClusters(resp) {
 //    var photoInfo = {};
