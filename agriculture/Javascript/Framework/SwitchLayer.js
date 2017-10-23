@@ -39,6 +39,9 @@ function switchLayer() {
         map.removeLayer(map.getLayer("cityLayer"));
         map.removeLayer(map.getLayer("cityTextLayer"));
     }
+    if (map.getLayer("borderLayer")) {
+        map.removeLayer(map.getLayer("borderLayer"));
+    }
     let zoomlevel = map.getZoom();
     if (zoomlevel <= minzoom) {
         sssy = "浙江";
@@ -58,10 +61,16 @@ function switchLayer() {
         ssqy = "";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
+        addBorder();
+        if (clusterType[0] == "建设分布图") {
+            getCityCluster(sssy);//获取建设分布图的聚类图层
+            //showClusterData.push(ClusterData);
+        } else {
+            getClusterData(clusterType, currentattr);//添加聚类图层
+        }
 
-        getClusterData(clusterType, currentattr);//添加聚类图层
 
-        console.log(showClusterData);
+        //  console.log(clusterImg[0]);
         if (showClusterData.length) {
             addMultiClusters(showClusterData);
             // addClusters(showClusterData[0]);
@@ -79,9 +88,12 @@ function switchLayer() {
         ssqy = getBlockName();
         $(".sel-fun button").text(ssqy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
+        var ld = "";
         if (layerDType.length) {
+
             var ld = getLayerDefine(layerDType, currentattr);//添加矢量图层
             console.log(ld);
+
             addDynamicLayer(ld);
         }
 
@@ -90,9 +102,44 @@ function switchLayer() {
     }
 
 }
+function getCityCluster(city) {
+    showClusterData.length = 0;
+    if (clusterType[0] == "建设分布图") {
+        var cData = [];
+        for (let i = 0; i < ClusterData.length; i++) {
+            if (city == ClusterData[i].attributes["地市名称"]) {
+                cData.push(ClusterData[i]);
+                // number++;
+            }
+
+        }
+        if (cData.length) {
+            showClusterData.push(cData);
+        }
+
+    }
+}
 function getCityParam(city) {
     let number = 0;
-    getStatisticsData(city, clusterType, currentattr);//获取统计数据
+    if (clusterType[0] == "建设分布图") {
+        var cData;
+        for (let i = 0; i < ClusterData.length; i++) {
+            if (city == ClusterData[i].attributes["地市名称"]) {
+                // cData.push(ClusterData[i]);
+                number++;
+            }
+
+        }
+        // showClusterData.push(cData);
+    } else {
+        getStatisticsData(city, clusterType, currentattr);//获取统计数据
+        for (let i = 0; i < statisticsData.length; i++) {
+            // if (city == ClusterData[i].attributes["地市名称"]) {
+            number += statisticsData[i].length;
+
+        }
+    }
+
     for (let i = 0; i < statisticsData.length; i++) {
         // if (city == ClusterData[i].attributes["地市名称"]) {
         number += statisticsData[i].length;
@@ -115,15 +162,46 @@ function getBlockName() {
             async: false,
             data: {},
             success: function (data) {
-                let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
-                for (let i = 0; i < data.features.length; i++) {
-                    if (PointInsidePolygon(centerPoint, data.features[i].geometry.coordinates[0])) {
-                        console.log(data.features[i].properties.name);
-                        // alert(borderData[i].properties.name);
-                        _block = data.features[i].properties.name;
-                        break;
+                //let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
+                //for (let i = 0; i < data.features.length; i++) {
+                //    if (PointInsidePolygon(centerPoint, data.features[i].geometry.coordinates[0])) {
+                //        console.log(data.features[i].properties.name);
+                //        _block = data.features[i].properties.name;
+                //        break;
+                //    }
+                //}
+
+                require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+                    var borderLayer = new GraphicsLayer({ id: "borderLayer" });
+                    let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
+                    for (let i = 0; i < data.features.length; i++) {
+                        if (PointInsidePolygon(centerPoint, data.features[i].geometry.coordinates[0])) {
+                            console.log(data.features[i].properties.name);
+                            _block = data.features[i].properties.name;
+
+
+                            var polygonJson = {
+                                "rings": data.features[i].geometry.coordinates,
+                                "spatialReference": { "wkid": 4326 }
+                            };
+                            var polygon = new Polygon(polygonJson);
+                            var pu = new Polygon(data.features[i].geometry.coordinates);
+                            var attr = {};
+                            // var attr = { "name": data.features[i].properties.name, "hospital": data.features[i].properties.hospital };
+                            var RGB_value = parseInt(166 + parseInt(data.features[i].properties.hospital) * ((166 - 255) / 255));
+                            var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.01]));
+                            var graphic = new Graphic(polygon, sfs, attr);
+                            borderLayer.add(graphic);
+
+                            map.addLayer(borderLayer);
+                            break;
+                        }
+
+
                     }
-                }
+
+
+                })
             }
 
         });
@@ -187,6 +265,7 @@ function addDynamicLayer(layersql) {
                 $("#map_ls").remove();
             }
         }
+        console.log(currenturl, visiableArray);
         //   currenturl= "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer";
         var lslayer = new ArcGISDynamicMapServiceLayer(currenturl, { "imageParameters": imageParameters, "id": "ls", "opacity": 0.6 });
         map.addLayer(lslayer, 2);
@@ -343,84 +422,45 @@ function getStatisticsData(city, types, attr) {
 
 }
 
-function getAreaData(attr) {
+//function getItemData(attr) {
 
-    var cdata = [];
-    for (var i = 0; i < ClusterData.length; i++) {
-        if (ClusterData[i].attributes[attr] > 1000) {
-            if (sssy == ClusterData[i].attributes["地市名称"]) {
-                // cdata.push(ClusterData[i]);
-                if (ssqy != "") {
-                    if (ssqy == ClusterData[i].attributes["县市区名称"]) {
-                        cdata.push(ClusterData[i]);
-                    }
+//    var cdata = [];
+//    for (var i = 0; i < ClusterData.length; i++) {
+//        if (ClusterData[i].attributes[attr].indexOf("农田")) {
+//            if (sssy == ClusterData[i].attributes["地市名称"]) {
+//                // cdata.push(ClusterData[i]);
+//                if (ssqy != "") {
+//                    if (ssqy == ClusterData[i].attributes["县市区名称"]) {
+//                        cdata.push(ClusterData[i]);
+//                    }
 
-                } else {
-                    cdata.push(ClusterData[i]);
-                }
-            }
-
-
-        }
-    }
-    if (cdata.length) {
-        showClusterData.push(cdata);
-    }
-    else {
-        $(".checks span").each(function () {
-            if ($(this).text() == types[k]) {
-                $(this).prev().attr("data-state", "uncheck");
-                $(this).prev().removeClass("active");
-
-                clusterImg.remove($(this).prev().attr("src"));
-                clusterType.remove(types[k]);
-                layerDType.remove("'" + types[k] + "'");
-            }
-        })
-        alert("暂无数据");
-    }
+//                } else {
+//                    cdata.push(ClusterData[i]);
+//                }
+//            }
 
 
-}
-function getItemData(attr) {
+//        }
+//    }
+//    if (cdata.length) {
+//        showClusterData.push(cdata);
+//    }
+//    else {
+//        $(".checks span").each(function () {
+//            if ($(this).text() == types[k]) {
+//                $(this).prev().attr("data-state", "uncheck");
+//                $(this).prev().removeClass("active");
 
-    var cdata = [];
-    for (var i = 0; i < ClusterData.length; i++) {
-        if (ClusterData[i].attributes[attr].indexOf("农田")) {
-            if (sssy == ClusterData[i].attributes["地市名称"]) {
-                // cdata.push(ClusterData[i]);
-                if (ssqy != "") {
-                    if (ssqy == ClusterData[i].attributes["县市区名称"]) {
-                        cdata.push(ClusterData[i]);
-                    }
-
-                } else {
-                    cdata.push(ClusterData[i]);
-                }
-            }
-
-
-        }
-    }
-    if (cdata.length) {
-        showClusterData.push(cdata);
-    }
-    else {
-        $(".checks span").each(function () {
-            if ($(this).text() == types[k]) {
-                $(this).prev().attr("data-state", "uncheck");
-                $(this).prev().removeClass("active");
-
-                clusterImg.remove($(this).prev().attr("src"));
-                clusterType.remove(types[k]);
-                layerDType.remove("'" + types[k] + "'");
-            }
-        })
-        alert("暂无数据");
-    }
+//                clusterImg.remove($(this).prev().attr("src"));
+//                clusterType.remove(types[k]);
+//                layerDType.remove("'" + types[k] + "'");
+//            }
+//        })
+//        alert("暂无数据");
+//    }
 
 
-}
+//}
 //获取聚类数据
 function getClusterData(types, attr) {
     if (ClusterData) {
@@ -449,19 +489,19 @@ function getClusterData(types, attr) {
                 if (cdata.length) {
                     showClusterData.push(cdata);
                 }
-                else {
-                    $(".checks span").each(function () {
-                        if ($(this).text() == types[k]) {
-                            $(this).prev().attr("data-state", "uncheck");
-                            $(this).prev().removeClass("active");
+                //else {
+                //    $(".checks span").each(function () {
+                //        if ($(this).text() == types[k]) {
+                //            $(this).prev().attr("data-state", "uncheck");
+                //            $(this).prev().removeClass("active");
 
-                            clusterImg.remove($(this).prev().attr("src"));
-                            clusterType.remove(types[k]);
-                            layerDType.remove("'" + types[k] + "'");
-                        }
-                    })
-                    alert("暂无数据");
-                }
+                //            clusterImg.remove($(this).prev().attr("src"));
+                //            clusterType.remove(types[k]);
+                //            layerDType.remove("'" + types[k] + "'");
+                //        }
+                //    })
+                //    alert("暂无数据");
+                //}
 
             }
         } else {
@@ -568,6 +608,42 @@ function getClusterData(types, attr) {
 
 
 }
+
+function addBorder() {
+    $.ajax({
+        url: "Json/zhejiang.json",
+        dataType: 'json',
+        async: true,
+        data: {},
+        success: function (data) {
+            require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+              "esri/symbols/Font"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+                  borderData = data.features;
+                  var borderLayer = new GraphicsLayer({ id: "borderLayer" });
+                  // var cityTextLayer = new GraphicsLayer({ id: "cityTextLayer" });
+                  //var textLayer
+                  for (var i = 0; i < data.features.length; i++) {
+                      let cityName = data.features[i].properties.name;
+                      if (sssy == cityName) {
+                          var polygonJson = {
+                              "rings": data.features[i].geometry.coordinates,
+                              "spatialReference": { "wkid": 4326 }
+                          };
+                          var polygon = new Polygon(polygonJson);
+                          var pu = new Polygon(data.features[i].geometry.coordinates);
+
+                          var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0.01]));
+                          var graphic = new Graphic(polygon, sfs);
+                          borderLayer.add(graphic);
+                          map.addLayer(borderLayer);
+                          return;
+
+                      }
+                  }
+              })
+        }
+    })
+}
 //添加浙江边界
 function addZJBorder() {
     var extent;
@@ -601,6 +677,11 @@ function addZJBorder() {
                         // map.disableScrollWheelZoom();
                         // map.addLayer(borderLayer);
                         //  return extent;
+
+                        var borderLayer = new GraphicsLayer({ id: "borderLayer" });
+                        var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([RGB_value, 0, 0, 0.01]));
+                        borderLayer.add(e.graphic.setSymbol(symbol));
+                        map.addLayer(borderLayer);
                     }
 
 
@@ -647,7 +728,7 @@ function addZJCityBorder() {
                       var attr = { "name": cityName, "number": cityNumber };
                       var RGB_value = 60 + parseInt((cityNumber - lowerValue) * ((255 - 60) / (upperValue - lowerValue)));
                       // console.log(RGB_value);
-                      var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([RGB_value, 0, 0]), 0.5), new Color([RGB_value, 0, 0, 0.6]));
+                      var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([RGB_value, 255, 0]), 2), new Color([RGB_value, 0, 0, 0.6]));
                       var graphic = new Graphic(polygon, sfs, attr);
                       var extent = pu.getExtent();
                       var point = extent.getCenter();
@@ -678,6 +759,7 @@ function addZJCityBorder() {
                   }
                   var cityClick = cityLayer.on("click", function (e) {
                       //get the associated node info when the graphic is clicked
+                      currentGraphic = e.graphic;
                       if (e.graphic.attributes["name"]) {
                           sssy = e.graphic.attributes["name"];
                           let centerP;
@@ -719,7 +801,7 @@ function addZJCityBorder() {
 
 function getLayerDefine(layerDType, attrName) {
     let sql = "";
-    if (layerDType.length) {
+    if (layerDType[0] != "建设分布图") {
         if (attrName != "认定面积") {
             sql = "地市名称='" + sssy + "' and " + attrName + " in (" + layerDType.toString() + ")";
             if (ssqy != "") {
@@ -734,10 +816,18 @@ function getLayerDefine(layerDType, attrName) {
             }
         }
     } else {
-        sql = "地市名称='" + sssy + "' and 1=2";
-        if (ssqy != "") {
-            sql = "县市区名称='" + ssqy + "' and 1=2";
+        if (gnType != "标准农田建设区") {
+            sql = "地市名称='" + sssy + "' and 1=2";
+            if (ssqy != "") {
+                sql = "县市区名称='" + ssqy + "' and 1=2";
+            }
+        } else {
+            sql = "地市名称='" + sssy + "'";
+            if (ssqy != "") {
+                sql = "县市区名称='" + ssqy + "'";
+            }
         }
+
 
     }
     return sql;
@@ -814,6 +904,7 @@ function addMultiClusters(multiData) {
               var wgs = new esri.SpatialReference({
                   "wkid": 4326
               });
+              var attributes = "";
               for (var k = 0; k < multiData.length; k++) {
                   var photoInfo = {};
                   if (k == 0) {
@@ -821,6 +912,7 @@ function addMultiClusters(multiData) {
                   } else {
                       type = "blue";
                   }
+
                   photoInfo.data = arrayUtils.map(multiData[k], function (p, i) {
                       var latlng = new Point(parseFloat(p.geometry.x), parseFloat(p.geometry.y), wgs);
                       //  var latlng = new Point(parseFloat(p.lng), parseFloat(p.lat), wgs);
@@ -838,7 +930,7 @@ function addMultiClusters(multiData) {
 
                       };
                       var attrbutes2 = p.attributes;
-                      var attributes = $.extend({}, attributes1, attrbutes2)
+                      attributes = $.extend({}, attributes1, attrbutes2)
                       return {
 
                           "x": webMercator.x,
@@ -856,47 +948,67 @@ function addMultiClusters(multiData) {
               //infoTemplate.setTitle("属性信息");
               //infoTemplate.setContent("State Name");
               // popupTemplate to work with attributes specific to this dataset
+              var fieldInfos = [];
+              for (var key in attributes) {
+                  var s_key = key.toLowerCase();
+                  var Regx = /^[A-Za-z]*$/;
+                  if (s_key.indexOf("shape") > -1 || s_key.indexOf("object") > -1 || Regx.test(key)) {
+                      continue;
+                  }
+                  else {
+                      var field = {
+                          "fieldName": key,
+                          "label": key,
+                          visible: true
+                      }
+                      fieldInfos.push(field);
+                  }
+              }
+              //  console.log(fieldInfos);
               var popupTemplate = new PopupTemplate({
                   "title": "属性信息",
                   "content": "聚集点信息",
-                  "fieldInfos": [{
-                      "fieldName": "认定编号",
-                      "label": "认定编号",
-                      visible: true
-                  }, {
-                      "fieldName": "认定名称",
-                      "label": "认定名称",
-                      visible: true
-                  }, {
-                      "fieldName": "规划名称",
-                      //  "label": "By",
-                      visible: true
-                  }, {
-                      "fieldName": "规划编号",
+                  "fieldInfos": fieldInfos,
+                  //            "fieldInfos": [{
 
-                      visible: true
-                  },
-                  {
-                      "fieldName": "建设状态",
-                      visible: true
-                  }, {
-                      "fieldName": "建设等级",
+                  //            "fieldName": "认定编号",
+                  //            "label": "认定编号",
+                  //            visible: true
+                  //}]
+                  //, {
+                  //        "fieldName": "认定名称",
+                  //        "label": "认定名称",
+                  //        visible: true
+                  //    }, {
+                  //        "fieldName": "规划名称",
+                  //        //  "label": "By",
+                  //        visible: true
+                  //    }, {
+                  //        "fieldName": "规划编号",
 
-                      visible: true
-                  }, {
-                      "fieldName": "建设认定年",
+                  //        visible: true
+                  //    },
+                  //    {
+                  //        "fieldName": "建设状态",
+                  //        visible: true
+                  //    }, {
+                  //        "fieldName": "建设等级",
 
-                      visible: true
-                  },
-              {
-                  "fieldName": "地市名称",
+                  //        visible: true
+                  //    }, {
+                  //        "fieldName": "建设认定年",
 
-                  visible: true
-              }, {
-                  "fieldName": "县市区名称",
+                  //        visible: true
+                  //    },
+                  //{
+                  //    "fieldName": "地市名称",
 
-                  visible: true
-              }]
+                  //    visible: true
+                  //}, {
+                  //    "fieldName": "县市区名称",
+
+                  //    visible: true
+                  //}]
               });
 
               // cluster layer that uses OpenLayers style clustering

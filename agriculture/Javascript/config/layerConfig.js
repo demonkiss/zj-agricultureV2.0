@@ -82,7 +82,9 @@
     "标准农田": {
      
         "千万亩工程项目": {
-            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
+              "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
+           // "url": "http://192.168.6.132:8080/ArcGIS/rest/services/BZNT/MapServer",
+            
             "array": [0],
             "sql":" 区块面积>1000",
             "imgurl": {
@@ -94,8 +96,8 @@
             "jsondata": "Json/千万亩工程项目.json",
         },
         "标准农田建设区": {
-            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
-            "array": [0],
+            "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
+            "array": [1],
             "sql":" 项目名称 like '%农田%' ",
             "imgurl": {
                 "建设分布图": ""
@@ -103,8 +105,8 @@
             },
             "jsondata": "Json/标准农田建设区.json",
         }, "储备项目": {
-            "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
-            "array": [0],
+            "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
+            "array": [2],
             "imgurl": {
                 "一等田": "",
                 "二等田": "",

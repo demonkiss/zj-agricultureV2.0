@@ -7,7 +7,7 @@
         slider: false
     }
     var minZoom = 7;
-    var maxZoom = 11;
+    var maxZoom = 9;
   //  var map_v_i = "http://www.hangzhoumap.gov.cn/Tile/ArcGISFlex/HZTDTVECTORBLEND.gis";
  //  var map_r_i = "http://www.hangzhoumap.gov.cn/Tile/ArcGISFlex/HZTDTRASTERBLEND.gis";
     var map_r_i = "http://21.15.121.121/a67db68dbfb2752f9b913dff9ece867117c87e95/Tile/ArcGISREST/HZSYRASTER2014wkid.gis";

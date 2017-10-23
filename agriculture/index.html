@@ -121,6 +121,8 @@
         var visiableArray = [0];
         var areasql = [];
         var dkType = "粮食生产功能区";
+        var gnType = "功能区级别";
+        var currentGraphic;
         //  var lslayer;
         //  var borderData;
         var mapPanEvt;
@@ -404,7 +406,7 @@
                                 layerDType.push("'" + $(this).next().text() + "'");
                             } else if (dkType == "标准农田") {
                                 clusterType.push($(this).next().attr("value"));
-                                layerDType.push("'" + $(this).next().attr("value") + "'");
+                                layerDType.push($(this).next().attr("value"));
                             } else {
                                 clusterType.push($(this).next().text());
                                 layerDType.push("'" + $(this).next().text() + "'");
@@ -431,7 +433,7 @@
                                 layerDType.remove("'" + $(this).next().text() + "'");
                             } else if (dkType == "标准农田") {
                                 clusterType.remove($(this).next().attr("value"));
-                                layerDType.remove("'" + $(this).next().attr("value") + "'");
+                                layerDType.remove($(this).next().attr("value"));
                             } else {
                                 clusterType.remove($(this).next().text());
                                 layerDType.remove("'" + $(this).next().text() + "'");
@@ -505,6 +507,7 @@
                         })
                         dkType = nyName;
                         var secondName = $(this).text();
+                        gnType = secondName;
                         // $(this).children("li").each(function())
                         var attr_Name;
                         $clazz.map(function (item) {
@@ -525,8 +528,9 @@
                                             clusterType.push($(e).next().text());
                                             layerDType.push("'" + $(e).next().text() + "'");
                                         } else if (nyName == "标准农田") {
+                                           
                                             clusterType.push($(e).next().attr("value"));
-                                            layerDType.push("'" + $(e).next().attr("value") + "'");
+                                            layerDType.push( $(e).next().attr("value"));
                                         } else {
                                             clusterType.push($(e).next().text());
                                             layerDType.push("'" + $(e).next().text() + "'");
@@ -540,6 +544,21 @@
                         })
                         //  console.log(nyName + "," + secondName);
                         console.log(clusterType);
+                        console.log(layerDType);
+                      //  alert(clusterType);
+                        switch (secondName) {
+                          //  case "标准农田建设区":
+                              //  layerDType.length = 0;
+                            //    break;
+                            case "提升工程":
+                                layerDType.length = 0;
+                                break;
+                            case "现代农业综合区":
+                                layerDType.length = 0;
+                                break;
+                            default:
+                                break;
+                        }
                         if (nyName && secondName) {
                             currenturl = layerConfig[nyName][secondName].url;
                             visiableArray = layerConfig[nyName][secondName].array;
@@ -1413,7 +1432,7 @@
                                 <img src="images/province.png">
                                 <input type="checkbox" id="1">
                                 <label for="1" data-state="uncheck"></label>
-                                <span>建设分布图</span>
+                                <span value="建设分布图">建设分布图</span>
                             </li>
                         </ul>
                     </li>
