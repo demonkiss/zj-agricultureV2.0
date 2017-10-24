@@ -29,8 +29,16 @@ function switchLayer() {
     //        map.getLayer("ls").show();
     //    }
     //}
+    //   $(".esriPopup").hide();
+    if (areaClick) {
+        areaClick.remove();
+    }
+    map.infoWindow.hide();
     if (map.getLayer("ls")) {
         map.removeLayer(map.getLayer("ls"));
+        if ($("#map_ls")) {
+            $("#map_ls").remove();
+        }
     }
     if (map.getLayer("clusters")) {
         map.removeLayer(map.getLayer("clusters"));
@@ -61,7 +69,7 @@ function switchLayer() {
         ssqy = "";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
-        addBorder();
+    
         if (clusterType[0] == "建设分布图") {
             getCityCluster(sssy);//获取建设分布图的聚类图层
             //showClusterData.push(ClusterData);
@@ -75,7 +83,7 @@ function switchLayer() {
             addMultiClusters(showClusterData);
             // addClusters(showClusterData[0]);
         }
-
+        addBorder();
 
     } else if (zoomlevel > maxzoom) {
 
@@ -171,7 +179,7 @@ function getBlockName() {
                 //    }
                 //}
 
-                require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+                require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/geometry/Polyline", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer, Polygon,Polyline, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
                     var borderLayer = new GraphicsLayer({ id: "borderLayer" });
                     let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
                     for (let i = 0; i < data.features.length; i++) {
@@ -179,18 +187,26 @@ function getBlockName() {
                             console.log(data.features[i].properties.name);
                             _block = data.features[i].properties.name;
 
-
-                            var polygonJson = {
-                                "rings": data.features[i].geometry.coordinates,
+                            var polylineJson = {
+                                "paths": data.features[i].geometry.coordinates,
                                 "spatialReference": { "wkid": 4326 }
                             };
-                            var polygon = new Polygon(polygonJson);
-                            var pu = new Polygon(data.features[i].geometry.coordinates);
-                            var attr = {};
+
+                            var polyline = new Polyline(polylineJson);
+                            var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2);
+                            var graphic = new Graphic(polyline, sls);
+
+                            //var polygonJson = {
+                            //    "rings": data.features[i].geometry.coordinates,
+                            //    "spatialReference": { "wkid": 4326 }
+                            //};
+                            //var polygon = new Polygon(polygonJson);
+                            //var pu = new Polygon(data.features[i].geometry.coordinates);
+                          //  var attr = {};
                             // var attr = { "name": data.features[i].properties.name, "hospital": data.features[i].properties.hospital };
-                            var RGB_value = parseInt(166 + parseInt(data.features[i].properties.hospital) * ((166 - 255) / 255));
-                            var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.01]));
-                            var graphic = new Graphic(polygon, sfs, attr);
+                        //    var RGB_value = parseInt(166 + parseInt(data.features[i].properties.hospital) * ((166 - 255) / 255));
+                         //   var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.01]));
+                          //  var graphic = new Graphic(polygon, sfs, attr);
                             borderLayer.add(graphic);
 
                             map.addLayer(borderLayer);
@@ -269,8 +285,20 @@ function addDynamicLayer(layersql) {
         //   currenturl= "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer";
         var lslayer = new ArcGISDynamicMapServiceLayer(currenturl, { "imageParameters": imageParameters, "id": "ls", "opacity": 0.6 });
         map.addLayer(lslayer, 2);
+        areaClick=map.on("click",function(e){
+            require(["Javascript/Framework/IdentifyTask.js"], function (Identify) {
+                Identify.DoIdentify(e.mapPoint, currenturl, visiableArray)
+            })
+        }) 
+
+       
         // alert(visiableArray);
         lslayer.setVisibleLayers(visiableArray);
+        //lslayer.on("click", function () {
+
+        //    console.log(e.graphic.attributes["name"]);
+
+        //})
     })
 
 }
@@ -302,19 +330,19 @@ function getStatisticsData(city, types, attr) {
                 if (cdata.length) {
                     statisticsData.push(cdata);
                 }
-                //else {
-                //    $(".checks span").each(function () {
-                //        if ($(this).text() == types[k]) {
-                //            $(this).prev().attr("data-state", "uncheck");
-                //            $(this).prev().removeClass("active");
+                else {
+                    $(".checks span").each(function () {
+                        if ($(this).text() == types[k]) {
+                           // $(this).prev().attr("data-state", "uncheck");
+                         //   $(this).prev().removeClass("active");
 
-                //            clusterImg.remove($(this).prev().attr("src"));
-                //            clusterType.remove(types[k]);
-                //            layerDType.remove("'" + types[k] + "'");
-                //        }
-                //    })
-                //    alert("暂无数据");
-                //}
+                           // clusterImg.remove($(this).prev().attr("src"));
+                          //  clusterType.remove(types[k]);
+                           // layerDType.remove("'" + types[k] + "'");
+                        }
+                    })
+                   // alert("暂无数据");
+                }
 
             }
         } else {
@@ -489,19 +517,19 @@ function getClusterData(types, attr) {
                 if (cdata.length) {
                     showClusterData.push(cdata);
                 }
-                //else {
-                //    $(".checks span").each(function () {
-                //        if ($(this).text() == types[k]) {
-                //            $(this).prev().attr("data-state", "uncheck");
-                //            $(this).prev().removeClass("active");
+                else {
+                    $(".checks span").each(function () {
+                        if ($(this).text() == types[k]) {
+                            $(this).prev().attr("data-state", "uncheck");
+                            $(this).prev().removeClass("active");
 
-                //            clusterImg.remove($(this).prev().attr("src"));
-                //            clusterType.remove(types[k]);
-                //            layerDType.remove("'" + types[k] + "'");
-                //        }
-                //    })
-                //    alert("暂无数据");
-                //}
+                            clusterImg.remove($(this).prev().attr("src"));
+                            clusterType.remove(types[k]);
+                            layerDType.remove("'" + types[k] + "'");
+                        }
+                    })
+                    alert("暂无此类数据");
+                }
 
             }
         } else {
@@ -585,18 +613,19 @@ function getClusterData(types, attr) {
                 if (cdata.length) {
                     showClusterData.push(cdata);
                 }
-                //} else {
-                //    $(".checks span").each(function () {
-                //        if ($(this).text() == types[k]) {
-                //            $(this).prev().attr("data-state", "uncheck");
-                //            $(this).prev().removeClass("active");
-                //            clusterImg.remove($(this).prev().attr("src"));
-                //            clusterType.remove(types[k]);
-                //            layerDType.remove("'" + types[k] + "'");
-                //        }
-                //    })
-                //    alert("暂无数据");
-                //}
+                  else {
+                    $(".checks span").each(function () {
+                        if ($(this).text() == types[k]) {
+                            $(this).prev().attr("data-state", "uncheck");
+                            $(this).prev().removeClass("active");
+                            clusterImg.remove($(this).prev().attr("src"));
+                            clusterType.remove(types[k]);
+                            layerDType.remove("'" + types[k] + "'");
+                        }
+                    })
+                    
+                   
+                }
             }
 
             // if
@@ -616,8 +645,8 @@ function addBorder() {
         async: true,
         data: {},
         success: function (data) {
-            require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
-              "esri/symbols/Font"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+            require(["esri/layers/GraphicsLayer", "esri/geometry/Polyline", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+              "esri/symbols/Font"], function (GraphicsLayer,Polyline, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
                   borderData = data.features;
                   var borderLayer = new GraphicsLayer({ id: "borderLayer" });
                   // var cityTextLayer = new GraphicsLayer({ id: "cityTextLayer" });
@@ -625,15 +654,23 @@ function addBorder() {
                   for (var i = 0; i < data.features.length; i++) {
                       let cityName = data.features[i].properties.name;
                       if (sssy == cityName) {
-                          var polygonJson = {
-                              "rings": data.features[i].geometry.coordinates,
+                          var polylineJson = {
+                              "paths": data.features[i].geometry.coordinates,
                               "spatialReference": { "wkid": 4326 }
                           };
-                          var polygon = new Polygon(polygonJson);
-                          var pu = new Polygon(data.features[i].geometry.coordinates);
 
-                          var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0.01]));
-                          var graphic = new Graphic(polygon, sfs);
+                          var polyline = new Polyline(polylineJson);
+                          var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2);
+                          var graphic = new Graphic(polyline, sls);
+                          //var polygonJson = {
+                          //    "rings": data.features[i].geometry.coordinates,
+                          //    "spatialReference": { "wkid": 4326 }
+                          //};
+                          //var polygon = new Polygon(polygonJson);
+                        //  var pu = new Polygon(data.features[i].geometry.coordinates);
+
+                         // var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0]));
+                        //  var graphic = new Graphic(polygon, sfs);
                           borderLayer.add(graphic);
                           map.addLayer(borderLayer);
                           return;
@@ -760,28 +797,31 @@ function addZJCityBorder() {
                   var cityClick = cityLayer.on("click", function (e) {
                       //get the associated node info when the graphic is clicked
                       currentGraphic = e.graphic;
-                      if (e.graphic.attributes["name"]) {
-                          sssy = e.graphic.attributes["name"];
-                          let centerP;
-                          for (let i = 0; i < borderData.length; i++) {
-                              if (sssy == borderData[i].properties.name) {
-                                  //console.log(borderData[i].properties.name);
-                                  centerP = borderData[i].properties.cp;
-                              }
-                          }
-                          map.centerAndZoom(centerP, 8);
-                          //  map.centerAndZoom([120.19, 30.26], 8);
-                          //  console.log(sssy);
-                          // console.log($(".checks label").eq(0));
-                          //  console.log($(".checks label").eq(1));
-                          //  console.log($(".checks label").eq(2));
-                          // alert(sssy);
-                          $("#farmArea").show();
-                          $("#cityArea").hide();
-                          $(".sel-fun button").text(sssy);
-                          $(".sel-fun button").append("<span class=\"caret\"></span>");
-                          map.removeLayer(cityLayer);
-                          map.removeLayer(map.getLayer("cityTextLayer"));
+                      var ex = currentGraphic.geometry.getExtent();
+                      var cp = ex.getCenter();
+                      console.log(cp);
+                      $(".sel-fun button").text(sssy);
+                      $(".sel-fun button").append("<span class=\"caret\"></span>");
+                      $("#farmArea").show();
+                      $("#cityArea").hide();
+                      map.centerAndZoom(cp, downLevel + 1);
+                      //if (e.graphic.attributes["name"]) {
+                      //    sssy = e.graphic.attributes["name"];
+                      //    let centerP;
+                      //    for (let i = 0; i < borderData.length; i++) {
+                      //        if (sssy == borderData[i].properties.name) {
+                      //            //console.log(borderData[i].properties.name);
+                      //            centerP = borderData[i].properties.cp;
+                      //        }
+                      //    }
+                      //    console.log();
+                      //    map.centerAndZoom(centerP, mapconfig.minZoom+1);
+                      //    $("#farmArea").show();
+                      //    $("#cityArea").hide();
+                      //    $(".sel-fun button").text(sssy);
+                      //    $(".sel-fun button").append("<span class=\"caret\"></span>");
+                      //    map.removeLayer(cityLayer);
+                      //    map.removeLayer(map.getLayer("cityTextLayer"));
                           // map.enableScrollWheelZoom();
                           //alert(0);
                           //  $(".checks label").eq(0).prev().trigger("click");
@@ -790,7 +830,7 @@ function addZJCityBorder() {
                           //   $(".checks label").eq(1).trigger("click");
                           //  $(".checks label").eq(2).trigger("click");
 
-                      }
+                     // }
 
                   })
 
@@ -948,7 +988,7 @@ function addMultiClusters(multiData) {
               //infoTemplate.setTitle("属性信息");
               //infoTemplate.setContent("State Name");
               // popupTemplate to work with attributes specific to this dataset
-              var fieldInfos = [];
+              var fieldInfos2 = [];
               for (var key in attributes) {
                   var s_key = key.toLowerCase();
                   var Regx = /^[A-Za-z]*$/;
@@ -961,10 +1001,11 @@ function addMultiClusters(multiData) {
                           "label": key,
                           visible: true
                       }
-                      fieldInfos.push(field);
+                      fieldInfos2.push(field);
                   }
               }
-              //  console.log(fieldInfos);
+               console.log(fieldInfos);
+            //  var fieldInfos2 = fieldInfos
               var popupTemplate = new PopupTemplate({
                   "title": "属性信息",
                   "content": "聚集点信息",

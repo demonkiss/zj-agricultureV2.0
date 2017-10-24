@@ -123,9 +123,11 @@
         var dkType = "粮食生产功能区";
         var gnType = "功能区级别";
         var currentGraphic;
-        //  var lslayer;
-        //  var borderData;
+        var upLevel;
+        var downLevel;
         var mapPanEvt;
+        var fieldInfos;
+        var areaClick;
         require([
           "dojo/parser",
           "dojo/ready",
@@ -173,6 +175,8 @@
             //   parser.parse();
             //清除arcgis/rest/info?=json问题
             esri.config.defaults.io.corsDetection = false;
+            upLevel = mapconfig.maxZoom;
+            downLevel = mapconfig.minZoom;
             var clusterLayer;
             var popupOptions = {
                 "markerSymbol": new SimpleMarkerSymbol("circle", 20, null, new Color([0, 0, 0, 0.25])),
@@ -243,6 +247,7 @@
                 firstAttr = "粮食生产功能区";
                 secondAttr = "功能区级别";
                 jsonurl = layerConfig[firstAttr][secondAttr].jsondata;
+                fieldInfos = layerConfig[firstAttr][secondAttr].fieldInfos;
                 currenturl = layerConfig["粮食生产功能区"]["功能区级别"].url;
                 visiableArray = layerConfig["粮食生产功能区"]["功能区级别"].array;
                 clusterType = ["省级", "市级", "县级"];
@@ -564,7 +569,7 @@
                             visiableArray = layerConfig[nyName][secondName].array;
                             console.log(currenturl);
                         }
-
+                        fieldInfos = layerConfig[nyName][secondName].fieldInfos;
                         var url = layerConfig[nyName][secondName].jsondata;
                         $.ajax({
 

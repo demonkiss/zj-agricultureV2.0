@@ -175,6 +175,7 @@
     <Content Include="Javascript\config\cityCode.js" />
     <Content Include="Javascript\config\config.js" />
     <Content Include="Javascript\config\layerConfig.js" />
+    <Content Include="Javascript\Framework\IdentifyTask.js" />
     <Content Include="Javascript\Framework\SwitchLayer.js" />
     <Content Include="Javascript\lib\echarts-all.js" />
     <Content Include="Javascript\ArcGISAPI\3.16\esri\css\esri.css" />
