@@ -325,18 +325,19 @@ function setSymbol(geo, attr) {
             case "polygon":
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
                 var graphic = new Graphic(geo, sfs, attr, popupTemplate);
-                map.graphics.add(graphic);
-              //  console.log(graphic);
                 var mp = geo.getExtent().getCenter();
                 map.graphics.on("graphic-add", function (e) {
                     // console.log(e.graphic.attributes);
-                    
-                   
+
+
                     var content = getShowInfo(e.graphic.attributes);
                     map.infoWindow.setTitle("属性信息");
                     map.infoWindow.setContent(content);
                     map.infoWindow.show(mp);
                 })
+                map.graphics.add(graphic);
+              //  console.log(graphic);
+              
                 break;
             default:
                 alert("符号化失败！");
