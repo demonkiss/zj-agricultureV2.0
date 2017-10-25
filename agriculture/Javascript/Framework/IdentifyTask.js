@@ -326,11 +326,17 @@ function setSymbol(geo, attr) {
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
                 var graphic = new Graphic(geo, sfs, attr, popupTemplate);
                 map.graphics.add(graphic);
-                console.log(graphic);
+              //  console.log(graphic);
                 var mp = geo.getExtent().getCenter();
-                map.infoWindow.show(graphic.geometry, map.getInfoWindowAnchor(graphic.geometry))
-              //  map.infoWindow.show(mp);
-                // graphic.infoTemplate.open();
+                map.graphics.on("graphic-add", function (e) {
+                    // console.log(e.graphic.attributes);
+                    
+                   
+                    var content = getShowInfo(e.graphic.attributes);
+                    map.infoWindow.setTitle("属性信息");
+                    map.infoWindow.setContent(content);
+                    map.infoWindow.show(mp);
+                })
                 break;
             default:
                 alert("符号化失败！");
@@ -339,7 +345,14 @@ function setSymbol(geo, attr) {
 
     })
 }
-
+function getShowInfo(attr) {
+    let content="";
+    for (var k = 0; k < fieldInfos.length;k++){
+        content += fieldInfos[k].fieldName + " : " + attr[fieldInfos[k].fieldName] + "<br>"
+    }
+    console.log(content);
+    return content;
+}
 function setHighSymbol(geo, info) {
     require(["esri/symbols/PictureMarkerSymbol", "esri/InfoTemplate", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PictureMarkerSymbol, InfoTemplate, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         if (graphicTmp != "" || graphicTmp != null) {

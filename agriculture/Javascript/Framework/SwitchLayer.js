@@ -878,20 +878,20 @@ function getAreaSql(types) {
         var cdata = [];
         switch (types[k]) {
             case "大于1000亩":
-                areasql.push("认定面积>1000");
+                areasql.push("(认定面积>1000)");
                 break;
             case "500~1000亩":
-                areasql.push("认定面积>500 and 认定面积<=1000");
+                areasql.push("(认定面积>500 and 认定面积<=1000)");
                 break;
             case "200~500亩":
-                areasql.push("认定面积>200 and 认定面积<=500");
+                areasql.push("(认定面积>200 and 认定面积<=500)");
                 break;
             case "小于200亩":
-                areasql.push("认定面积<200");
+                areasql.push("(认定面积<200)");
                 break;
         }
     }
-    var sql = "";
+    var sql = "(";
 
     for (var i = 0; i < areasql.length; i++) {
 
@@ -901,7 +901,7 @@ function getAreaSql(types) {
             sql += areasql[i] + " or ";
         }
     }
-    return sql;
+    return sql+")";
 }
 function addMultiClusters(multiData) {
     require(["dojo/parser",
