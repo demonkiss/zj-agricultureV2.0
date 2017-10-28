@@ -124,10 +124,12 @@
         var gnType = "功能区级别";
         var currentGraphic;
         var upLevel;
+        var midLevel;
         var downLevel;
         var mapPanEvt;
         var fieldInfos;
         var areaClick;
+        var typeNumber = [];
         require([
           "dojo/parser",
           "dojo/ready",
@@ -176,6 +178,7 @@
             //清除arcgis/rest/info?=json问题
             esri.config.defaults.io.corsDetection = false;
             upLevel = mapconfig.maxZoom;
+            midLevel = mapconfig.maxZoom;
             downLevel = mapconfig.minZoom;
             var clusterLayer;
             var popupOptions = {
@@ -265,7 +268,8 @@
                     }
 
                 });
-                SwitchLayer.addZJCityBorder();    //添加统计图层
+                //    SwitchLayer.addZJCityBorder();    //添加统计图层
+                SwitchLayer.addZJCityNumber();
                 //  switchLayer();
 
             }
@@ -1557,6 +1561,7 @@
              data-dojo-type="dijit/layout/ContentPane"
              data-dojo-props="region:'center'">
         </div>
+        <div id="typeinfo"></div>
     </div>
     <div class="MapMenu">
         <a href="javascript:void(0)" title="矢量地图" class="Mapmap">

@@ -10,10 +10,19 @@
 .titlePane{
     background-color:#0094ff !important;
 }
-.actionsPane{
+/*.actionsPane{
     display:none !important;
+}*/
+#typeinfo{
+    position:absolute;
+    left:100px;
+    top:100px;
+    /*min-height:200px;
+  min-width:200px;*/
+    background:#fff;
+    border:2px solid #0094ff;
+    z-index:99;
 }
-
 .MapMenu label{
     margin-left: 3px;
     margin-top: 3px;

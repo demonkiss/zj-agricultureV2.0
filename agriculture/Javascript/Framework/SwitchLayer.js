@@ -1,14 +1,17 @@
 ﻿define(function () {
     return {
         switchLayer: switchLayer,
-        addZJCityBorder: addZJCityBorder
+        addZJCityBorder: addZJCityBorder,
+        addZJCityNumber: addZJCityNumber
     }
 })
 function switchLayer() {
     let minzoom = 0;
+    let midzoom = 0;
     let maxzoom = 0;
     require(["mapconfig"], function (mapconfig) {
         minzoom = mapconfig.minZoom;
+        midzoom = mapconfig.midZoom
         maxzoom = mapconfig.maxZoom;
     })
     // alert(minzoom);
@@ -34,6 +37,7 @@ function switchLayer() {
         areaClick.remove();
     }
     map.infoWindow.hide();
+    $("#typeinfo").hide();
     if (map.getLayer("ls")) {
         map.removeLayer(map.getLayer("ls"));
         if ($("#map_ls")) {
@@ -56,20 +60,31 @@ function switchLayer() {
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
 
-        addZJCityBorder();
+        // addZJCityBorder();
+        addZJCityNumber();
 
+    } else if (zoomlevel <= midzoom && zoomlevel > minzoom) {
 
-    } else if (zoomlevel <= maxzoom && zoomlevel > minzoom) {
+        $(".actionsPane").show();
+        sssy = getCityName();
+        ssqy = "";
+        $(".sel-fun button").text(sssy);
+        $(".sel-fun button").append("<span class=\"caret\"></span>");
+
+        getCityStaticNumber();
+    }
+    else if (zoomlevel <= maxzoom && zoomlevel > midzoom) {
 
         //mapPanEvt = map.on("pan-end", function () {
         //  // switchLayer();
         //    getCityName();
         //})
+        $(".actionsPane").show();
         sssy = getCityName();
         ssqy = "";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
-    
+
         if (clusterType[0] == "建设分布图") {
             getCityCluster(sssy);//获取建设分布图的聚类图层
             //showClusterData.push(ClusterData);
@@ -91,6 +106,7 @@ function switchLayer() {
         //    // switchLayer();
         //    getCityName();
         //})
+        $(".actionsPane").hide();
         sssy = getCityName();
         // ssqy = getBlockName();
         ssqy = getBlockName();
@@ -109,6 +125,38 @@ function switchLayer() {
 
     }
 
+}
+function getTypeNumber(city) {
+    typeNumber.length = 0;
+    var number
+    
+    if (clusterType[0] == "建设分布图") {
+      
+        for (let i = 0; i < ClusterData.length; i++) {
+            if (city == ClusterData[i].attributes["地市名称"]) {
+                // cData.push(ClusterData[i]);
+                number++;
+            }
+            let cData = {};
+            cData.name = "建设分布图";
+            cData.number = number;
+        }
+        typeNumber.push(cData);
+        // showClusterData.push(cData);
+    } else {
+        getStatisticsData(city, clusterType, currentattr);//获取统计数据
+        for (let i = 0; i < statisticsData.length; i++) {
+            // if (city == ClusterData[i].attributes["地市名称"]) {
+            number += statisticsData[i].length;
+            let cData = {};
+            cData.name = clusterType[i];
+            cData.number = statisticsData[i].length;
+            typeNumber.push(cData);
+        }
+    }
+
+ 
+   
 }
 function getCityCluster(city) {
     showClusterData.length = 0;
@@ -148,11 +196,11 @@ function getCityParam(city) {
         }
     }
 
-    for (let i = 0; i < statisticsData.length; i++) {
-        // if (city == ClusterData[i].attributes["地市名称"]) {
-        number += statisticsData[i].length;
-
-    }
+    //for (let i = 0; i < statisticsData.length; i++) {
+    //    // if (city == ClusterData[i].attributes["地市名称"]) {
+    //    number += statisticsData[i].length;
+       
+    //}
     return number;
 }
 function getBlockName() {
@@ -179,7 +227,7 @@ function getBlockName() {
                 //    }
                 //}
 
-                require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/geometry/Polyline", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer, Polygon,Polyline, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+                require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/geometry/Polyline", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer, Polygon, Polyline, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
                     var borderLayer = new GraphicsLayer({ id: "borderLayer" });
                     let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
                     for (let i = 0; i < data.features.length; i++) {
@@ -202,11 +250,11 @@ function getBlockName() {
                             //};
                             //var polygon = new Polygon(polygonJson);
                             //var pu = new Polygon(data.features[i].geometry.coordinates);
-                          //  var attr = {};
+                            //  var attr = {};
                             // var attr = { "name": data.features[i].properties.name, "hospital": data.features[i].properties.hospital };
-                        //    var RGB_value = parseInt(166 + parseInt(data.features[i].properties.hospital) * ((166 - 255) / 255));
-                         //   var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.01]));
-                          //  var graphic = new Graphic(polygon, sfs, attr);
+                            //    var RGB_value = parseInt(166 + parseInt(data.features[i].properties.hospital) * ((166 - 255) / 255));
+                            //   var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 255, 0, 0.01]));
+                            //  var graphic = new Graphic(polygon, sfs, attr);
                             borderLayer.add(graphic);
 
                             map.addLayer(borderLayer);
@@ -285,13 +333,13 @@ function addDynamicLayer(layersql) {
         //   currenturl= "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer";
         var lslayer = new ArcGISDynamicMapServiceLayer(currenturl, { "imageParameters": imageParameters, "id": "ls", "opacity": 0.6 });
         map.addLayer(lslayer, 2);
-        areaClick=map.on("click",function(e){
+        areaClick = map.on("click", function (e) {
             require(["Javascript/Framework/IdentifyTask.js"], function (Identify) {
                 Identify.DoIdentify(e.mapPoint, currenturl, visiableArray)
             })
-        }) 
+        })
 
-       
+
         // alert(visiableArray);
         lslayer.setVisibleLayers(visiableArray);
         //lslayer.on("click", function () {
@@ -333,15 +381,15 @@ function getStatisticsData(city, types, attr) {
                 else {
                     $(".checks span").each(function () {
                         if ($(this).text() == types[k]) {
-                           // $(this).prev().attr("data-state", "uncheck");
-                         //   $(this).prev().removeClass("active");
+                            // $(this).prev().attr("data-state", "uncheck");
+                            //   $(this).prev().removeClass("active");
 
-                           // clusterImg.remove($(this).prev().attr("src"));
-                          //  clusterType.remove(types[k]);
-                           // layerDType.remove("'" + types[k] + "'");
+                            // clusterImg.remove($(this).prev().attr("src"));
+                            //  clusterType.remove(types[k]);
+                            // layerDType.remove("'" + types[k] + "'");
                         }
                     })
-                   // alert("暂无数据");
+                    // alert("暂无数据");
                 }
 
             }
@@ -613,7 +661,7 @@ function getClusterData(types, attr) {
                 if (cdata.length) {
                     showClusterData.push(cdata);
                 }
-                  else {
+                else {
                     $(".checks span").each(function () {
                         if ($(this).text() == types[k]) {
                             $(this).prev().attr("data-state", "uncheck");
@@ -623,8 +671,8 @@ function getClusterData(types, attr) {
                             layerDType.remove("'" + types[k] + "'");
                         }
                     })
-                    
-                   
+
+
                 }
             }
 
@@ -646,7 +694,7 @@ function addBorder() {
         data: {},
         success: function (data) {
             require(["esri/layers/GraphicsLayer", "esri/geometry/Polyline", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
-              "esri/symbols/Font"], function (GraphicsLayer,Polyline, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+              "esri/symbols/Font"], function (GraphicsLayer, Polyline, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
                   borderData = data.features;
                   var borderLayer = new GraphicsLayer({ id: "borderLayer" });
                   // var cityTextLayer = new GraphicsLayer({ id: "cityTextLayer" });
@@ -667,10 +715,10 @@ function addBorder() {
                           //    "spatialReference": { "wkid": 4326 }
                           //};
                           //var polygon = new Polygon(polygonJson);
-                        //  var pu = new Polygon(data.features[i].geometry.coordinates);
+                          //  var pu = new Polygon(data.features[i].geometry.coordinates);
 
-                         // var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0]));
-                        //  var graphic = new Graphic(polygon, sfs);
+                          // var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0]));
+                          //  var graphic = new Graphic(polygon, sfs);
                           borderLayer.add(graphic);
                           map.addLayer(borderLayer);
                           return;
@@ -822,15 +870,15 @@ function addZJCityBorder() {
                       //    $(".sel-fun button").append("<span class=\"caret\"></span>");
                       //    map.removeLayer(cityLayer);
                       //    map.removeLayer(map.getLayer("cityTextLayer"));
-                          // map.enableScrollWheelZoom();
-                          //alert(0);
-                          //  $(".checks label").eq(0).prev().trigger("click");
-                          //  $(".checks label").eq(1).prev().trigger("click");
-                          // $(".checks label").eq(0).trigger("click");
-                          //   $(".checks label").eq(1).trigger("click");
-                          //  $(".checks label").eq(2).trigger("click");
+                      // map.enableScrollWheelZoom();
+                      //alert(0);
+                      //  $(".checks label").eq(0).prev().trigger("click");
+                      //  $(".checks label").eq(1).prev().trigger("click");
+                      // $(".checks label").eq(0).trigger("click");
+                      //   $(".checks label").eq(1).trigger("click");
+                      //  $(".checks label").eq(2).trigger("click");
 
-                     // }
+                      // }
 
                   })
 
@@ -838,7 +886,233 @@ function addZJCityBorder() {
         }
     })
 }
+//添加浙江省统计值
+function addZJCityNumber() {
+    if (map.getLayer("cityLayer")) {
+        map.removeLayer(map.getLayer("cityLayer"));
+        map.removeLayer(map.getLayer("cityTextLayer"));
+    }
+    $.ajax({
+        url: "Json/zhejiang.json",
+        dataType: 'json',
+        async: true,
+        data: {},
+        success: function (data) {
+            require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+              "esri/symbols/Font"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+                  borderData = data.features;
+                  var cityLayer = new GraphicsLayer({ id: "cityLayer" });
+                  var cityTextLayer = new GraphicsLayer({ id: "cityTextLayer" });
+                  //var textLayer
+                  for (var i = 0; i < data.features.length; i++) {
 
+                      var polygonJson = {
+                          "rings": data.features[i].geometry.coordinates,
+                          "spatialReference": { "wkid": 4326 }
+                      };
+                      var polygon = new Polygon(polygonJson);
+                      var pu = new Polygon(data.features[i].geometry.coordinates);
+                      let cityName = data.features[i].properties.name;
+                      let cityNumber = getCityParam(cityName);
+                      // var attr = {};
+                      var upperValue = 2000;
+                      var lowerValue = 0;
+                      var number = Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+                      var attr = { "name": cityName, "number": cityNumber };
+                      var RGB_value = 60 + parseInt((cityNumber - lowerValue) * ((255 - 60) / (upperValue - lowerValue)));
+                      // console.log(RGB_value);
+                      // var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([RGB_value, 255, 0]), 2), new Color([RGB_value, 0, 0, 0.01]));
+                      var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0.01]));
+                      var graphic = new Graphic(polygon, sfs, attr);
+
+                      var extent = pu.getExtent();
+                      var point = extent.getCenter();
+                      var showLabel = cityName + "：" + cityNumber;
+                      var font = new Font();
+                      font.setSize("12pt");
+                      font.setFamily("微软雅黑");
+                      // font.setWeight(Font.WEIGHT_BOLD);
+                      //  textSymbol.setFont(font);
+                      cityLayer.add(graphic);
+                      var defaultSymbol = new PictureMarkerSymbol("./images/static.png", 120, 40).setOffset(0, 0);
+                      cityTextLayer.add(
+                        new Graphic(
+                          point,
+                          defaultSymbol,
+                          attr
+                        )
+                      );
+
+                      var label = new TextSymbol(showLabel)
+                        .setColor(new Color([0, 0, 0]), 0.5)
+                      .setFont(font);
+                      cityTextLayer.add(
+                        new Graphic(
+                          point,
+                          label,
+                          attr
+                        )
+                      );
+
+                      // map.setExtent(extent, true);
+                      map.addLayer(cityLayer);
+                      map.addLayer(cityTextLayer);
+                      //  map.disableScrollWheelZoom();
+
+                  }
+                  var cityClick = cityLayer.on("click", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      currentGraphic = e.graphic;
+                      var ex = currentGraphic.geometry.getExtent();
+                      var cp = ex.getCenter();
+                      console.log(cp);
+                      $(".sel-fun button").text(sssy);
+                      $(".sel-fun button").append("<span class=\"caret\"></span>");
+                      $("#farmArea").show();
+                      $("#cityArea").hide();
+                      map.centerAndZoom(cp, downLevel + 1);
+
+
+                  })
+                  var cityTextClick = cityTextLayer.on("mouse-over", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      currentGraphic = e.graphic;
+                      var screenP = map.toScreen(e.graphic.geometry);
+                      $("#typeinfo").html("");
+                      getTypeNumber(e.graphic.attributes["name"]);
+                      var html = ""
+                      for (let i = 0; i < typeNumber.length; i++) {
+                          html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
+                      }                     
+                      $("#typeinfo").append(html);
+                      $("#typeinfo").css("left", screenP.x);
+                      $("#typeinfo").css("top", screenP.y);
+                      $("#typeinfo").show();
+                  })
+                  var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      $("#typeinfo").hide();
+
+
+                  })
+
+              })
+        }
+    })
+}
+function getCityStaticNumber() {
+    if (map.getLayer("cityLayer")) {
+        map.removeLayer(map.getLayer("cityLayer"));
+        map.removeLayer(map.getLayer("cityTextLayer"));
+    }
+    $.ajax({
+        url: "Json/zhejiang.json",
+        dataType: 'json',
+        async: true,
+        data: {},
+        success: function (data) {
+            require(["esri/layers/GraphicsLayer", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+              "esri/symbols/Font"], function (GraphicsLayer, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+                  borderData = data.features;
+                  var cityLayer = new GraphicsLayer({ id: "cityLayer" });
+                  var cityTextLayer = new GraphicsLayer({ id: "cityTextLayer" });
+                  //var textLayer
+                  for (var i = 0; i < data.features.length; i++) {
+                      if (data.features[i].properties.name == sssy) {
+                          var polygonJson = {
+                              "rings": data.features[i].geometry.coordinates,
+                              "spatialReference": { "wkid": 4326 }
+                          };
+                          var polygon = new Polygon(polygonJson);
+                          var pu = new Polygon(data.features[i].geometry.coordinates);
+                          let cityName = data.features[i].properties.name;
+                          let cityNumber = getCityParam(cityName);
+                          // var attr = {};
+                          var upperValue = 2000;
+                          var lowerValue = 0;
+                          var number = Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+                          var attr = { "name": cityName, "number": cityNumber };
+                          var RGB_value = 60 + parseInt((cityNumber - lowerValue) * ((255 - 60) / (upperValue - lowerValue)));
+                          // console.log(RGB_value);
+                          // var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([RGB_value, 255, 0]), 2), new Color([RGB_value, 0, 0, 0.01]));
+                          var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2), new Color([255, 0, 0, 0.01]));
+                          var graphic = new Graphic(polygon, sfs, attr);
+
+                          var extent = pu.getExtent();
+                          var point = extent.getCenter();
+                          var showLabel = cityName + "：" + cityNumber;
+                          var font = new Font();
+                          font.setSize("12pt");
+                          font.setFamily("微软雅黑");
+                          // font.setWeight(Font.WEIGHT_BOLD);
+                          //  textSymbol.setFont(font);
+                          cityLayer.add(graphic);
+                          var defaultSymbol = new PictureMarkerSymbol("./images/static.png", 120, 40).setOffset(0, 0);
+                          cityTextLayer.add(
+                            new Graphic(
+                              point,
+                              defaultSymbol,
+                              attr
+                            )
+                          );
+
+                          var label = new TextSymbol(showLabel)
+                            .setColor(new Color([0, 0, 0]), 0.5)
+                          .setFont(font);
+                          cityTextLayer.add(
+                            new Graphic(
+                              point,
+                              label,
+                              attr
+                            )
+                          );
+
+                          // map.setExtent(extent, true);
+                          map.addLayer(cityLayer);
+                          map.addLayer(cityTextLayer);
+                          break;
+                          //  map.disableScrollWheelZoom();
+                      }
+                  }
+                  var cityClick = cityLayer.on("click", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      currentGraphic = e.graphic;
+                    //  alert(currentGraphic.attributes["number"]);
+                      var ex = currentGraphic.geometry.getExtent();
+                      var cp = ex.getCenter();
+                      console.log(cp);
+                      $(".sel-fun button").text(sssy);
+                      $(".sel-fun button").append("<span class=\"caret\"></span>");
+                      $("#farmArea").show();
+                      $("#cityArea").hide();
+                      map.centerAndZoom(cp, downLevel + 1);
+                  })
+                  var cityTextClick = cityTextLayer.on("mouse-over", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      currentGraphic = e.graphic;
+                      var screenP = map.toScreen(e.graphic.geometry);
+                      $("#typeinfo").html("");
+                      getTypeNumber(e.graphic.attributes["name"]);
+                      var html = ""
+                      for (let i = 0; i < typeNumber.length; i++) {
+                          html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
+                      }
+                      $("#typeinfo").append(html);
+                      $("#typeinfo").css("left", screenP.x);
+                      $("#typeinfo").css("top", screenP.y);
+                      $("#typeinfo").show();
+                  })
+                  var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
+                      //get the associated node info when the graphic is clicked
+                      $("#typeinfo").hide();
+
+
+                  })
+
+              })
+        }
+    })
+}
 function getLayerDefine(layerDType, attrName) {
     let sql = "";
     if (layerDType[0] != "建设分布图") {
@@ -901,7 +1175,7 @@ function getAreaSql(types) {
             sql += areasql[i] + " or ";
         }
     }
-    return sql+")";
+    return sql + ")";
 }
 function addMultiClusters(multiData) {
     require(["dojo/parser",
@@ -947,11 +1221,7 @@ function addMultiClusters(multiData) {
               var attributes = "";
               for (var k = 0; k < multiData.length; k++) {
                   var photoInfo = {};
-                  if (k == 0) {
-                      type = "green";
-                  } else {
-                      type = "blue";
-                  }
+                  var type = clusterType[k];
 
                   photoInfo.data = arrayUtils.map(multiData[k], function (p, i) {
                       var latlng = new Point(parseFloat(p.geometry.x), parseFloat(p.geometry.y), wgs);
@@ -1004,8 +1274,8 @@ function addMultiClusters(multiData) {
                       fieldInfos2.push(field);
                   }
               }
-               console.log(fieldInfos);
-            //  var fieldInfos2 = fieldInfos
+              console.log(fieldInfos);
+              //  var fieldInfos2 = fieldInfos
               var popupTemplate = new PopupTemplate({
                   "title": "属性信息",
                   "content": "聚集点信息",
@@ -1061,6 +1331,7 @@ function addMultiClusters(multiData) {
                   "labelColor": "#000",
                   "labelOffset": 10,
                   "showSingles": true,
+                  "symbols":clusterType,
                   //  "resolution": map.extent.getWidth() / map.width,
                   "singleColor": "#888",
                   // "spatialReference" :new esri.SpatialReference({ "wkid": 4326 }),
