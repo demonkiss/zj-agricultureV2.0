@@ -10,6 +10,9 @@
 .titlePane{
     background-color:#0094ff !important;
 }
+.titlePane>.maximize{
+    display:none;
+}
 /*.actionsPane{
     display:none !important;
 }*/

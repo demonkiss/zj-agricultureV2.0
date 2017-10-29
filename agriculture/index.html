@@ -239,9 +239,10 @@
 
 
             //getsubArea("浙江");
-            map.on("extent-change", function () {
-
+            map.on("extent-change", function () {            
                 SwitchLayer.switchLayer();
+                getblcok(sssy);
+                
             })
 
 
@@ -779,7 +780,64 @@
                 $("#cityArea .control").on("click", ".xj", "", clickArea);
             }
 
+            function getblcok(city) {
+                
+                if (city == "浙江") {
+                    var htm = "";
+                    $.ajax({//生成各市级
+                        url: 'Json/area.xml',
+                        dataType: 'xml',
+                        success: function (data) {
+                            $(data).find("root").find("sjzone").each(function (index, ele) {
+                                var id = $(ele).attr("id");
+                                var value = $(ele).attr("value");
+                                var name = $(ele).attr("name");
+                                htm += "<span bh=" + id + " class='pt sj' id='std" + (index + 1) + "'>" + name + "</span>";
+                            })
+                            $("#cityArea .control").empty();
+                            $("#cityArea .control").append(htm);
+                        }
+                    })
 
+                } else {
+                    $.ajax({//生成各县级
+                        url: 'Json/area.xml',
+                        dataType: 'xml',
+                        success: function (data) {
+                            var html = "";
+                            $(data).find("root").find("sjzone").each(function (index, ele) {
+                                var id = $(ele).attr("id");
+                                var name = $(ele).attr("name");
+                                if (name == city) {
+                                    $(ele).find("xjzone").each(function (indexx, elex) {
+                                        var xjid = $(elex).attr("id");
+                                        var xjName = $(elex).attr("name");
+                                        var xjLat = $(elex).attr("lat");
+                                        var xjLng = $(elex).attr("lng");
+                                        var hasXjvalue = $(elex).attr("value");
+                                        var url = $(elex).attr("url");
+                                        var layerindex;
+                                        if ($(elex).attr("layerindex") != "") {
+                                            layerindex = $(elex).attr("layerindex");
+                                        } else {
+                                            layerindex = 0;
+                                        }
+                                        var xjvalue = 0;
+                                        if (hasXjvalue) {
+                                            xjvalue = hasXjvalue;
+                                        }
+                                        html += "<span xjid=" + xjid + " xjName=" + xjName + " xjLat=" + xjLat + " xjLng=" + xjLng + " class='pt xj' id='xjtd" + xjid + "'>" + xjName + "</span>";
+                                    });
+                                }
+                            });
+
+                            $("#cityArea .control").empty();
+                            $("#cityArea .control").append(html);
+                        }
+                    });
+                }
+
+            }
 
 
 
@@ -1048,7 +1106,7 @@
                     <option value="3311">丽水市</option>
                 </select>-->
                 <!--<img src="images/select.png">-->
-                <span>450个</span>
+                <span></span>
                 <span class="function" id="function">功能<img src="images/function.png"></span>
             </div>
 

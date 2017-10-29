@@ -324,7 +324,7 @@ function setSymbol(geo, attr) {
                 break;
             case "polygon":
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
-                var graphic = new Graphic(geo, sfs, attr, popupTemplate);
+                var graphic = new Graphic(geo, sfs, attr);
                 var mp = geo.getExtent().getCenter();
                 map.graphics.on("graphic-add", function (e) {
                     // console.log(e.graphic.attributes);
