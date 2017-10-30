@@ -265,7 +265,7 @@ function getCityBlockStatic() {
                       var point = new Point(data.features[i].properties.cp);
                       ssqy = qxName;
                       var blockCityNumber = getCityParam(sssy, "县市区名称");
-                      var showLabel = qxName + "：" + blockCityNumber;
+                      var showLabel = qxName + " | " + blockCityNumber;
                       var attr = { "name": qxName, "number": blockCityNumber };
                       var font = new Font();
                       font.setSize("12pt");
@@ -273,7 +273,7 @@ function getCityBlockStatic() {
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);                     
                      // var point = extent.getCenter();
-                      var defaultSymbol = new PictureMarkerSymbol("./images/static.png", 120, 40).setOffset(0, 0);
+                      var defaultSymbol = new PictureMarkerSymbol("./images/orangetips.png", 120, 40).setOffset(0, 0);
                       cityTextLayer.add(
                         new Graphic(
                           point,
@@ -314,11 +314,12 @@ function getCityBlockStatic() {
                       $("#typeinfo").css("left", screenP.x);
                       $("#typeinfo").css("top", screenP.y);
                       $("#typeinfo").show();
+                      map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
                       //get the associated node info when the graphic is clicked
                       $("#typeinfo").hide();
-
+                      map.setMapCursor("default");
 
                   })
 
@@ -1024,7 +1025,7 @@ function addZJCityBorder() {
                       var graphic = new Graphic(polygon, sfs, attr);
                       var extent = pu.getExtent();
                       var point = extent.getCenter();
-                      var showLabel = cityName + "：" + cityNumber;
+                      var showLabel = cityName + " | " + cityNumber;
                       var font = new Font();
                       font.setSize("12pt");
                       font.setFamily("微软雅黑");
@@ -1133,14 +1134,14 @@ function addZJCityNumber() {
                       cityLayer.add(graphic);
                       var extent = pu.getExtent();
                       var point = extent.getCenter();
-                      var showLabel = cityName + "：" + cityNumber;
+                      var showLabel = cityName + " | " + cityNumber;
                       var font = new Font();
                       font.setSize("12pt");
                       font.setFamily("微软雅黑");
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);
 
-                      var defaultSymbol = new PictureMarkerSymbol("./images/static.png", 120, 40).setOffset(0, 0);
+                      var defaultSymbol = new PictureMarkerSymbol("./images/bluetips.png", 120, 40).setOffset(0, 0);
                       cityTextLayer.add(
                         new Graphic(
                           point,
@@ -1175,7 +1176,7 @@ function addZJCityNumber() {
                       $("#farmArea").show();
                       $("#cityArea").hide();
                       map.centerAndZoom(cp, downLevel + 1);
-
+                      
 
                   })
                   var cityTextClick = cityTextLayer.on("mouse-over", function (e) {
@@ -1192,10 +1193,12 @@ function addZJCityNumber() {
                       $("#typeinfo").css("left", screenP.x);
                       $("#typeinfo").css("top", screenP.y);
                       $("#typeinfo").show();
+                      map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
                       //get the associated node info when the graphic is clicked
                       $("#typeinfo").hide();
+                      map.setMapCursor("default");
 
 
                   })
@@ -1251,7 +1254,7 @@ function getCityStaticNumber() {
                           // font.setWeight(Font.WEIGHT_BOLD);
                           //  textSymbol.setFont(font);
                           cityLayer.add(graphic);
-                          var defaultSymbol = new PictureMarkerSymbol("./images/static.png", 120, 40).setOffset(0, 0);
+                          var defaultSymbol = new PictureMarkerSymbol("./images/bluetips.png", 120, 40).setOffset(0, 0);
                           cityTextLayer.add(
                             new Graphic(
                               point,
@@ -1305,10 +1308,12 @@ function getCityStaticNumber() {
                       $("#typeinfo").css("left", screenP.x);
                       $("#typeinfo").css("top", screenP.y);
                       $("#typeinfo").show();
+                      map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
                       //get the associated node info when the graphic is clicked
                       $("#typeinfo").hide();
+                      map.setMapCursor("default");
 
 
                   })

@@ -734,6 +734,35 @@
                     })
 
                 })
+                var type = "farmArea";
+                var bool = true;
+                $(".sel-fun img").click(function () {
+                    if (bool) {
+                        if ($("#farmArea").is(":hidden")) {
+                            type = "cityArea";
+                        } else {
+                            type = "farmArea";
+                        }
+                        if (type = "cityArea") {
+                            $("#cityArea").hide();
+                        } else {
+                            $("#farmArea").hide();
+                        }
+                    } else {
+                        if ($("#farmArea").is(":hidden")) {
+                            type = "cityArea";
+                        } else {
+                            type = "farmArea";
+                        }
+                        if (type = "cityArea") {
+                            $("#farmArea").show();
+                        } else {
+                            $("#cityArea").show();
+                        }
+                    }
+                  
+                   
+                })
 
                 $("#proSelect").on("change", function () {
                     //  console.log($(this).find("option:checked").text());
@@ -852,7 +881,7 @@
                 var areaId = i;
 
                 if (map != undefined && areaId == "") {
-                    map.centerAndZoom([120.19, 30.26], 8);
+                    map.centerAndZoom([120.19, 30.26], downLevel);
                 }
 
                 if (areaId == "浙江") {
@@ -875,7 +904,7 @@
                             })
                             $("#cityArea .control").empty();
                             $("#cityArea .control").append(htm);
-
+                            map.centerAndZoom([120.19, 30.26], downLevel);
                         }
                     })
                     //var htm = "";
@@ -1107,7 +1136,8 @@
                 </select>-->
                 <!--<img src="images/select.png">-->
                 <span></span>
-                <span class="function" id="function">功能<img src="images/function.png"></span>
+                <span class="function" id="function">功能</span>
+                <span><img src="images/function.png"></span>
             </div>
 
         </div>

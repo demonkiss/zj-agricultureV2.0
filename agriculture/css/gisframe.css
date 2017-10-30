@@ -8,14 +8,23 @@
     z-index: 999;
 }
 .titlePane{
-    background-color:#0094ff !important;
+    background-color:#F87A8B !important;
 }
 .titlePane>.maximize{
     display:none;
 }
+.esriViewPopup .break{
+    height:0px;
+}
+.esriPopup .contentPane{
+    padding-bottom:0px;
+}
 /*.actionsPane{
     display:none !important;
 }*/
+.sel-fun img{
+    margin-left:20px;
+}
 #typeinfo{
     position:absolute;
     left:100px;
