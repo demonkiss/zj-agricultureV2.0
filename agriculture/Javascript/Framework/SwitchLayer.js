@@ -305,7 +305,7 @@ function getCityBlockStatic() {
                       var screenP = map.toScreen(e.graphic.geometry);
                       $("#typeinfo").html("");
                       ssqy = e.graphic.attributes["name"];
-                      getTypeNumber(e.graphic.attributes["name"], "县市区名称");
+                      getTypeNumber(sssy, "县市区名称");
                       var html = ""
                       for (let i = 0; i < typeNumber.length; i++) {
                           html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
@@ -1296,7 +1296,7 @@ function getCityStaticNumber() {
                       currentGraphic = e.graphic;
                       var screenP = map.toScreen(e.graphic.geometry);
                       $("#typeinfo").html("");
-                      getTypeNumber(e.graphic.attributes["name"]);
+                      getTypeNumber(e.graphic.attributes["name"], "地市名称");
                       var html = ""
                       for (let i = 0; i < typeNumber.length; i++) {
                           html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
