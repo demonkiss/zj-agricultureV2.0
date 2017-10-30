@@ -130,6 +130,9 @@
         var fieldInfos;
         var areaClick;
         var typeNumber = [];
+
+        var type = "farmArea";
+        var bool = false;//控制area的显示
         require([
           "dojo/parser",
           "dojo/ready",
@@ -201,7 +204,7 @@
                 //  zoom: 6
             });
             currenturl = "http://localhost:6080/arcgis/rest/services/lsService/MapServer";
-            //  var lsLayer2 = new ArcGISDynamicMapServiceLayer(currenturl, { id: "ls2000" });
+              var lsLayer2 = new ArcGISDynamicMapServiceLayer(currenturl, { id: "ls2000" });
             var layer = new TDTLayer("img");//影像img 矢量 vec
             map.addLayer(layer, 0);
 
@@ -209,7 +212,7 @@
             // addZJBorder();
             var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
             //  map.addLayer(annolayer, 1);
-            //  map.addLayer(lsLayer2);
+              map.addLayer(lsLayer2);
             //  lsLayer.hide();
             //map.on("layer-add", function () {
 
@@ -734,27 +737,24 @@
                     })
 
                 })
-                var type = "farmArea";
-                var bool = true;
+              
                 $(".sel-fun img").click(function () {
-                    if (bool) {
-                        if ($("#farmArea").is(":hidden")) {
-                            type = "cityArea";
-                        } else {
-                            type = "farmArea";
-                        }
-                        if (type = "cityArea") {
-                            $("#cityArea").hide();
-                        } else {
+                    if ($("#farmArea").is(":hidden") && $("#cityArea").is(":hidden")) {
+                        bool = false;
+                    } else {
+                        bool = true;
+                    }
+                        
+                    if (bool) {                   
+                            $("#cityArea").hide();                      
                             $("#farmArea").hide();
-                        }
                     } else {
                         if ($("#farmArea").is(":hidden")) {
                             type = "cityArea";
                         } else {
                             type = "farmArea";
                         }
-                        if (type = "cityArea") {
+                        if (type =="cityArea") {
                             $("#farmArea").show();
                         } else {
                             $("#cityArea").show();
