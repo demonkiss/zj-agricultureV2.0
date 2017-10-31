@@ -10,6 +10,17 @@
 .titlePane{
     background-color:#F87A8B !important;
 }
+.titlePane>.title{
+     height: 30px;
+    padding-top: 5px;
+
+}
+.titlePane .titleButton{
+    top:7px;
+} 
+.actionList{
+    text-align:center;
+}
 .titlePane>.maximize{
     display:none;
 }
