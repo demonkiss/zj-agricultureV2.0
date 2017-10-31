@@ -3,6 +3,7 @@
 
         "功能区级别": {
             "url": "http://localhost:6080/arcgis/rest/services/lsService/MapServer",
+            "searchField": "认定名称",
             "array": [0],
             "fieldInfos": [{
                 "fieldName": "认定编号",
@@ -49,6 +50,7 @@
         },
         "建设状态": {
             "url": "http://localhost:6080/arcgis/rest/services/lsService/MapServer",
+            "searchField": "认定名称",
             "array": [1],
             "fieldInfos": [{
                 "fieldName": "认定编号",
@@ -76,6 +78,7 @@
         }, "建设面积": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
             "array": [0],
+            "searchField": "认定名称",
             "fieldInfos": [{
                 "fieldName": "认定编号",
                 "label": "认定编号",
@@ -104,6 +107,7 @@
         "建设年份": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
             "array": [0],
+            "searchField": "认定名称",
             "fieldInfos": [{
                 "fieldName": "认定编号",
                 "label": "认定编号",
@@ -139,6 +143,7 @@
         "现代农业综合区": {
             "url": "http://localhost:6080/arcgis/rest/services/ls_2000/MapServer",
             "array": [0],
+            "searchField": "认定名称",
             "fieldInfos": [{
                 "fieldName": "认定编号",
                 "label": "认定编号",
@@ -158,6 +163,7 @@
         "主导产业示范区": {
             "url": "http://localhost:6080/arcgis/rest/services/xdny/MapServer",
             "array": [0],
+            "searchField": "名称",
             "fieldInfos": [{
                 "fieldName": "名称",
                 "label": "名称",
@@ -184,6 +190,7 @@
         }, "特色农业精品区": {
             "url": "http://localhost:6080/arcgis/rest/services/xdny/MapServer",
             "array": [1],
+            "searchField": "名称",
             "fieldInfos": [{
                 "fieldName": "名称",
                 "label": "名称",
@@ -214,7 +221,7 @@
         "千万亩工程项目": {
             "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
             // "url": "http://192.168.6.132:8080/ArcGIS/rest/services/BZNT/MapServer",
-
+            "searchField": "项目名称",
             "array": [0],
             "fieldInfos": [{
                 "fieldName": "项目名称",
@@ -240,6 +247,7 @@
         "标准农田建设区": {
             "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
             "array": [1],
+            "searchField": "项目名称",
             "fieldInfos": [{
                 "fieldName": "项目名称",
                 "label": "项目名称",
@@ -261,6 +269,7 @@
         }, "储备项目": {
             "url": "http://localhost:6080/arcgis/rest/services/bznt/MapServer",
             "array": [2],
+            "searchField": "项目名称",
             "fieldInfos": [{
                 "fieldName": "项目名称",
                 "label": "项目名称",
@@ -283,6 +292,7 @@
         }, "提升工程": {
             "url": "http://localhost:6080/arcgis/rest/services/nt/MapServer",
             "array": [0],
+            "searchField": "项目名称",
             "fieldInfos": [{
                 "fieldName": "项目名称",
                 "label": "项目名称",

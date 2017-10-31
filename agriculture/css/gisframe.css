@@ -22,6 +22,14 @@
 /*.actionsPane{
     display:none !important;
 }*/
+#search>input{
+    width:183px;
+}
+.clearinput{
+    margin:5px !important;
+    display:none;
+
+}
 .sel-fun img{
     margin-left:20px;
 }

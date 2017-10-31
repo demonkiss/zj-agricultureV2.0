@@ -1,6 +1,7 @@
 ﻿define(function (IdentifyResult) {
     return {
         DoIdentify: DoIdentify,
+        queryBySearch: queryBySearch,
         DoQueryTask: DoQueryTask,
         ShowDetailBox: ShowDetailBox
     }
@@ -51,9 +52,100 @@ function IdentifyResultManager(IdentifyResult) {
         }
         var keys = IdentifyResult[0].feature.attributes;
 
-        setSymbol(IdentifyResult[0].feature.geometry,keys);
-      //  showDetails(keys, screenP);
+        setSymbol(IdentifyResult[0].feature.geometry, keys);
+        //  showDetails(keys, screenP);
     }
+}
+
+//搜索框查询
+function queryBySearch() {
+    require(["esri/tasks/query", "esri/tasks/QueryTask"], function (Query, QueryTask) {
+        //  debugger;
+        map.graphics.clear();
+
+        var furl = currenturl + "/" + visiableArray.toString();
+        var queryTask = new QueryTask(furl)
+        var query = new Query();
+        query.returnGeometry = true;
+        query.outFields = ["*"];
+        var reg = /^[1-9]\d*$|^0$/;   // 注意：故意限制了 0321 这种格式，如不需要，直接reg=/^\d+$/;数字
+        //if (reg.test(value) == true) {
+        //    query.where = "DKBM LIKE'%" + value + "%'";
+        //    inputType = 1;
+        //} else {
+        //    query.where = "DKMC LIKE'%" + value + "%'";
+        //    inputType = 0;
+
+        //}
+        query.where = searchSql;
+        queryTask.on("complete", queryByInputComplete)
+        queryTask.execute(query);
+    });
+
+}
+function queryByInputComplete(results) {
+    //  $("#listbox").empty();
+    var showInfo;
+    var objid;
+    var length = results.featureSet.features.length;
+    if (results.featureSet.features.length == 0) {
+        alert("无查询结果");
+    }
+    console.log("杭州市上杨畈粮食生产功能区");
+    var cp = results.featureSet.features[length - 1].geometry.getExtent().getCenter();
+    var lat = Number(cp.x);
+    var lng = Number(cp.y);
+    map.centerAndZoom([lat, lng], upLevel);
+    var graphic;
+    for (var i = 0; i < results.featureSet.features.length; i++) {
+        var attr = results.featureSet.features[i].attributes;
+        graphic = setSearchSymbol(results.featureSet.features[i].geometry, attr);
+    }
+
+
+}
+function setSearchSymbol(geo, attr) {
+    var graphic;
+    require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+        // console.log(fieldInfos);
+        var popupTemplate = new PopupTemplate({
+            "title": "属性信息",
+            "content": "聚集点信息",
+            "fieldInfos": fieldInfos,
+        });
+        switch (geo.type) {
+            case "point":
+                var symbol = new PictureMarkerSymbol("img/location.png", 25, 25);
+                var graphicP = new Graphic(geo, symbol, attr, popupTemplate);
+                map.graphics.add(graphicP);
+                break;
+            case "polyline":
+                var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new Color([255, 0, 0]), 3);
+                var graphic = new Graphic(geo, sls, attr, popupTemplate);
+                map.graphics.add(graphic);
+                break;
+            case "polygon":
+                var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
+                var graphic = new Graphic(geo, sfs, attr);
+                mp = geo.getExtent().getCenter();
+                map.graphics.on("click", function (e) {
+                    console.log(e.graphic.attributes);
+                    var content = getShowInfo(e.graphic.attributes);
+                    map.infoWindow.setTitle("属性信息");
+                    map.infoWindow.setContent(content);
+                    map.infoWindow.show(mp);
+                })
+                map.graphics.add(graphic);
+                //  console.log(graphic);
+
+                break;
+            default:
+                alert("符号化失败！");
+                break;
+        }
+
+    })
+    return graphic;
 }
 function showDetails(keys, mapPoint) {
     var key;
@@ -86,7 +178,7 @@ function showDetails(keys, mapPoint) {
 
     }
     content += "<table class='houseinfo easyui-propertygrid' style='height:\"300px\"'>"
-    var count=0;
+    var count = 0;
     var rows = [];
     require(["./Javascript/Framework/field_keys.js"], function (fk) {
         console.log(fk);
@@ -102,8 +194,8 @@ function showDetails(keys, mapPoint) {
             }
             else {
                 if (fk[key]) {
-                  //  content += "<tr>"
-                  //  content += "<td>" + fk[key] + "</td>" + "<td>" + keys[key] + "</td>"
+                    //  content += "<tr>"
+                    //  content += "<td>" + fk[key] + "</td>" + "<td>" + keys[key] + "</td>"
                     //   "<tr>"
                     var obj = { "name": fk[key], "value": keys[key] }
                     rows.push(obj);
@@ -120,7 +212,7 @@ function showDetails(keys, mapPoint) {
             }
         }
         content += "</table>";
-       // content += " <a id=\"getRoomInfo\" onclick=\"getRoomInfo(this)\" value=\"" + fid + "\"  href=\"#\" class=\"easyui-linkbutton c4\" style=\"width:120px\">详细信息</a>"
+        // content += " <a id=\"getRoomInfo\" onclick=\"getRoomInfo(this)\" value=\"" + fid + "\"  href=\"#\" class=\"easyui-linkbutton c4\" style=\"width:120px\">详细信息</a>"
         content += "<button  id=\"getRoomInfo\" type=\"button\" onclick=\"getRoomInfo(this)\" value=\"" + fid + "\" class=\"btn btn btn-info center-block\">查看楼层</button>"
     });
 
@@ -137,19 +229,19 @@ function showDetails(keys, mapPoint) {
     }
     $('.houseinfo').propertygrid({
         height: 300,
-        width:260,
-      //  fit: true,
+        width: 260,
+        //  fit: true,
         autoscroll: false,
         nowrap: false,
         autoRowHeight: true,
-       // fitColumns: true,
-       // scrollbarSize: 0,
+        // fitColumns: true,
+        // scrollbarSize: 0,
         columns: [[
        { field: 'name', title: '属性名', width: 100, sortable: false },
        { field: 'value', title: '值', width: 160, resizable: true }
         ]]
     });
-   
+
 
     $('.houseinfo').propertygrid("loadData", data);
     $('.houseinfo').propertygrid('resize');
@@ -201,7 +293,7 @@ function DoQueryTask(geometry) {
     });
 }
 function queryResults(results) {
-  
+
 
     var infoList = $("#infoList");
     var result = "";
@@ -225,37 +317,37 @@ function queryResults(results) {
     //    field_alias.field_layer = layerNameArray[j];
     //  f_keys.push(field_alias);
     //result = " <div class='panel panel-info result'>"
-                //+ "<div class='panel-heading layerName'>" + layerName + "</div>"
-                //   + "<a data-toggle='collapse' data-parent='#accordion' href='#" + layerName + "' class='collapse-box'>"
-                //      + "<img src='img/collapse.png' />"
-                //   + "</a>"
-                //+ "<div class='' id='" + layerName + "'>"
+    //+ "<div class='panel-heading layerName'>" + layerName + "</div>"
+    //   + "<a data-toggle='collapse' data-parent='#accordion' href='#" + layerName + "' class='collapse-box'>"
+    //      + "<img src='img/collapse.png' />"
+    //   + "</a>"
+    //+ "<div class='' id='" + layerName + "'>"
     //  + "<ul class=\"easyui-datalist\"  lines=\"true\">";
     //  $('#datalist').datalist('getPanel').panel('clear')
-  //  $("#datalist").datalist("loadData", []);
-  
+    //  $("#datalist").datalist("loadData", []);
+
     for (var k = 0; k < results.featureSet.features.length; k++) {
         var geo = results.featureSet.features[k].geometry;
-        var fname = results.featureSet.features[k].attributes[confUrl.showField]||"无楼栋名称";
+        var fname = results.featureSet.features[k].attributes[confUrl.showField] || "无楼栋名称";
         var attr = results.featureSet.features[k].attributes;
         var fields = results.featureSet.fields;
         for (var i = 0; i < fields.length; i++) {
             if (fields[i].type == "esriFieldTypeDate") {
-                var str=attr[fields[i].name];
+                var str = attr[fields[i].name];
                 var myDate = new Date(str);
-                value= myDate.getFullYear()+"/"; //获取完整的年份(4位,1970-????)
-                value +=(myDate.getMonth()+1)+"/"; //获取当前月份(0-11,0代表1月)
+                value = myDate.getFullYear() + "/"; //获取完整的年份(4位,1970-????)
+                value += (myDate.getMonth() + 1) + "/"; //获取当前月份(0-11,0代表1月)
                 value += myDate.getDate(); //获取当前日(1-31)
-               // value = date.toString();
-                attr[fields[i].name]=value
-        }
+                // value = date.toString();
+                attr[fields[i].name] = value
+            }
         }
         var objid = results.featureSet.features[k].attributes["OBJECTID"] || results.featureSet.features[k].attributes["FID"];
         setSymbol(geo, attr);
         if (fname.trim().length == 0) {
             fname = "无楼栋名称";
         }
-     //   $('#datalist').datalist('appendRow', { text: fname, value: objid });
+        //   $('#datalist').datalist('appendRow', { text: fname, value: objid });
         //  result += ("<li class='menuli' alt='" + objid + "'>" + fname + "</li>");
         result += ("<li classs='list-group-item' alt='" + objid + "'>" + fname + "</li>");
     }
@@ -268,9 +360,8 @@ function queryResults(results) {
     //}
     //}
     console.log(result);
-    if (result != "")
-    {
-       $("#queryData ul").html(result);
+    if (result != "") {
+        $("#queryData ul").html(result);
 
         //var data = [{ "text": "123", "value": "1" }, { "text": "Epson WorkForce 845", "value": "2" }];
         //$("#datalist").datalist({
@@ -293,18 +384,19 @@ function queryResults(results) {
         //$('#queryData').datalist('appendRow', { text: "11", value: "11" });
         //  $.parser.parse($(".results ul").parent());
         //  $.parser.parse("#datalist");
-       // $.parser.parse($('#datalist').parent());
-      //  $.parser.parse("#queryData");
-        
+        // $.parser.parse($('#datalist').parent());
+        //  $.parser.parse("#queryData");
+
     }
-   
+
     toolbar.deactivate();
     map.setMapCursor("default");
     infoList.css("display", "block");
 }
 function setSymbol(geo, attr) {
     map.graphics.clear();
-    require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate,PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+    var graphic;
+    require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         console.log(fieldInfos);
         var popupTemplate = new PopupTemplate({
             "title": "属性信息",
@@ -325,7 +417,7 @@ function setSymbol(geo, attr) {
             case "polygon":
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
                 var graphic = new Graphic(geo, sfs, attr);
-                var mp = geo.getExtent().getCenter();
+                mp = geo.getExtent().getCenter();
                 map.graphics.on("graphic-add", function (e) {
                     // console.log(e.graphic.attributes);
 
@@ -336,8 +428,8 @@ function setSymbol(geo, attr) {
                     map.infoWindow.show(mp);
                 })
                 map.graphics.add(graphic);
-              //  console.log(graphic);
-              
+                //  console.log(graphic);
+
                 break;
             default:
                 alert("符号化失败！");
@@ -345,10 +437,11 @@ function setSymbol(geo, attr) {
         }
 
     })
+    return graphic;
 }
 function getShowInfo(attr) {
-    let content="";
-    for (var k = 0; k < fieldInfos.length;k++){
+    let content = "";
+    for (var k = 0; k < fieldInfos.length; k++) {
         content += fieldInfos[k].fieldName + " : " + attr[fieldInfos[k].fieldName] + "<br>"
     }
     console.log(content);
@@ -398,7 +491,7 @@ function ShowDetailBox(index, layerIndex) {
             currentGraphic = map.graphics.graphics[index] || map.graphics.graphics[i];
         }
     }
-    
+
     var geo = currentGraphic.geometry;
     var keys = currentGraphic.attributes;
     // debugger;
@@ -412,12 +505,12 @@ function ShowDetailBox(index, layerIndex) {
         mp = geo.getExtent().getCenter();
     }
 
-    
+
     map.infoWindow.show(mp);
 
-  //  infoWindow.setTitle("详细信息");
-   // infoWindow.setContent(infoContent);
-   // map.infoWindow.show(mp);
+    //  infoWindow.setTitle("详细信息");
+    // infoWindow.setContent(infoContent);
+    // map.infoWindow.show(mp);
 }
 function getInfoContent(keys, layerIndex) {
 
@@ -450,7 +543,7 @@ function getInfoContent(keys, layerIndex) {
     //    content += "</table>";
     //    content += "<button  id=\"getRoomInfo\" type=\"button\" onclick=\"getRoomInfo(this)\" value=\"" + fid + "\" class=\"btn btn-primary\">详细信息</button>"
     //});
-    var  content = "<table class='houseinfo easyui-propertygrid' style='height:\"300px\"'>"
+    var content = "<table class='houseinfo easyui-propertygrid' style='height:\"300px\"'>"
     var count = 0;
     var rows = [];
     require(["./Javascript/Framework/field_keys.js"], function (fk) {
@@ -461,18 +554,18 @@ function getInfoContent(keys, layerIndex) {
             if (fk[key] == confUrl.fKey || key == confUrl.fKey) {
                 fid = keys[key];
             }
-            
+
             if (s_key.indexOf("shape") > -1 || s_key.indexOf("object") > -1) {
                 continue;
             }
             else {
-                var value=keys[key];
-                
+                var value = keys[key];
+
                 if (fk[key]) {
                     //  content += "<tr>"
                     //  content += "<td>" + fk[key] + "</td>" + "<td>" + keys[key] + "</td>"
                     //   "<tr>"
-                    
+
                     var obj = { "name": fk[key], "value": value }
                     rows.push(obj);
                     count++;

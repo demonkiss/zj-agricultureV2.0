@@ -118,6 +118,7 @@
         var secendAttr = "";
         var currenturl = "";
         var currentattr = "";
+        var searchField = "";
         var visiableArray = [0];
         var areasql = [];
         var dkType = "粮食生产功能区";
@@ -130,6 +131,7 @@
         var fieldInfos;
         var areaClick;
         var typeNumber = [];
+        var searchSql = "";
         require([
           "dojo/parser",
           "dojo/ready",
@@ -160,6 +162,7 @@
           "extras/ClusterLayer",
           "extras/ClusterLayer_M",
           "Framework/SwitchLayer",
+          "Framework/IdentifyTask",
           "mapconfig",
           "dojo/on",
           "dojo/dom-class", "dojo/dom-style",
@@ -171,7 +174,7 @@
           Map, esriRequest, Graphic, Extent,
           SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
           GraphicsLayer, SpatialReference, InfoTemplate, PopupTemplate, Point, webMercatorUtils, ArcGISDynamicMapServiceLayer, TDTLayer, TDTLayer_Anno,
-          ClusterLayer, ClusterLayer_M, SwitchLayer, mapconfig, on, domClass, domStyle
+          ClusterLayer, ClusterLayer_M, SwitchLayer,IdentifyTask, mapconfig, on, domClass, domStyle
         ) {
             //ready(function () {
             //   parser.parse();
@@ -250,6 +253,7 @@
                 sssy = "浙江";
                 firstAttr = "粮食生产功能区";
                 secondAttr = "功能区级别";
+                searchField = layerConfig[firstAttr][secondAttr].searchField;
                 jsonurl = layerConfig[firstAttr][secondAttr].jsondata;
                 fieldInfos = layerConfig[firstAttr][secondAttr].fieldInfos;
                 currenturl = layerConfig["粮食生产功能区"]["功能区级别"].url;
@@ -258,6 +262,7 @@
                 clusterImg = ["images/province.png", "images/city.png", "images/county.png"];
                 layerDType = ["'省级'", "'市级'", "'县级'"];
                 currentattr = "建设等级";
+                
                 $.ajax({
                     url: jsonurl,
                     dataType: 'json',
@@ -274,8 +279,8 @@
                 //  switchLayer();
 
             }
-            //切换显示图层
-
+       
+           
             //绑定事件
             function bindEvt() {
 
@@ -572,6 +577,7 @@
                         if (nyName && secondName) {
                             currenturl = layerConfig[nyName][secondName].url;
                             visiableArray = layerConfig[nyName][secondName].array;
+                            searchField = layerConfig[nyName][secondName].searchField;
                             console.log(currenturl);
                         }
                         fieldInfos = layerConfig[nyName][secondName].fieldInfos;
@@ -733,6 +739,24 @@
 
                     })
 
+                })
+                $("#search img").click(function () {
+                    console.log($("#search input").val());
+                    searchSql = SwitchLayer.getSearchSql($("#search input").val());
+                    IdentifyTask.queryBySearch();
+                })
+                $("#search input").keyup(function () {
+                    if ($("#search input").val() == "") {
+                        $(".clearinput").hide();
+                    }
+                    else {
+                        $(".clearinput").show();
+                    }
+                   
+                })
+                $(".clearinput").click(function(){
+                    $("#search input").val("");
+                    $(this).hide();
                 })
                 var type = "farmArea";
                 var bool = true;
@@ -1094,9 +1118,11 @@
 
     <div class="left">
         <div class="top">
-            <div class="fl">
+            <div id="search" class="fl">
                 <input type="text" placeholder="输入关键词">
+               
                 <a href="javascript:void (0)" class="fr"><img src="images/search.png"></a>
+                <a href="javascript:void (0)" class="fr clearinput"><img src="images/searchX.png"></a>
             </div>
 
             <div class="sel-fun">

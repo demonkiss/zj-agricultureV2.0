@@ -2,7 +2,8 @@
     return {
         switchLayer: switchLayer,
         addZJCityBorder: addZJCityBorder,
-        addZJCityNumber: addZJCityNumber
+        addZJCityNumber: addZJCityNumber,
+        getSearchSql: getSearchSql
     }
 })
 function switchLayer() {
@@ -1321,6 +1322,39 @@ function getCityStaticNumber() {
               })
         }
     })
+}
+
+function getSearchSql(sValue) {
+    let sSql = "";
+    var noinput ;
+    if (sssy == "浙江") {
+        noinput = getSearchsql(layerDType, currentattr);
+    } else {
+        noinput = getSearchsql(layerDType, currentattr);
+    }
+    sSql = noinput + " and " + searchField + " like  '%" + sValue + "%'";
+   
+    return sSql;
+}
+function getSearchsql(layerDType, attrName) {
+    let sql = "";
+    if (layerDType[0] != "建设分布图") {
+        if (attrName != "认定面积") {
+            sql = attrName + " in (" + layerDType.toString() + ")";
+        } else {
+            sql = getAreaSql(clusterType);
+        }
+    } else {
+        if (gnType != "标准农田建设区") {
+            sql = "1=2";
+
+        } else {
+            sql = " ";
+        }
+
+
+    }
+    return sql;
 }
 function getLayerDefine(layerDType, attrName) {
     let sql = "";
