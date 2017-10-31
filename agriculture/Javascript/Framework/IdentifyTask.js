@@ -95,7 +95,7 @@ function queryByInputComplete(results) {
     var cp = results.featureSet.features[length - 1].geometry.getExtent().getCenter();
     var lat = Number(cp.x);
     var lng = Number(cp.y);
-    map.centerAndZoom([lat, lng], upLevel);
+    map.centerAndZoom([lat, lng], upLevel+1);
     var graphic;
     for (var i = 0; i < results.featureSet.features.length; i++) {
         var attr = results.featureSet.features[i].attributes;
