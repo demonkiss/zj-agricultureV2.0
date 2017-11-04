@@ -3,6 +3,7 @@
         DoIdentify: DoIdentify,
         queryBySearch: queryBySearch,
         DoQueryTask: DoQueryTask,
+        getShowInfo:getShowInfo,
         ShowDetailBox: ShowDetailBox
     }
 });
@@ -51,7 +52,15 @@ function IdentifyResultManager(IdentifyResult) {
             var myFeature = IdentifyResult[i].feature;
         }
         var keys = IdentifyResult[0].feature.attributes;
+        tempLayer.on("graphic-add", function (e) {
+            // console.log(e.graphic.attributes);
 
+
+            var content = getShowInfo(e.graphic.attributes);
+            map.infoWindow.setTitle("属性信息");
+            map.infoWindow.setContent(content);
+            map.infoWindow.show(mp);
+        })
         setSymbol(IdentifyResult[0].feature.geometry, keys);
         //  showDetails(keys, screenP);
     }
@@ -90,24 +99,49 @@ function queryByInputComplete(results) {
     var length = results.featureSet.features.length;
     if (results.featureSet.features.length == 0) {
         alert("无查询结果");
+    } else {
+        $("#searchList").show();
+        $("#searchList ul").html("");
+        console.log("杭州市上杨畈粮食生产功能区");
+        var cp = results.featureSet.features[0].geometry.getExtent().getCenter();
+        var lat = Number(cp.x);
+        var lng = Number(cp.y);
+        map.centerAndZoom([lat, lng], upLevel + 1);
+        searchLayer.on("click", function (e) {
+            console.log(e.graphic.attributes);
+            var content = getShowInfo(e.graphic.attributes);
+            map.infoWindow.setTitle("属性信息");
+            map.infoWindow.setContent(content);
+            map.infoWindow.show(cp); 
+        })
+        tempLayer.on("graphic-add", function (e) {
+            // console.log(e.graphic.attributes);
+
+
+            var content = getShowInfo(e.graphic.attributes);
+            map.infoWindow.setTitle("属性信息");
+            map.infoWindow.setContent(content);
+            map.infoWindow.show(cp);
+        })
+        var graphic;
+        for (var i = 0; i < results.featureSet.features.length; i++) {
+            var attr = results.featureSet.features[i].attributes;
+            var name = results.featureSet.features[i].attributes[searchField];
+            var cp = results.featureSet.features[i].geometry.getExtent().getCenter();
+            graphic = setSearchSymbol(results.featureSet.features[i].geometry, attr);
+            var li = "<li index='" + i + "' x='" + cp.x + "' y= '" + cp.y + "'>" + (i + 1) + ": " + name + "</li>";
+            $("#searchList ul").append(li);
+        }
     }
-    console.log("杭州市上杨畈粮食生产功能区");
-    var cp = results.featureSet.features[length - 1].geometry.getExtent().getCenter();
-    var lat = Number(cp.x);
-    var lng = Number(cp.y);
-    map.centerAndZoom([lat, lng], upLevel+1);
-    var graphic;
-    for (var i = 0; i < results.featureSet.features.length; i++) {
-        var attr = results.featureSet.features[i].attributes;
-        graphic = setSearchSymbol(results.featureSet.features[i].geometry, attr);
-    }
+  
 
 
 }
 function setSearchSymbol(geo, attr) {
     var graphic;
-    require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+    require(["esri/layers/GraphicsLayer", "esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (GraphicsLayer,PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         // console.log(fieldInfos);
+       
         var popupTemplate = new PopupTemplate({
             "title": "属性信息",
             "content": "聚集点信息",
@@ -128,14 +162,8 @@ function setSearchSymbol(geo, attr) {
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
                 var graphic = new Graphic(geo, sfs, attr);
                 mp = geo.getExtent().getCenter();
-                map.graphics.on("click", function (e) {
-                    console.log(e.graphic.attributes);
-                    var content = getShowInfo(e.graphic.attributes);
-                    map.infoWindow.setTitle("属性信息");
-                    map.infoWindow.setContent(content);
-                    map.infoWindow.show(mp);
-                })
-                map.graphics.add(graphic);
+               
+                searchLayer.add(graphic);
                 //  console.log(graphic);
 
                 break;
@@ -395,6 +423,7 @@ function queryResults(results) {
 }
 function setSymbol(geo, attr) {
     map.graphics.clear();
+    tempLayer.clear();
     var graphic;
     require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         console.log(fieldInfos);
@@ -415,19 +444,11 @@ function setSymbol(geo, attr) {
                 map.graphics.add(graphic);
                 break;
             case "polygon":
-                var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]));
+                var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 255]), 2), new Color([255, 255, 0, 0.25]));
                 var graphic = new Graphic(geo, sfs, attr);
                 mp = geo.getExtent().getCenter();
-                map.graphics.on("graphic-add", function (e) {
-                    // console.log(e.graphic.attributes);
-
-
-                    var content = getShowInfo(e.graphic.attributes);
-                    map.infoWindow.setTitle("属性信息");
-                    map.infoWindow.setContent(content);
-                    map.infoWindow.show(mp);
-                })
-                map.graphics.add(graphic);
+              
+                tempLayer.add(graphic);
                 //  console.log(graphic);
 
                 break;

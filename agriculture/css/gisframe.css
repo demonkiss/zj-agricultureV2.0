@@ -36,13 +36,35 @@
 #search>input{
     width:183px;
 }
+#searchList{
+    position:absolute;
+     top: 125px;
+     left:40px;
+     width:280px;
+     height:auto;
+     padding:10px;
+     display:none;
+     background-color:white;
+     z-index:99;
+     max-height:500px;
+}
+#searchList ul{
+    height:300px;
+    overflow-x:hidden;
+    overflow-wrap:break-word;
+    overflow-y:auto;
+
+}
+#searchList ul li{
+    cursor:pointer;
+}
 .clearinput{
     margin:5px !important;
     display:none;
 
 }
 .sel-fun img{
-    margin-left:20px;
+    /*margin-left:20px;*/
 }
 #typeinfo{
     position:absolute;

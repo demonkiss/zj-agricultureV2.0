@@ -106,6 +106,8 @@
     <script>
         var map;
         var ClusterData;
+        var searchLayer;
+        var tempLayer;
         var showClusterData = [];
         var statisticsData = [];
         var clusterType = [];
@@ -131,9 +133,11 @@
         var fieldInfos;
         var areaClick;
         var typeNumber = [];
-          var type = "farmArea";
+        var type = "farmArea";
         var bool = false;//控制area的显示
-         var searchSql = "";
+        var searchSql = "";
+        var total = 0;
+        var blockNumber = [];
         require([
           "dojo/parser",
           "dojo/ready",
@@ -148,6 +152,7 @@
           "esri/geometry/Extent",
 
           "esri/symbols/SimpleMarkerSymbol",
+          "esri/symbols/SimpleLineSymbol",
           "esri/symbols/SimpleFillSymbol",
           "esri/symbols/PictureMarkerSymbol",
           "esri/renderers/ClassBreaksRenderer",
@@ -174,14 +179,15 @@
         ], function (
           parser, ready, arrayUtils, Color, domStyle, query, ImageParameters,
           Map, esriRequest, Graphic, Extent,
-          SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
+          SimpleMarkerSymbol,SimpleLineSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
           GraphicsLayer, SpatialReference, InfoTemplate, PopupTemplate, Point, webMercatorUtils, ArcGISDynamicMapServiceLayer, TDTLayer, TDTLayer_Anno,
-          ClusterLayer, ClusterLayer_M, SwitchLayer,IdentifyTask, mapconfig, on, domClass, domStyle
+          ClusterLayer, ClusterLayer_M, SwitchLayer, IdentifyTask, mapconfig, on, domClass, domStyle
         ) {
             //ready(function () {
             //   parser.parse();
             //清除arcgis/rest/info?=json问题
             esri.config.defaults.io.corsDetection = false;
+          
             upLevel = mapconfig.maxZoom;
             midLevel = mapconfig.maxZoom;
             downLevel = mapconfig.minZoom;
@@ -205,16 +211,20 @@
                 // center: [119.789, 29.543],
                 //  zoom: 6
             });
-           // currenturl = "http://localhost:6080/arcgis/rest/services/lsService/MapServer";
+            // currenturl = "http://localhost:6080/arcgis/rest/services/lsService/MapServer";
             //  var lsLayer2 = new ArcGISDynamicMapServiceLayer(currenturl, { id: "ls2000" });
             var layer = new TDTLayer("img");//影像img 矢量 vec
             map.addLayer(layer, 0);
-
+            searchLayer = new GraphicsLayer({ id: "searchLayer" });
+            map.addLayer(searchLayer, 3);
+            tempLayer = new GraphicsLayer({ id: "tempLayer" });
+            map.addLayer(tempLayer, 4);
+            
             //  addZJCityBorder();
             // addZJBorder();
             var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
             //  map.addLayer(annolayer, 1);
-           //   map.addLayer(lsLayer2);
+            //   map.addLayer(lsLayer2);
             //  lsLayer.hide();
             //map.on("layer-add", function () {
 
@@ -244,12 +254,7 @@
 
 
             //getsubArea("浙江");
-            map.on("extent-change", function () {
-                SwitchLayer.switchLayer();
-                getblcok(sssy);
-
-            })
-
+          
 
             function initData() {
                 sssy = "浙江";
@@ -273,19 +278,30 @@
                     data: {},
                     success: function (data) {
                         ClusterData = data.features;
+                      //  $("#total").text(ClusterData.length);
                     }
 
                 });
                 //    SwitchLayer.addZJCityBorder();    //添加统计图层
-                SwitchLayer.addZJCityNumber();
+               // SwitchLayer.addZJCityNumber();
                 //  switchLayer();
+                map.on("extent-change", function () {
+                    SwitchLayer.switchLayer();
+                    getblcok(sssy);
+                    //var number = 0;
+                    //for (let i = 0; i < typeNumber.length; i++) {
+                    //    number += typeNumber[i].number;
+                    //}
+                    //$("#total").text(number);
+                })
+
 
             }
 
 
             //绑定事件
             function bindEvt() {
-
+               
                 $(".MapMenu a").on("mouseover", function () {
                     $(this).children("label").show();
 
@@ -294,55 +310,56 @@
                     $(this).children("label").hide();
 
                 })
+
                 $(".MapMenu input").on("click", function (event) {
                     console.log($(this).attr("value"));
 
 
-                        //console.log($(e).attr("value"));
-                        if ($(this).attr("value") == "矢量注记") {
-                            if ($(this).attr("data-state") == "uncheck") {
+                    //console.log($(e).attr("value"));
+                    if ($(this).attr("value") == "矢量注记") {
+                        if ($(this).attr("data-state") == "uncheck") {
 
-                              //  var layer = new TDTLayer("vec");//影像img 矢量 vec
-                             //   map.addLayer(layer, 0);
-                                var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
-                                map.addLayer(annolayer, 1);
-                                $(this).attr("data-state", "check")
-                            } else {
-                                //var rmap_anno = map.getLayer("map_cva");
-                                //if (rmap_anno) {
-                                //    map.removeLayer(rmap_anno);
-                                //}
-                                if ($("#map_cva")) {
-                                    $("#map_cva").remove();
-                                }
-                                $(this).attr("data-state", "uncheck")
-
-                            }
-
+                            //  var layer = new TDTLayer("vec");//影像img 矢量 vec
+                            //   map.addLayer(layer, 0);
+                            var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
+                            map.addLayer(annolayer, 1);
+                            $(this).attr("data-state", "check")
                         } else {
-                            if ($(this).attr("data-state") == "uncheck") {
-
-                               // var layer = new TDTLayer("img");//影像img 矢量 vec
-                              //  map.addLayer(layer, 0);
-                                var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
-                                map.addLayer(annolayer, 1);
-                                $(this).attr("data-state", "check")
-                            } else {
-                                if ($("#map_cia")) {
-                                    $("#map_cia").remove();
-                                }
-
-                                //var rmap_anno = map.getLayer("map_cia");
-                                //if (rmap_anno) {
-                                //    map.removeLayer(rmap_anno);
-
-                                //}
-                                $(this).attr("data-state", "uncheck")
-
+                            //var rmap_anno = map.getLayer("map_cva");
+                            //if (rmap_anno) {
+                            //    map.removeLayer(rmap_anno);
+                            //}
+                            if ($("#map_cva")) {
+                                $("#map_cva").remove();
                             }
+                            $(this).attr("data-state", "uncheck")
+
                         }
-                     //   event.stopPropagation();
-                       // return false;
+
+                    } else {
+                        if ($(this).attr("data-state") == "uncheck") {
+
+                            // var layer = new TDTLayer("img");//影像img 矢量 vec
+                            //  map.addLayer(layer, 0);
+                            var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
+                            map.addLayer(annolayer, 1);
+                            $(this).attr("data-state", "check")
+                        } else {
+                            if ($("#map_cia")) {
+                                $("#map_cia").remove();
+                            }
+
+                            //var rmap_anno = map.getLayer("map_cia");
+                            //if (rmap_anno) {
+                            //    map.removeLayer(rmap_anno);
+
+                            //}
+                            $(this).attr("data-state", "uncheck")
+
+                        }
+                    }
+                    //   event.stopPropagation();
+                    // return false;
                 })
                 //空间分析工具事件
                 var toorbarState = false;
@@ -429,8 +446,8 @@
                                 layerDType.push("'" + $(this).next().text() + "'");
                             }
                             console.log(clusterType);
-                           // clusterType.push($(this).next().text());
-                          //  layerDType.push("'" + $(this).next().text() + "'");
+                            // clusterType.push($(this).next().text());
+                            //  layerDType.push("'" + $(this).next().text() + "'");
                             clusterImg.push($(this).prev().prev().attr("src"));
 
                             ////添加聚类图层
@@ -443,7 +460,7 @@
                             $(this).attr("data-state", "uncheck");
                             $(this).removeClass("active");
                             clusterImg.remove($(this).prev().prev().attr("src"));
-                          //  clusterType.remove($(this).next().text());
+                            //  clusterType.remove($(this).next().text());
                             // layerDType.remove("'" + $(this).next().text() + "'");
                             if (dkType == "粮食生产功能区") {
                                 clusterType.remove($(this).next().text());
@@ -547,7 +564,7 @@
                                         } else if (nyName == "标准农田") {
 
                                             clusterType.push($(e).next().attr("value"));
-                                            layerDType.push( $(e).next().attr("value"));
+                                            layerDType.push($(e).next().attr("value"));
                                         } else {
                                             clusterType.push($(e).next().text());
                                             layerDType.push("'" + $(e).next().text() + "'");
@@ -562,10 +579,10 @@
                         //  console.log(nyName + "," + secondName);
                         console.log(clusterType);
                         console.log(layerDType);
-                      //  alert(clusterType);
+                        //  alert(clusterType);
                         switch (secondName) {
-                          //  case "标准农田建设区":
-                              //  layerDType.length = 0;
+                            //  case "标准农田建设区":
+                            //  layerDType.length = 0;
                             //    break;
                             case "提升工程":
                                 layerDType.length = 0;
@@ -741,12 +758,8 @@
 
                     })
 
-                    })
-                $("#search img").click(function () {
-                    console.log($("#search input").val());
-                    searchSql = SwitchLayer.getSearchSql($("#search input").val());
-                    IdentifyTask.queryBySearch();
                 })
+                
                 $("#search input").keyup(function () {
                     if ($("#search input").val() == "") {
                         $(".clearinput").hide();
@@ -756,29 +769,67 @@
                     }
 
                 })
-                $(".clearinput").click(function(){
+                $("#searchList ul").on("click", "li", function () {
+                    var index = Number($(this).attr("index"));
+                   
+                    tempLayer.clear();
+                   
+                    var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 255]), 2), new Color([255, 255, 0, 0.25]));
+                    var polygon=searchLayer.graphics[index].geometry;
+                    var attr=searchLayer.graphics[index].attributes;
+                    let tempGraphic = new Graphic(polygon,sfs,searchLayer.graphics[index],attr)
+                   // tempGraphic.setSymbol(sfs);
+                    tempLayer.add(tempGraphic);
+                   // searchLayer.graphics[index].set
+                    var lat = Number($(this).attr("x"));
+                    var lng = Number($(this).attr("y"));
+                    map.centerAndZoom([lat, lng], upLevel + 1);
+                    var cp = polygon.getExtent().getCenter();
+                    var content = IdentifyTask.getShowInfo(attr);
+                    map.infoWindow.setTitle("属性信息");
+                    map.infoWindow.setContent(content);
+                    map.infoWindow.show(mp);
+                    
+                })
+                $("#search img").click(function () {
+                    searchLayer.clear();
+                    tempLayer.clear();
+                    console.log($("#search input").val());
+                    if ($("#search input").val()!="") {
+                        searchSql = SwitchLayer.getSearchSql($("#search input").val());
+                        IdentifyTask.queryBySearch();
+                    } else {
+                        alert("请输入名称");
+                    }
+                  
+                    
+                })
+                $(".clearinput").click(function () {
                     $("#search input").val("");
                     $(this).hide();
+                    $("#searchList ul").html("");
+                    $("#searchList").hide();
+                    searchLayer.clear();
                 })
                 var type = "farmArea";
                 var bool = true;
                 $(".sel-fun img").click(function () {
                     if ($("#farmArea").is(":hidden") && $("#cityArea").is(":hidden")) {
                         bool = false;
-                        } else {
+                    } else {
                         bool = true;
-                        }
+                    }
 
                     if (bool) {
-                            $("#cityArea").hide();
-                            $("#farmArea").hide();
+                        $("#cityArea").hide();
+                        $("#farmArea").hide();
                     } else {
                         if ($("#farmArea").is(":hidden")) {
                             type = "cityArea";
                         } else {
                             type = "farmArea";
                         }
-                        if (type =="cityArea") {
+                        if (type == "cityArea") {
                             $("#farmArea").show();
                         } else {
                             $("#cityArea").show();
@@ -1067,7 +1118,7 @@
 
             //切换底图
             function showLayer(maptype) {
-             //   alert(1);
+                //   alert(1);
                 require(["TDTLayer", "TDTLayer_Anno"], function (TDTLayer, TDTLayer_Anno) {
                     if (maptype == "VECTOR") {
                         if (map.layerIds.length > 0) {
@@ -1077,16 +1128,16 @@
                             if (rmap_anno) {
                                 map.removeLayer(rmap_anno);
                             }
-                           // $(".MapMenu input").attr("data-state", "check");
+                            // $(".MapMenu input").attr("data-state", "check");
                         }
                         var layer = new TDTLayer("vec");//影像img 矢量 vec
                         map.addLayer(layer, 0);
-                        if($(".MapMenu input[value='矢量注记']").attr("data-state")== "check"){
-                              var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
-                               map.addLayer(annolayer, 1);
+                        if ($(".MapMenu input[value='矢量注记']").attr("data-state") == "check") {
+                            var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
+                            map.addLayer(annolayer, 1);
                         }
-                      //  var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
-                     //   map.addLayer(annolayer, 1);
+                        //  var annolayer = new TDTLayer_Anno("cva");//影像cia 矢量cva
+                        //   map.addLayer(annolayer, 1);
                     }
                     else {
                         if (map.layerIds.length > 0) {
@@ -1104,7 +1155,7 @@
                             var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
                             map.addLayer(annolayer, 1);
                         }
-                      //  var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
+                        //  var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
                         //  map.addLayer(annolayer, 1);
                     }
                 })
@@ -1120,7 +1171,7 @@
         <div class="top">
             <div id="search" class="fl">
                 <input type="text" placeholder="输入关键词">
-               
+
                 <a href="javascript:void (0)" class="fr"><img src="images/search.png"></a>
                 <a href="javascript:void (0)" class="fr clearinput"><img src="images/searchX.png"></a>
             </div>
@@ -1161,7 +1212,7 @@
                     <option value="3311">丽水市</option>
                 </select>-->
                 <!--<img src="images/select.png">-->
-                <span></span>
+                <span id="total"></span>
                 <span class="function" id="function">功能</span>
                 <span><img src="images/function.png"></span>
             </div>
@@ -1676,6 +1727,7 @@
              data-dojo-props="region:'center'">
         </div>
         <div id="typeinfo"></div>
+        <div id="searchList"><ul></ul></div>
     </div>
     <div class="MapMenu">
         <a href="javascript:void(0)" title="矢量地图" class="Mapmap">

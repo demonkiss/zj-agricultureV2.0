@@ -107,15 +107,15 @@ html,body{
     -moz-appearance: none;  /*去除Firefox浏览器的默认下拉图片*/
 }
 .left .top>div:nth-child(2) span{
-    margin-left: 12px;
+    margin-left: 6px;
 }
 .left .top>div:nth-child(2) img:nth-child(2){
     position: absolute;
-    left: 70px;
+    left: 10px;
     top: 18px;
 }
 .left .top>div:nth-child(2) span:nth-child(4){
-    width: 50px;
+    width: 10px;
     display: inline-block;
     margin: 11px 0 0 12px;
     cursor: pointer;
@@ -295,7 +295,7 @@ html,body{
 }
 .sel-fun button{
     border:none;
-    height:42px;
+    /*height:42px;*/
 }
 .sel-fun span{
     color: #3d93fd;
