@@ -114,22 +114,14 @@ function queryByInputComplete(results) {
             map.infoWindow.setContent(content);
             map.infoWindow.show(cp); 
         })
-        tempLayer.on("graphic-add", function (e) {
-            // console.log(e.graphic.attributes);
-
-
-            var content = getShowInfo(e.graphic.attributes);
-            map.infoWindow.setTitle("属性信息");
-            map.infoWindow.setContent(content);
-            map.infoWindow.show(cp);
-        })
+     
         var graphic;
         for (var i = 0; i < results.featureSet.features.length; i++) {
             var attr = results.featureSet.features[i].attributes;
             var name = results.featureSet.features[i].attributes[searchField];
             var cp = results.featureSet.features[i].geometry.getExtent().getCenter();
             graphic = setSearchSymbol(results.featureSet.features[i].geometry, attr);
-            var li = "<li index='" + i + "' x='" + cp.x + "' y= '" + cp.y + "'>" + (i + 1) + ": " + name + "</li>";
+            var li = "<li index='" + i + "' x='" + cp.x + "' y= '" + cp.y + "'>" + name + "</li>";
             $("#searchList ul").append(li);
         }
     }
@@ -422,7 +414,7 @@ function queryResults(results) {
     infoList.css("display", "block");
 }
 function setSymbol(geo, attr) {
-    map.graphics.clear();
+   // map.graphics.clear();
     tempLayer.clear();
     var graphic;
     require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {

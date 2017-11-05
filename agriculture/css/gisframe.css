@@ -7,88 +7,124 @@
     height: 67px;
     z-index: 999;
 }
-.titlePane{
-    background-color:#F87A8B !important;
-}
-.titlePane>.title{
-     height: 30px;
-    padding-top: 5px;
 
+.titlePane {
+    background-color: #F87A8B !important;
 }
-.titlePane .titleButton{
-    top:7px;
-} 
-.actionList{
-    text-align:center;
+
+    .titlePane > .title {
+        height: 30px;
+        padding-top: 5px;
+    }
+
+    .titlePane .titleButton {
+        top: 7px;
+    }
+
+.actionList {
+    text-align: center;
 }
-.titlePane>.maximize{
-    display:none;
+
+.titlePane > .maximize {
+    display: none;
 }
-.esriViewPopup .break{
-    height:0px;
+
+.esriViewPopup .break {
+    height: 0px;
 }
-.esriPopup .contentPane{
-    padding-bottom:0px;
+
+.esriPopup .contentPane {
+    padding-bottom: 0px;
 }
 /*.actionsPane{
     display:none !important;
 }*/
-#search>input{
-    width:183px;
+#search > input {
+    width: 183px;
 }
-#searchList{
-    position:absolute;
-     top: 125px;
-     left:40px;
-     width:280px;
-     height:auto;
-     padding:10px;
-     display:none;
-     background-color:white;
-     z-index:99;
-     max-height:500px;
-}
-#searchList ul{
-    height:300px;
-    overflow-x:hidden;
-    overflow-wrap:break-word;
-    overflow-y:auto;
 
+#searchList {
+    position: absolute;
+    top: 125px;
+    left: 40px;
+    width: 280px;
+    height: auto;
+    padding: 10px;
+    display: none;
+    background-color: white;
+    z-index: 99;
+    max-height: 500px;
 }
-#searchList ul li{
-    cursor:pointer;
-}
-.clearinput{
-    margin:5px !important;
-    display:none;
 
+    #searchList ul {
+        height: 300px;
+        overflow-x: hidden;
+        overflow-wrap: break-word;
+        overflow-y: auto;
+        padding-left: 0;
+        margin-bottom: 20px;
+        background: #fff;
+    }
+
+        #searchList ul li {
+            position: relative;
+            display: block;
+            padding: 5px 15px;
+            margin-bottom: -1px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+.list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+    background: #fff;
 }
-.sel-fun img{
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 5px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.clearinput {
+    margin: 5px !important;
+    display: none;
+}
+
+.sel-fun img {
     /*margin-left:20px;*/
 }
-#typeinfo{
-    position:absolute;
-    left:100px;
-    top:100px;
-    padding:10px 20px;
+
+#typeinfo {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    padding: 10px 20px;
     /*min-height:200px;
   min-width:200px;*/
-    box-shadow:0 5px 4px -4px black;
-    border-radius:5px;
-    background:#fff;
+    box-shadow: 0 5px 4px -4px black;
+    border-radius: 5px;
+    background: #fff;
     /*border:2px solid #0094ff;*/
-    z-index:99;
+    z-index: 99;
 }
-.MapMenu label{
+
+.MapMenu label {
     margin-left: 3px;
     margin-top: 3px;
-     display: none; 
+    display: none;
     /* background: #ddd; */
     width: 93%;
     color: black;
     /* text-shadow: 0 0 0px black; */
     background-color: #d4cfcf;
 }
+
 .Mapmap {
     float: left;
     display: block;
@@ -157,14 +193,15 @@
     outline: none;
 }
 /*左侧地区样式*/
-.areaControl{
-    height:120px;
-    background-color:#fff !important;
-     padding: 3px 0 16px 5px;
-     border-bottom:6px solid #fff;
+.areaControl {
+    height: 120px;
+    background-color: #fff !important;
+    padding: 3px 0 16px 5px;
+    border-bottom: 6px solid #fff;
 }
+
 .pt {
-    color:#0094ff;
+    color: #0094ff;
     display: block;
     width: auto;
     min-width: 71px;
@@ -176,7 +213,7 @@
     line-height: 24px;
     cursor: pointer;
     border: 1px solid #fff;
-    border-radius:5px;
+    border-radius: 5px;
     /*background-image: url(../images/dq.jpg);*/
     /*background: #F5F5F5;*/
 }
@@ -192,7 +229,6 @@
     line-height: 24px;
     cursor: pointer;
     border: 1px solid #d4d4d4;
-    
     background-image: url(../images/dq_h.jpg);
 }
 

@@ -37,7 +37,7 @@ function switchLayer() {
     if (areaClick) {
         areaClick.remove();
     }
-    map.infoWindow.hide();
+ //  map.infoWindow.hide();
     if (map.graphics) {
         map.graphics.clear();
     }
