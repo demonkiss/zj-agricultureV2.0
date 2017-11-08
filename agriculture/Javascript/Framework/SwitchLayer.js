@@ -91,7 +91,7 @@ function switchLayer() {
         ssqy = "";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
-
+        getCenterBlockName();
         if (clusterType[0] == "建设分布图") {
             getCityCluster(sssy);//获取建设分布图的聚类图层
             //showClusterData.push(ClusterData);
@@ -302,7 +302,7 @@ function getCityBlockStatic() {
                       var attr = { "name": qxName, "number": blockCityNumber };
                       blockNumber.push(attr);
                       var font = new Font();
-                      font.setSize("12pt");
+                      font.setSize("10pt");
                       font.setFamily("微软雅黑");
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);                     
@@ -317,7 +317,7 @@ function getCityBlockStatic() {
                       );
 
                       var label = new TextSymbol(showLabel)
-                        .setColor(new Color([0, 0, 0]), 0.5)
+                        .setColor(new Color([255, 255, 255]), 0.5)
                       .setFont(font);
                       cityTextLayer.add(
                         new Graphic(
@@ -398,15 +398,6 @@ function getBlockName() {
                             console.log(data.features[i].properties.name);
                             _block = data.features[i].properties.name;
 
-                            //var polylineJson = {
-                            //    "paths": data.features[i].geometry.coordinates,
-                            //    "spatialReference": { "wkid": 4326 }
-                            //};
-
-                            //var polyline = new Polyline(polylineJson);
-                            //var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2);
-                            //var graphic = new Graphic(polyline, sls);
-
                             var geometry = data.features[i].geometry;
                            // var extent;
                             var sls = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 2);
@@ -439,7 +430,8 @@ function getBlockName() {
                               font.setSize("16pt");
                               font.setFamily("微软雅黑");
                               var label = new TextSymbol(_block)
-                                    .setColor(new Color([0, 0, 0]), 0.5)
+                                  //  .setColor(new Color([255, 255, 255]), 0.5)
+                                   .setColor(new Color(textColor))
                                   .setFont(font);
                               map.graphics.add(
                                 new Graphic(
@@ -459,6 +451,98 @@ function getBlockName() {
 
 
                 })
+            }
+
+        });
+    })
+
+
+    return _block;
+}
+function getCenterBlockName(){
+    if (map.graphics) {
+        map.graphics.clear();
+    }
+    var _block = "";
+    require(["Javascript/config/cityCode.js"], function (cityCode) {
+        //   var ccode = eval('(' + cityCode + ')');
+        var cityname = sssy.replace("\"", "");
+
+        var url = "Json/city/" + cityCode.citycode[cityname] + ".json";
+        console.log(url);
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "GET",
+            async: false,
+            data: {},
+            success: function (data) {
+                require(["esri/layers/GraphicsLayer", "esri/geometry/Point", "esri/geometry/Polygon", "esri/geometry/Polyline", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+                          "esri/symbols/Font"],
+                    function (GraphicsLayer, Point, Polygon, Polyline, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+                        let centerPoint = [(map.extent.xmax + map.extent.xmin) / 2.0, (map.extent.ymax + map.extent.ymin) / 2.0];
+                        for (let i = 0; i < data.features.length; i++) {
+                            var geometry = data.features[i].geometry;
+                            if (geometry.type == "MultiPolygon") {
+                                var length = geometry.coordinates.length;
+                                for (var k = 0; k < length; k++) {
+                                    var vec = geometry.coordinates[k][0];
+                                    if (PointInsidePolygon(centerPoint, vec)) {
+                                        console.log(data.features[i].properties.name);
+                                        _block = data.features[i].properties.name;
+
+
+                                        var point = new Point(centerPoint);
+                                        var font = new Font();
+                                        font.setSize("16pt");
+                                        font.setFamily("微软雅黑");
+                                        var label = new TextSymbol(_block)
+                                             // .setColor(new Color([255, 255, 255]), 0.5)
+                                             .setColor(new Color(textColor))
+                                            .setFont(font);
+                                        map.graphics.add(
+                                          new Graphic(
+                                            point,
+                                            label
+                                          )
+                                        );
+
+                                        break;
+                                    }
+                                }
+                            }
+                            else {
+                                var vec = geometry.coordinates[0];
+                                if (PointInsidePolygon(centerPoint, vec)) {
+                                    console.log(data.features[i].properties.name);
+                                    _block = data.features[i].properties.name;
+
+
+                                    var point = new Point(centerPoint);
+                                    var font = new Font();
+                                    font.setSize("16pt");
+                                    font.setFamily("微软雅黑");
+                                    var label = new TextSymbol(_block)
+                                        //  .setColor(new Color([255, 255, 255]), 0.5)
+                                         .setColor(new Color(textColor))
+                                        .setFont(font);
+                                    map.graphics.add(
+                                      new Graphic(
+                                        point,
+                                        label
+                                      )
+                                    );
+
+                                    break;
+                                }
+                            }
+                         
+
+
+                        }
+
+
+                    })
             }
 
         });
@@ -539,22 +623,23 @@ function getCityName() {
             console.log(borderData[i].properties.name);
             _city = borderData[i].properties.name;
             // alert(borderData[i].properties.name);
-            require(["esri/layers/GraphicsLayer", "esri/geometry/Point", "esri/geometry/Polyline", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
-             "esri/symbols/Font"], function (GraphicsLayer, Point, Polyline, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
-                 var point = new Point(centerPoint);
-                 var font = new Font();
-                 font.setSize("16pt");
-                 font.setFamily("微软雅黑");
-                 var label = new TextSymbol(_city)
-                       .setColor(new Color([0, 0, 0]), 0.5)
-                     .setFont(font);
-                 map.graphics.add(
-                   new Graphic(
-                     point,
-                     label                   
-                   )
-                 );
-             })
+            //获取城市中心名称
+            //require(["esri/layers/GraphicsLayer", "esri/geometry/Point", "esri/geometry/Polyline", "esri/geometry/Polygon", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/symbols/TextSymbol",
+            // "esri/symbols/Font"], function (GraphicsLayer, Point, Polyline, Polygon, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol, TextSymbol, Font) {
+            //     var point = new Point(centerPoint);
+            //     var font = new Font();
+            //     font.setSize("16pt");
+            //     font.setFamily("微软雅黑");
+            //     var label = new TextSymbol(_city)
+            //           .setColor(new Color([0, 0, 0]), 0.5)
+            //         .setFont(font);
+            //     map.graphics.add(
+            //       new Graphic(
+            //         point,
+            //         label                   
+            //       )
+            //     );
+            // })
           
 
             break;
@@ -591,8 +676,8 @@ function addDynamicLayer(layersql) {
         imageParameters.transparent = true;
 
         var layerDefs = [];
-        layerDefs[visiableArray[0]] = layersql;
-       // layerDefs[visiableArray[0]] = "";
+       // layerDefs[visiableArray[0]] = layersql;
+        layerDefs[visiableArray[0]] = "";
         imageParameters.layerDefinitions = layerDefs;
         //imageParameters.layerDefinitions = [layersql];
 
@@ -1095,13 +1180,13 @@ function addZJCityBorder() {
                       //  var showLabel = cityName + "   <tspan style='color:#000'>|</tspan> " + cityNumber;
                       var showLabel =  cityName + "  " + cityNumber;
                       var font = new Font();
-                      font.setSize("12pt");
+                      font.setSize("10pt");
                       font.setFamily("微软雅黑");
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);
                       cityLayer.add(graphic);
                       var label = new TextSymbol(showLabel)
-                        .setColor(new Color([0, 0, 0]), 0.5)
+                        .setColor(new Color([255, 255, 255]), 0.5)
 
                       .setFont(font);
                       cityTextLayer.add(
@@ -1205,7 +1290,7 @@ function addZJCityNumber() {
                    //   var showLabel = cityName + "  <tspan style='color:#000'>|</tspan>  " + cityNumber;
                       var showLabel =  cityName + "    " + cityNumber;
                       var font = new Font();
-                      font.setSize("12pt");
+                      font.setSize("10pt");
                       font.setFamily("微软雅黑");
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);
@@ -1220,7 +1305,7 @@ function addZJCityNumber() {
                       );
 
                       var label = new TextSymbol(showLabel)
-                        .setColor(new Color([0, 0, 0]), 0.5)
+                        .setColor(new Color([255, 255, 255]), 0.5)
                       .setFont(font);
                       cityTextLayer.add(
                         new Graphic(
@@ -1321,7 +1406,7 @@ function getCityStaticNumber() {
                           var point = extent.getCenter();
                           var showLabel = cityName + "：" + cityNumber;
                           var font = new Font();
-                          font.setSize("12pt");
+                          font.setSize("10pt");
                           font.setFamily("微软雅黑");
                           // font.setWeight(Font.WEIGHT_BOLD);
                           //  textSymbol.setFont(font);
@@ -1336,7 +1421,7 @@ function getCityStaticNumber() {
                           );
 
                           var label = new TextSymbol(showLabel)
-                            .setColor(new Color([0, 0, 0]), 0.5)
+                            .setColor(new Color([255, 255, 255]), 0.5)
                           .setFont(font);
                           cityTextLayer.add(
                             new Graphic(
@@ -1642,7 +1727,7 @@ function addMultiClusters(multiData) {
                   "data": point_array,
                   "distance": 100,
                   "id": "clusters",
-                  "labelColor": "#000",
+                  "labelColor": textColor,
                   "labelOffset": 10,
                   "showSingles": true,
                   "symbols": clusterType,
