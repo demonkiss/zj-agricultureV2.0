@@ -231,7 +231,7 @@
 
             //})
             $(function () {
-                initData();
+              
                 //数组方法的扩展
                 Array.prototype.indexOf = function (val) {
                     for (var i = 0; i < this.length; i++) {
@@ -249,10 +249,12 @@
                 $("#proSelect a").eq(0).trigger("click");
                 map.centerAndZoom([120.19, 30.26], 6);
                 $(".infocontent").hide();
-
+                setTimeout(initData, 500);
             })
 
-
+            map.on("load", function () {
+                
+            })
             //getsubArea("浙江");
 
 
