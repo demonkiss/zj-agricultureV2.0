@@ -161,7 +161,7 @@ function switchLayer() {
 }
 function getTypeNumber(city, attributeName) {
     typeNumber.length = 0;
-    var number
+    var number = 0;
 
     if (clusterType[0] == "建设分布图") {
 
@@ -169,11 +169,11 @@ function getTypeNumber(city, attributeName) {
             if (city == ClusterData[i].attributes[attributeName]) {
                 // cData.push(ClusterData[i]);
                 number++;
-            }
-            let cData = {};
-            cData.name = "建设分布图";
-            cData.number = number;
+            }        
         }
+        let cData = {};
+        cData.name = "建设分布图";
+        cData.number = number;
         typeNumber.push(cData);
         // showClusterData.push(cData);
     } else {
@@ -1273,7 +1273,7 @@ function addZJCityNumber() {
                       var polygon = new Polygon(polygonJson);
                       var pu = new Polygon(data.features[i].geometry.coordinates);
                       let cityName = data.features[i].properties.name;
-                      let cityNumber = getCityParam(cityName);
+                      let cityNumber = getCityParam(cityName,"地市名称");
                       // var attr = {};
                       var upperValue = 2000;
                       var lowerValue = 0;
@@ -1390,7 +1390,7 @@ function getCityStaticNumber() {
                           var polygon = new Polygon(polygonJson);
                           var pu = new Polygon(data.features[i].geometry.coordinates);
                           let cityName = data.features[i].properties.name;
-                          let cityNumber = getCityParam(cityName);
+                          let cityNumber = getCityParam(cityName,"地市名称");
                           // var attr = {};
                           var upperValue = 2000;
                           var lowerValue = 0;

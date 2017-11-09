@@ -208,7 +208,7 @@
                 logo: false,
                 slider: false,
                 //   extent: fullExtent,
-                // center: [119.789, 29.543],
+                center: [120.19, 30.26],
                   zoom: 6
             });
             // currenturl = "http://localhost:6080/arcgis/rest/services/lsService/MapServer";
@@ -247,9 +247,9 @@
                 };
                 bindEvt();
                 $("#proSelect a").eq(0).trigger("click");
-                map.centerAndZoom([120.19, 30.26], 6);
+              //  map.centerAndZoom([120.19, 30.26], 6);
                 $(".infocontent").hide();
-                setTimeout(initData, 500);
+                setTimeout(initData, 300);
             })
 
             map.on("load", function () {
