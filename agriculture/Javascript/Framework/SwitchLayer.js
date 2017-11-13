@@ -6,6 +6,13 @@
         getSearchSql: getSearchSql
     }
 })
+function clearHighLight() {
+    tempLayer.clear();
+    searchLayer.clear();
+    map.infoWindow.hide();
+    $("#searchList ul").html("");
+    $("#searchList").hide();
+}
 function switchLayer() {
     let minzoom = 0;
     let midzoom = 0;
@@ -63,6 +70,7 @@ function switchLayer() {
     }
     let zoomlevel = map.getZoom();
     if (zoomlevel <= minzoom) {
+        clearHighLight();
         sssy = "浙江";
         $(".sel-fun button").text(sssy);
         $(".sel-fun button").append("<span class=\"caret\"></span>");
@@ -71,7 +79,7 @@ function switchLayer() {
         addZJCityNumber();
 
     } else if (zoomlevel <= midzoom && zoomlevel > minzoom) {
-
+        clearHighLight();
         $(".actionsPane").show();
         sssy = getCityName();
         ssqy = "";
@@ -81,7 +89,7 @@ function switchLayer() {
         // getCityStaticNumber();
     }
     else if (zoomlevel <= maxzoom && zoomlevel > midzoom) {
-
+        clearHighLight();
         //mapPanEvt = map.on("pan-end", function () {
         //  // switchLayer();
         //    getCityName();

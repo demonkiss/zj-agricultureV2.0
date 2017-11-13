@@ -607,6 +607,8 @@
                             searchField = layerConfig[nyName][secondName].searchField;
                             console.log(currenturl);
                         }
+                        if (currenturl!="") {
+                                                
                         fieldInfos = layerConfig[nyName][secondName].fieldInfos;
                         var url = layerConfig[nyName][secondName].jsondata;
                         $.ajax({
@@ -626,6 +628,12 @@
                         });
 
                         SwitchLayer.switchLayer();
+
+
+                        }
+                        else {
+                            alert("暂无数据");
+                        }
                         //getClusterData(clusterType, attr_Name);
                         //if (showClusterData.length) {
                         //    addMultiClusters(showClusterData);
