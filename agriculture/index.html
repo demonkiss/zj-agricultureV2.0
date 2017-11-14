@@ -596,9 +596,11 @@
                             //  layerDType.length = 0;
                             //    break;
                             case "提升工程":
+                                clusterType.length = 0;
                                 layerDType.length = 0;
                                 break;
                             case "现代农业综合区":
+                                clusterType.length = 0;
                                 layerDType.length = 0;
                                 break;
                             default:
@@ -636,6 +638,7 @@
                         }
                         else {
                             alert("暂无数据");
+                            ClusterData.length = 0;
                             $("#total").html("");
                         }
                         //getClusterData(clusterType, attr_Name);
