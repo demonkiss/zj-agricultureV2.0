@@ -136,7 +136,7 @@
         var type = "farmArea";
         var bool = false;//控制area的显示
         var searchSql = "";
-        var total = 0;
+        var total = 0;//
         var blockNumber = [];
         require([
           "dojo/parser",
@@ -636,6 +636,7 @@
                         }
                         else {
                             alert("暂无数据");
+                            $("#total").html("");
                         }
                         //getClusterData(clusterType, attr_Name);
                         //if (showClusterData.length) {
