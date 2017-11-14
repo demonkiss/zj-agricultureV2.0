@@ -569,16 +569,19 @@
                                         if (nyName == "粮食生产功能区") {
                                             clusterType.push($(e).next().text());
                                             layerDType.push("'" + $(e).next().text() + "'");
+                                            clusterImg.push($(e).attr("imgvalue"));
                                         } else if (nyName == "标准农田") {
 
                                             clusterType.push($(e).next().attr("value"));
                                             layerDType.push($(e).next().attr("value"));
+                                            clusterImg.push($(e).attr("imgvalue"));
                                         } else {
                                             clusterType.push($(e).next().text());
                                             layerDType.push("'" + $(e).next().text() + "'");
+                                            clusterImg.push($(e).prev().prev().attr("src"));
                                         }
 
-                                        clusterImg.push($(e).prev().prev().attr("src"));
+                                        
 
                                     }
                                 })
