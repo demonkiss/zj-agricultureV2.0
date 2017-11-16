@@ -1356,7 +1356,7 @@ function addZJCityNumber() {
                       }
                       $("#typeinfo").append(html);
                       $("#typeinfo").css("left", screenP.x);
-                      $("#typeinfo").css("top", screenP.y);
+                      $("#typeinfo").css("top", screenP.y+10);
                       $("#typeinfo").show();
                       map.setMapCursor("pointer");
                   })
