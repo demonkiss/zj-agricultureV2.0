@@ -111,6 +111,7 @@
         var showClusterData = [];
         var statisticsData = [];
         var clusterType = [];
+        var statisType = [];
         var clusterImg = [];
         var layerDType = [];
         var textColor = "#fff";
@@ -217,8 +218,7 @@
             map.addLayer(layer, 0);
             searchLayer = new GraphicsLayer({ id: "searchLayer" });
             map.addLayer(searchLayer, 3);
-            tempLayer = new GraphicsLayer({ id: "tempLayer" });
-            map.addLayer(tempLayer, 4);
+           
 
             //  addZJCityBorder();
             // addZJBorder();
@@ -279,6 +279,7 @@
                 currenturl = layerConfig["粮食生产功能区"]["功能区级别"].url;
                 visiableArray = layerConfig["粮食生产功能区"]["功能区级别"].array;
                 clusterType = ["省级", "市级", "县级"];
+                statisType = ["省级", "市级", "县级"];
                 clusterImg = ["images/gis/省市县/省.png", "images/gis/省市县/市.png", "images/gis/省市县/县.png"];
                 layerDType = ["'省级'", "'市级'", "'县级'"];
                 currentattr = "建设等级";
@@ -295,6 +296,14 @@
                     }
 
                 });
+                var popupTemplate = new PopupTemplate({
+                    "title": "属性信息",
+                    "content": "聚集点信息",
+                    "fieldInfos": fieldInfos,
+                });
+                tempLayer = new GraphicsLayer({ id: "tempLayer", popupTemplate: popupTemplate });
+                map.addLayer(tempLayer, 4);
+
                 //    SwitchLayer.addZJCityBorder();    //添加统计图层
                 // SwitchLayer.addZJCityNumber();
                 //  switchLayer();
@@ -444,7 +453,7 @@
                     $(this).on("click", function () {
                         var attrName = $(this).parent().parent().parent().parent().attr("value");
                         console.log(attrName);
-                        if (attrName!="") {
+                     //   if (attrName!="") {
                             if ($(this).attr("data-state") == "uncheck") {
                                 $(this).attr("data-state", "check");
                                 $(this).addClass("active");
@@ -462,6 +471,7 @@
                                     layerDType.push("'" + $(this).next().text() + "'");
                                     clusterImg.push($(this).prev().prev().attr("src"));
                                 }
+                                statisType.push($(this).next().text());
                                 console.log(clusterType);
                             } else {
                                 $(this).attr("data-state", "uncheck");
@@ -482,9 +492,17 @@
                                     layerDType.remove("'" + $(this).next().text() + "'");
                                     clusterImg.remove($(this).prev().prev().attr("src"));
                                 }
+                                statisType.remove($(this).next().text());
                             }
-                            SwitchLayer.switchLayer();
-                        }
+                            if (attrName != "") {
+                                SwitchLayer.switchLayer();
+                            } else {
+                                clusterType.length = 0;
+                                layerDType.length = 0;
+                                clusterImg.length = 0;
+                                statisType.length = 0;
+                            }
+                      //  }
                      
                         /// switchLayer();
                         //  $(this).prev().trigger("click");
@@ -509,6 +527,7 @@
                         clusterType.length = 0;
                         clusterImg.length = 0;
                         layerDType.length = 0;
+                        statisType.length = 0;
                         currentattr = "";
                         var rmap = map.getLayer("ls");
                         if (rmap) {
@@ -553,10 +572,11 @@
                                     if ($(e).attr("data-state") == "check") {
                                         if (nyName == "粮食生产功能区") {
                                             clusterType.push($(e).next().text());
+                                            
                                             layerDType.push("'" + $(e).next().text() + "'");
                                             clusterImg.push($(e).attr("imgvalue"));
                                         } else if (nyName == "标准农田") {
-
+                                            statisType
                                             clusterType.push($(e).next().attr("value"));
                                             layerDType.push($(e).next().attr("value"));
                                             clusterImg.push($(e).attr("imgvalue"));
@@ -565,7 +585,7 @@
                                             layerDType.push("'" + $(e).next().text() + "'");
                                             clusterImg.push($(e).prev().prev().attr("src"));
                                         }
-
+                                        statisType.push($(e).next().text());
                                         
 
                                     }
@@ -573,8 +593,8 @@
                             }
                         })
                         //  console.log(nyName + "," + secondName);
-                        console.log(clusterType);
-                        console.log(layerDType);
+                       // console.log(clusterType);
+                      //  console.log(layerDType);
                         //  alert(clusterType);
                         switch (secondName) {
                             //  case "标准农田建设区":
@@ -583,12 +603,14 @@
                             case "提升工程":
                                 clusterType.length = 0;
                                 layerDType.length = 0;
-                                $(".tsgc input").attr("disabled", true)
+                                statisType.length=0
+                              //  $(".tsgc input").attr("disabled", true)
                                 break;
                             case "现代农业综合区":
                                 clusterType.length = 0;
                                 layerDType.length = 0;
-                                $(".xdny input").attr("disabled", true)
+                                statisType.length = 0;
+                              //  $(".xdny input").attr("disabled", true)
                                 break;
                             default:
                                 break;
@@ -597,7 +619,7 @@
                             currenturl = layerConfig[nyName][secondName].url;
                             visiableArray = layerConfig[nyName][secondName].array;
                             searchField = layerConfig[nyName][secondName].searchField;
-                            console.log(currenturl);
+                           // console.log(currenturl);
                         }
                         if (currenturl!="") {
                                                 
@@ -624,7 +646,7 @@
 
                         }
                         else {
-                            alert("暂无数据");
+                           // alert("暂无数据");
                             ClusterData.length = 0;
                             $("#total").html("");
                         }
@@ -800,7 +822,7 @@
 
                     var cp = polygon.getExtent().getCenter();
                     var content = IdentifyTask.getShowInfo(attr);
-                    map.infoWindow.setTitle("属性信息");
+                  //  map.infoWindow.setTitle("属性信息");
                     map.infoWindow.setContent(content);
                     map.infoWindow.show(cp);
                     //tempLayer.on("graphic-add", function (e) {
@@ -1443,18 +1465,18 @@
                 <ul class="xdny" value="" style="display: none">
                     <li>
                         <ul>
-                            <li disabled="disabled">
+                            <li >
                                 <!--<img src="images/province.png">-->
                                 <img src="images/gis/现代农业综合区/创建点.png" />
                                 <input type="checkbox" id="xdnyCjd">
-                                <label for="1" data-state="uncheck" imgvalue="" disabled="disabled"></label>
+                                <label for="1" data-state="uncheck" imgvalue="" ></label>
                                 <span>创建点</span>
                             </li>
-                            <li disabled="disabled">
+                            <li >
                                 <!--<img src="images/city.png">-->
                                 <img src="images/gis/现代农业综合区/已认定.png" />
                                 <input type="checkbox" id="xdnyYrz">
-                                <label for="2" data-state="uncheck" imgvalue="" disabled="disabled"></label>
+                                <label for="2" data-state="uncheck" imgvalue="" ></label>
                                 <span>已认证</span>
                             </li>
                         </ul>

@@ -11,6 +11,29 @@
     width:31px;
     display:inline-block;
 }
+.esriPopup .attrName{
+    width:67px !important;
+}
+.esriPopup .hzLine{
+        border: none;
+    border-top: 1px solid #333333;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.esriPopup .header{
+    font-weight: bold;
+}
+
+.esriPopup .attrTable td.attrName {
+    color: #888888;
+    padding-right: 5px;
+}
+
+.esriPopup .attrTable td {
+    padding: 2px;
+    padding-bottom: 5px;
+}
+
 
 .titlePane {
     background-color: #F87A8B !important;

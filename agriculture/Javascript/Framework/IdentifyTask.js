@@ -57,9 +57,9 @@ function IdentifyResultManager(IdentifyResult) {
 
 
             var content = getShowInfo(e.graphic.attributes);
-            map.infoWindow.setTitle("属性信息");
+          //  map.infoWindow.setTitle("属性信息");
             map.infoWindow.setContent(content);
-            map.infoWindow.show(mp);
+           // map.infoWindow.show(mp);
         })
         setSymbol(IdentifyResult[0].feature.geometry, keys);
         //  showDetails(keys, screenP);
@@ -110,7 +110,7 @@ function queryByInputComplete(results) {
         searchLayer.on("click", function (e) {
             console.log(e.graphic.attributes);
             var content = getShowInfo(e.graphic.attributes);
-            map.infoWindow.setTitle("属性信息");
+           // map.infoWindow.setTitle("属性信息");
             map.infoWindow.setContent(content);
             map.infoWindow.show(cp); 
         })
@@ -135,7 +135,7 @@ function setSearchSymbol(geo, attr) {
         // console.log(fieldInfos);
        
         var popupTemplate = new PopupTemplate({
-            "title": "属性信息",
+            //"title": "属性信息",
             "content": "聚集点信息",
             "fieldInfos": fieldInfos,
         });
@@ -420,7 +420,7 @@ function setSymbol(geo, attr) {
     require(["esri/dijit/PopupTemplate", "esri/symbols/PictureMarkerSymbol", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PopupTemplate, PictureMarkerSymbol, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         console.log(fieldInfos);
         var popupTemplate = new PopupTemplate({
-            "title": "属性信息",
+           // "title": "属性信息",
             "content": "聚集点信息",
             "fieldInfos": fieldInfos,
         });
@@ -437,10 +437,12 @@ function setSymbol(geo, attr) {
                 break;
             case "polygon":
                 var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 255]), 2), new Color([255, 255, 0, 0.25]));
-                var graphic = new Graphic(geo, sfs, attr);
+                var graphic = new Graphic(geo, sfs, attr, PopupTemplate);
                 mp = geo.getExtent().getCenter();
               
                 tempLayer.add(graphic);
+               // popupTemplate.setMap(map);
+                map.infoWindow.show(mp);
                 //  console.log(graphic);
 
                 break;
@@ -453,15 +455,18 @@ function setSymbol(geo, attr) {
     return graphic;
 }
 function getShowInfo(attr) {
-    let content = "";
+    let content = "<div class=\"header\" dojoattachpoint=\"_title\">属性信息</div><div class=\"hzLine\"></div>";
+
+    content += "<table class=\"attrTable\" cellpadding=\"0px\" cellspacing=\"0px\"><tbody>";
     for (var k = 0; k < fieldInfos.length; k++) {
-        content += fieldInfos[k].fieldName + " : " + attr[fieldInfos[k].fieldName] + "<br>"
+        content += "<tr valign=\"top\"><td class=\"attrName\">"+fieldInfos[k].fieldName + " </td><td class=\"attrValue\"> " + attr[fieldInfos[k].fieldName] + "</td></tr>"
     }
+    content += "</tbody></table>";
     console.log(content);
     return content;
 }
 function setHighSymbol(geo, info) {
-    require(["esri/symbols/PictureMarkerSymbol", "esri/InfoTemplate", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PictureMarkerSymbol, InfoTemplate, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
+    require(["esri/symbols/PictureMarkerSymbol", "esri/InfoTemplate", "esri/dijit/PopupTemplate", "esri/Color", "esri/graphic", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol"], function (PictureMarkerSymbol, InfoTemplate,PopupTemplate, Color, Graphic, SimpleLineSymbol, SimpleFillSymbol) {
         if (graphicTmp != "" || graphicTmp != null) {
             map.graphics.remove(graphicTmp);
         }

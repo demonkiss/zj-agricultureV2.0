@@ -81,6 +81,9 @@ function switchLayer() {
     } else if (zoomlevel <= midzoom && zoomlevel > minzoom) {
         clearHighLight();
         $(".actionsPane").show();
+        $(".next").show();
+        $(".prev").show();
+      //  $(".title").show();
         sssy = getCityName();
         ssqy = "";
         $(".sel-fun button").text(sssy);
@@ -95,6 +98,9 @@ function switchLayer() {
         //    getCityName();
         //})
         $(".actionsPane").show();
+        $(".next").show();
+        $(".prev").show();
+       // $(".title").show();
         sssy = getCityName();
         ssqy = "";
         $(".sel-fun button").text(sssy);
@@ -129,6 +135,9 @@ function switchLayer() {
         //    getCityName();
         //})
         $(".actionsPane").hide();
+        $(".next").hide();
+        $(".prev").hide();
+        $(".title").html("");
         sssy = getCityName();
         // ssqy = getBlockName();
         ssqy = getBlockName();
@@ -171,7 +180,7 @@ function getTypeNumber(city, attributeName) {
     typeNumber.length = 0;
     var number = 0;
 
-    if (clusterType[0] == "建设分布图") {
+    if (statisType[0] == "建设分布图") {
 
         for (let i = 0; i < ClusterData.length; i++) {
             if (city == ClusterData[i].attributes[attributeName]) {
@@ -190,7 +199,7 @@ function getTypeNumber(city, attributeName) {
             // if (city == ClusterData[i].attributes["地市名称"]) {
             number += statisticsData[i].length;
             let cData = {};
-            cData.name = clusterType[i];
+            cData.name = statisType[i];
             cData.number = statisticsData[i].length;
             typeNumber.push(cData);
         }
@@ -357,7 +366,10 @@ function getCityBlockStatic() {
                       $("#typeinfo").append(html);
                       $("#typeinfo").css("left", screenP.x);
                       $("#typeinfo").css("top", screenP.y);
-                      $("#typeinfo").show();
+                      if (html) {
+                          $("#typeinfo").show();
+                      }
+                    
                       map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
@@ -684,8 +696,8 @@ function addDynamicLayer(layersql) {
         imageParameters.transparent = true;
 
         var layerDefs = [];
-        layerDefs[visiableArray[0]] = layersql;
-       // layerDefs[visiableArray[0]] = "";
+       // layerDefs[visiableArray[0]] = layersql;
+        layerDefs[visiableArray[0]] = "";
         imageParameters.layerDefinitions = layerDefs;
         //imageParameters.layerDefinitions = [layersql];
 
@@ -1356,8 +1368,11 @@ function addZJCityNumber() {
                       }
                       $("#typeinfo").append(html);
                       $("#typeinfo").css("left", screenP.x);
-                      $("#typeinfo").css("top", screenP.y+10);
-                      $("#typeinfo").show();
+                      $("#typeinfo").css("top", screenP.y + 10);
+                      if (html) {
+                          $("#typeinfo").show();
+                      }
+                      
                       map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
@@ -1472,7 +1487,11 @@ function getCityStaticNumber() {
                       $("#typeinfo").append(html);
                       $("#typeinfo").css("left", screenP.x);
                       $("#typeinfo").css("top", screenP.y);
-                      $("#typeinfo").show();
+                      if (html) {
+                          $("#typeinfo").show();
+                      }
+                      
+
                       map.setMapCursor("pointer");
                   })
                   var cityTextClick = cityTextLayer.on("mouse-out", function (e) {
