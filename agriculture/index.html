@@ -608,18 +608,18 @@
                             url: url,
                             dataType: 'json',
                             type: "GET",
-                            async: false,
+                            async: true,
                             data: {},
                             success: function (data) {
                                 // pointData = data;
                                 ClusterData = data.features;
                                 // addClusters(data);
-
+                                SwitchLayer.switchLayer();
                             }
 
                         });
 
-                        SwitchLayer.switchLayer();
+                     
 
 
                         }
