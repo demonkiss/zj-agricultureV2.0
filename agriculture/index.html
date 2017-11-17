@@ -218,18 +218,9 @@
             map.addLayer(layer, 0);
             searchLayer = new GraphicsLayer({ id: "searchLayer" });
             map.addLayer(searchLayer, 3);
-           
 
-            //  addZJCityBorder();
-            // addZJBorder();
             var annolayer = new TDTLayer_Anno("cia");//影像cia 矢量cva
-            //  map.addLayer(annolayer, 1);
-            //   map.addLayer(lsLayer2);
-            //  lsLayer.hide();
-            //map.on("layer-add", function () {
 
-
-            //})
             $(function () {
               
                 //数组方法的扩展
@@ -245,30 +236,26 @@
                         this.splice(index, 1);
                     }
                 };
+                Array.prototype.contains = function (obj) {
+                    var i = this.length;
+                    while (i--) {
+                        if (this[i] === obj||this[i]===obj.toString()) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
                 bindEvt();
                 $("#proSelect a").eq(0).trigger("click");
               //  map.centerAndZoom([120.19, 30.26], 6);
                 $(".infocontent").hide();
                 setTimeout(initData, 300);
 
-
-               //document.getElementById("xdnyCjd").disabled = true;
-               // document.getElementById("xdnyYrz").disabled = true;
-               // $(".xdny").attr("disabled", true);
-               // $(".tsgc").attr("disabled", true);
-               // $(".xdny label").click(function (event) {
-               //     $(this).attr('disabled', true); //添加disabled属性
-               //     alert();
-               //     event.preventDefault();   // 如果<a>定义了 target="_blank“ 需要这句来阻止打开新页面
-               // });
             })
 
-            map.on("load", function () {
-                
-            })
-            //getsubArea("浙江");
 
 
+            //初始化数据
             function initData() {
                 sssy = "浙江";
                 firstAttr = "粮食生产功能区";
@@ -293,6 +280,7 @@
                     success: function (data) {
                         ClusterData = data.features;
                         //  $("#total").text(ClusterData.length);
+                      //  getTotalNumber();
                     }
 
                 });
@@ -319,8 +307,6 @@
 
 
             }
-
-
             //绑定事件
             function bindEvt() {
 
@@ -495,6 +481,7 @@
                                 statisType.remove($(this).next().text());
                             }
                             if (attrName != "") {
+                               // getTotalNumber();
                                 SwitchLayer.switchLayer();
                             } else {
                                 clusterType.length = 0;
@@ -521,9 +508,9 @@
 
 
                 });
+                //点击二级目录
                 $(".control").find(".second").each(function () {
                     $(this).on("click", "li", function () {
-                        // alert(3);
                         clusterType.length = 0;
                         clusterImg.length = 0;
                         layerDType.length = 0;
@@ -592,14 +579,8 @@
                                 })
                             }
                         })
-                        //  console.log(nyName + "," + secondName);
-                       // console.log(clusterType);
-                      //  console.log(layerDType);
-                        //  alert(clusterType);
+
                         switch (secondName) {
-                            //  case "标准农田建设区":
-                            //  layerDType.length = 0;
-                            //    break;
                             case "提升工程":
                                 clusterType.length = 0;
                                 layerDType.length = 0;
@@ -626,7 +607,6 @@
                         fieldInfos = layerConfig[nyName][secondName].fieldInfos;
                         var url = layerConfig[nyName][secondName].jsondata;
                         $.ajax({
-
                             url: url,
                             dataType: 'json',
                             type: "GET",
@@ -637,122 +617,30 @@
                                 ClusterData = data.features;
                                 // addClusters(data);
                                 SwitchLayer.switchLayer();
+                               // getTotalNumber();
                             }
-
-                        });
-
-                     
-
-
+                        });                   
                         }
                         else {
                            // alert("暂无数据");
                             ClusterData.length = 0;
                             $("#total").html("");
                         }
-                        //getClusterData(clusterType, attr_Name);
-                        //if (showClusterData.length) {
-                        //    addMultiClusters(showClusterData);
-                        //    // addClusters(showClusterData[0]);
-                        //}
-                        //var scale = map.getScale();
-                        //if (scale < 60000) {
-                        //    if (map.getLayer("clusters")) {
-                        //        map.getLayer("clusters").hide();
-                        //    }
-                        //}
-                        //if (sssy != "" && layerDType.length != 0) {
-                        //    var sql = "";
-                        //    if (attr_Name != "认定面积") {
-                        //        sql = "地市名称='" + sssy + "' and " + attr_Name + " in (" + layerDType.toString() + ")";
-                        //        if (ssqy != "") {
-                        //            sql = "县市区名称='" + ssqy + "'and " + attr_Name + " in (" + layerDType.toString() + ")";
-                        //        }
-                        //    } else {
-                        //        var asql = getAreaSql(clusterType);
-                        //        //  console.log(asql);
-                        //        sql = "地市名称='" + sssy + "' and " + asql;
-                        //        if (ssqy != "") {
-                        //            sql = "县市区名称='" + ssqy + "'and " + asql;
-                        //        }
-                        //    }
-
-                        //    // console.log(sql);点击second添加动态图层
-                        //    // alert(11);
-                        //    addDynamicLayer(sql);
-                        //} else {
-                        //    if (map.getLayer("ls")) {
-                        //        map.removeLayer(map.getLayer("ls"));
-                        //    }
-                        //}
+                     
 
                     })
                 });
                 $("#function").click(function () {
-                    // $(".infocontent").show();
 
-                    // console.log(currenturl);
-                    // console.log(sssy);
-                    //  if (ssqy != "" || sssy != "") {
                     $("#farmArea").show();
                     $("#cityArea").hide();
 
-                    //$(".infocontent>img").click(function () {
-                    //    $(".infocontent").hide();
-                    //    if (map.getLayer("clusters")) {
-                    //        map.removeLayer(map.getLayer("clusters"));
-                    //    }
-                    //    if (map.getLayer("ls")) {
-                    //        map.getLayer("ls").hide();
-                    //    }
 
-                    //    $(".checks").find("label").each(function () {
-                    //        $(this).attr("data-state", "uncheck");
-                    //        $(this).removeClass("active");
-
-                    //    })
-                    //    clusterImg.length = 0;
-                    //    clusterType.length = 0;
-                    //    layerDType.length = 0;
-                    //    $(".sel-fun button").text("浙江");
-                    //    $(".sel-fun button").append("<span class=\"caret\"></span>")
-                    //    ssqy = "";
-                    //    sssy = "";
-                    //    map.infoWindow.hide();
-                    //    // $("#function").disable();
-
-                    //    // getsubArea("浙江");
-                    //    // $("#cityArea").show();
-                    //})
                 })
                 $("#farmArea img").click(function () {
                     $(".infocontent").hide();
                     map.infoWindow.hide();
-                    //if (map.getLayer("clusters")) {
-                    //    map.removeLayer(map.getLayer("clusters"));
-                    //}
-                    //if (map.getLayer("ls")) {
-                    //    map.removeLayer(map.getLayer("ls"));
-                    //}
-
-                    //$(".checks").find("label").each(function () {
-                    //    $(this).attr("data-state", "uncheck");
-                    //    $(this).removeClass("active");
-
-                    //})
-                    //clusterImg.length = 0;
-                    //clusterType.length = 0;
-                    //layerDType.length = 0;
-                    //$(".sel-fun button").text("浙江");
-                    //$(".sel-fun button").append("<span class=\"caret\"></span>")
-                    //ssqy = "";
-                    //sssy = "";
-
-                    // $("#proSelect a").eq(0).trigger("click");
-                    // $("#function").disable();
-
-                    // getsubArea("浙江");
-                    // $("#cityArea").show();
+            
                 })
                 $("#proSelect a").click(function () {
                     var proName = $(this).attr("value");
@@ -932,6 +820,8 @@
                 $("#cityArea .control").on("click", ".xj", "", clickArea);
             }
 
+          
+            //获取区县
             function getblcok(city) {
 
                 if (city == "浙江") {
@@ -991,8 +881,7 @@
 
             }
 
-
-
+            //获取下一级
             function getsubArea(i) {
                 //  ResetLayer();
                 //  map.enableScrollWheelZoom();

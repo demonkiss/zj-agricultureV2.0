@@ -76,6 +76,7 @@ function switchLayer() {
         $(".sel-fun button").append("<span class=\"caret\"></span>");
         ssqy = "";
         // addZJCityBorder();
+       // getTotalNumber();
         addZJCityNumber();
 
     } else if (zoomlevel <= midzoom && zoomlevel > minzoom) {
@@ -1234,32 +1235,7 @@ function addZJCityBorder() {
                       $("#farmArea").show();
                       $("#cityArea").hide();
                       map.centerAndZoom(cp, downLevel + 1);
-                      //if (e.graphic.attributes["name"]) {
-                      //    sssy = e.graphic.attributes["name"];
-                      //    let centerP;
-                      //    for (let i = 0; i < borderData.length; i++) {
-                      //        if (sssy == borderData[i].properties.name) {
-                      //            //console.log(borderData[i].properties.name);
-                      //            centerP = borderData[i].properties.cp;
-                      //        }
-                      //    }
-                      //    console.log();
-                      //    map.centerAndZoom(centerP, mapconfig.minZoom+1);
-                      //    $("#farmArea").show();
-                      //    $("#cityArea").hide();
-                      //    $(".sel-fun button").text(sssy);
-                      //    $(".sel-fun button").append("<span class=\"caret\"></span>");
-                      //    map.removeLayer(cityLayer);
-                      //    map.removeLayer(map.getLayer("cityTextLayer"));
-                      // map.enableScrollWheelZoom();
-                      //alert(0);
-                      //  $(".checks label").eq(0).prev().trigger("click");
-                      //  $(".checks label").eq(1).prev().trigger("click");
-                      // $(".checks label").eq(0).trigger("click");
-                      //   $(".checks label").eq(1).trigger("click");
-                      //  $(".checks label").eq(2).trigger("click");
-
-                      // }
+               
 
                   })
 
@@ -1273,6 +1249,7 @@ function addZJCityNumber() {
         map.removeLayer(map.getLayer("cityLayer"));
         map.removeLayer(map.getLayer("cityTextLayer"));
     }
+    getTotalNumber();
     $.ajax({
         url: "Json/zhejiang.json",
         dataType: 'json',
@@ -1314,7 +1291,8 @@ function addZJCityNumber() {
                       font.setFamily("微软雅黑");
                       // font.setWeight(Font.WEIGHT_BOLD);
                       //  textSymbol.setFont(font);
-                      total += cityNumber;
+
+                      total += cityNumber; 
                       var defaultSymbol = new PictureMarkerSymbol("./images/bluetips.png", 120, 40).setOffset(0, 0);
                       cityTextLayer.add(
                         new Graphic(
@@ -1339,8 +1317,12 @@ function addZJCityNumber() {
                   }
                   map.addLayer(cityLayer);
                   map.addLayer(cityTextLayer);
+
                   console.log(total);
-                  $("#total").text(total);
+                  if(gnType!=="储备项目"){
+                      $("#total").text(total);
+                  }
+                  
                   total = 0;
                   var cityClick = cityLayer.on("click", function (e) {
                       //get the associated node info when the graphic is clicked
@@ -1385,8 +1367,26 @@ function addZJCityNumber() {
 
               })
         }
+
     })
 }
+//计算特殊的总数
+function getTotalNumber() {
+    let tNumber = 0;
+    total = 0;
+    console.log(gnType);
+    if (sssy == "浙江" && gnType == "储备项目") {
+        for (var i = 0; i < ClusterData.length; i++) {
+            let value = ClusterData[i].attributes[currentattr];
+            if (clusterType.contains(value)) {
+                tNumber++;
+            }
+        }
+        total = tNumber;
+        $("#total").text(total);
+    }
+}
+
 function getCityStaticNumber() {
     if (map.getLayer("cityLayer")) {
         map.removeLayer(map.getLayer("cityLayer"));
