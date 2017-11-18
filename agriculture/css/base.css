@@ -300,9 +300,34 @@ html,body{
 .sel-fun span{
     color: #3d93fd;
 }
+.btn-group{
+    margin-top:5px;
+    position:relative;
+    float:left;
+}
 .function{
     cursor:pointer;
 }
-#function img{
-    margin-left:8px;
+#totalNumber{
+    position:relative;
+    float:left;
+    margin-left:10px;
+    height:42px;
+    width:60px;
+    text-align:center;
+}
+#totalNumber span{
+    line-height:42px;
+}
+#function {
+    position:relative;
+    float:right;
+    margin-right:28px;
+    margin-top:17px;
+    width:14px;
+    height:10px;
+   background:no-repeat;
+     background-image:url(../images/function.png);
+    background-position-y:-10px;
+    cursor:pointer;
 }

@@ -177,14 +177,14 @@ function switchLayer() {
     }
 
 }
-function getTypeNumber(city, attributeName) {
+function getTypeNumber(city, attributeName,district) {
     typeNumber.length = 0;
     var number = 0;
 
     if (statisType[0] == "建设分布图") {
 
         for (let i = 0; i < ClusterData.length; i++) {
-            if (city == ClusterData[i].attributes[attributeName]) {
+            if (district == ClusterData[i].attributes[attributeName]) {
                 // cData.push(ClusterData[i]);
                 number++;
             }        
@@ -209,6 +209,8 @@ function getTypeNumber(city, attributeName) {
 
 
 }
+
+
 function getCityCluster(city) {
     showClusterData.length = 0;
     if (clusterType[0] == "建设分布图") {
@@ -359,7 +361,7 @@ function getCityBlockStatic() {
                       var screenP = map.toScreen(e.graphic.geometry);
                       $("#typeinfo").html("");
                       ssqy = e.graphic.attributes["name"];
-                      getTypeNumber(sssy, "县市区名称");
+                      getTypeNumber(sssy, "县市区名称",ssqy);
                       var html = ""
                       for (let i = 0; i < typeNumber.length; i++) {
                           html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
@@ -755,22 +757,22 @@ function getStatisticsData(city, types, attr) {
 
                     }
                 }
-                if (cdata.length) {
+               // if (cdata.length) {
                     statisticsData.push(cdata);
-                }
-                else {
-                    $(".checks span").each(function () {
-                        if ($(this).text() == types[k]) {
+            //    }
+             //   else {
+            //        $(".checks span").each(function () {
+             //           if ($(this).text() == types[k]) {
                             // $(this).prev().attr("data-state", "uncheck");
                             //   $(this).prev().removeClass("active");
 
                             // clusterImg.remove($(this).prev().attr("src"));
                             //  clusterType.remove(types[k]);
                             // layerDType.remove("'" + types[k] + "'");
-                        }
-                    })
+             //         }
+              //      })
                     // alert("暂无数据");
-                }
+             //   }
 
             }
         } else {
@@ -851,9 +853,9 @@ function getStatisticsData(city, types, attr) {
                         }
                         break;
                 }
-                if (cdata.length) {
+              //  if (cdata.length) {
                     statisticsData.push(cdata);
-                }
+              //  }
                 //} else {
                 //    $(".checks span").each(function () {
                 //        if ($(this).text() == types[k]) {
@@ -1343,7 +1345,7 @@ function addZJCityNumber() {
                       currentGraphic = e.graphic;
                       var screenP = map.toScreen(e.graphic.geometry);
                       $("#typeinfo").html("");
-                      getTypeNumber(e.graphic.attributes["name"], "地市名称");
+                      getTypeNumber(e.graphic.attributes["name"], "地市名称",e.graphic.attributes["name"]);
                       var html = ""
                       for (let i = 0; i < typeNumber.length; i++) {
                           html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"
@@ -1479,7 +1481,7 @@ function getCityStaticNumber() {
                       currentGraphic = e.graphic;
                       var screenP = map.toScreen(e.graphic.geometry);
                       $("#typeinfo").html("");
-                      getTypeNumber(e.graphic.attributes["name"], "地市名称");
+                      getTypeNumber(e.graphic.attributes["name"], "地市名称", e.graphic.attributes["name"]);
                       var html = ""
                       for (let i = 0; i < typeNumber.length; i++) {
                           html += "<span>" + typeNumber[i].name + ":" + typeNumber[i].number + "</span></br>"

@@ -632,8 +632,44 @@
                 });
                 $("#function").click(function () {
 
-                    $("#farmArea").show();
-                    $("#cityArea").hide();
+                    if ($('#farmArea').is(':hidden')) {
+                        $("#farmArea").show();
+                        $("#cityArea").hide();
+                        $(this).css("background-position-y", "0px");
+                    } else {
+                        $("#farmArea").hide();
+                        $("#cityArea").hide();
+                        $(this).css("background-position-y", "-10px");
+                    }
+
+                  
+
+
+                    //if ($("#farmArea").is(":hidden") && $("#cityArea").is(":hidden")) {
+                    //    bool = false;
+                    //} else {
+                    //    bool = true;
+                    //}
+
+                    //if (bool) {
+                    //    $("#cityArea").hide();
+                    //    $("#farmArea").hide();
+                    //    $(this).css("background-position-y;", "-10px");
+                    //} else {
+                    //    if ($("#farmArea").is(":hidden")) {
+                    //        type = "cityArea";
+                    //    } else {
+                    //        type = "farmArea";
+                    //    }
+                    //    if (type == "cityArea") {
+                    //        $("#farmArea").show();
+                    //    } else {
+                    //        $("#cityArea").show();
+                    //    }
+                    //    $(this).css("background-position-y;", "10px");
+                    //}
+
+                    
 
 
                 })
@@ -1149,9 +1185,10 @@
                     <option value="3311">丽水市</option>
                 </select>-->
                 <!--<img src="images/select.png">-->
-                <span id="total"></span>
-                <span class="function" id="function">功能</span>
-                <span><img src="images/function.png"></span>
+                <div id="totalNumber"><span id="total"></span></div> 
+                <!--<span class="function" id="function">功能</span>-->
+                <div id ="function"></div>
+
             </div>
 
         </div>
@@ -1170,8 +1207,8 @@
                     <li class="nf">建设年份</li>
                 </ul>
                 <ul class="second yq-infocontent" style="display: none">
-                    <li class="xdny">现代农业综合区</li>
-                    <li class="zdcy">主导产业示范区</li>
+                    <!--<li class="xdny">现代农业综合区</li>-->
+                    <li class="zdcy" style="margin-left: 80px;">主导产业示范区</li>
                     <li class="tsny">特色农业精品区</li>
                 </ul>
                 <ul class="second nt-infocontent" style="display: none">
